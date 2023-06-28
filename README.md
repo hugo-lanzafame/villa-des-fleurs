@@ -1,70 +1,56 @@
-# Getting Started with Create React App
+# Villa des Fleurs - Site de Gestion Locative
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Le site Villa des Fleurs est un système de gestion locative développé avec Firebase, React, SCSS et d'autres technologies. Il permet de gérer efficacement les propriétés locatives, les locataires, les paiements et divers documents liés à la gestion immobilière.
 
-## Available Scripts
+## Fonctionnalités principales
 
-In the project directory, you can run:
+### Pour le proprio
+- Affichage des appartements avec des informations :
+  - locataires actuels
+  - locataires passés
+  - photos
+  - autres informations
+- Suivi des paiements des locataires
+- Génération de quittances et de comptes rendus à envoyer aux locataires
 
-### `npm start`
+### Pour les locataires
+- Accès à des informations importantes (dates de paiement, prix du loyer, etc.)
+- Lecture (et ecriture) d'actualités
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Technologies utilisées
+Le site Villa des Fleurs utilise les technologies suivantes :
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+* Firebase : Une plateforme de développement d'applications web et mobiles qui fournit des services d'authentification, de stockage de données, de base de données en temps réel et bien plus encore.
+* React : Une bibliothèque JavaScript pour la construction d'interfaces utilisateur interactives et réactives.
+* SCSS : Un langage de feuilles de style en cascade (CSS) avec des fonctionnalités étendues telles que les variables, les mixins et les modules.
+* Autres dépendances : Le projet utilise également d'autres dépendances et bibliothèques telles que React Router pour la gestion des routes, Axios pour les requêtes HTTP, etc.
+Ces technologies combinées offrent une base solide pour la création d'un site de gestion locative robuste et évolutif, avec une interface utilisateur réactive et des fonctionnalités avancées de gestion des données.
 
-### `npm test`
+## Installation
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Clonez le repository :
+   ```bash
+   git clone https://github.com/votre-utilisateur/villa-des-fleurs.git
+   ```
+2. Accédez au répertoire du projet :
+   ```bash
+   cd villa-des-fleurs
+   ```
+3. Installez les dépendances :
+   ```bash
+   npm install
+   ```
+4. Lancez l'application :
+   ```bash
+   npm start
+   ```
+L'application sera accessible à l'adresse http://localhost:3000.
 
-### `npm run build`
+## Liens
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+La gestion de firebase est accessible [ici](https://console.firebase.google.com/u/1/project/villadesfleurs-d4d5d/overview).
+Le site en ligne est accessible [ici](http://localhost:3000).
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Auteur
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+[Hugo Lanzafame](https://github.com/hugolanzafameynov)
