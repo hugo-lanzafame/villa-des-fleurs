@@ -1,0 +1,31 @@
+.login-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+
+    &__image {
+        height: 100vh;
+    }
+}
+
+.login-form {
+    padding: 2rem;
+
+    &__title {
+        margin-bottom: 2rem;
+    }
+
+    &__grid {
+        margin-bottom: 2rem;
+    }
+
+    &__button {
+        width: 100%;
+    }
+
+    &__link {
+        display: block;
+        margin-top: 1rem;
+    }
+}
