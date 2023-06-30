@@ -1,0 +1,97 @@
+// Déclaration de variable
+$primary-color-light: #C845F5;
+$primary-color-dark: #8B38A8;
+$secondary-color-light: #38F53B;
+$secondary-color-dark: #16A818;
+$tertiary-color-light: #F54B2C;
+$tertiary-color-dark: #A82C16;
+$black-color: #000000;
+$white-color: #ffffff;
+$min-with-left: 450px;
+
+// Utilisation des variables
+.login-page {
+    display: flex;
+    height: 100vh;
+
+    &__left-side {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-width: $min-with-left;
+        background-color: $white-color;
+
+        .login-form {
+            width: 80%;
+            max-width: 400px;
+            padding: 2rem;
+            text-align: center;
+
+            &__title {
+                margin-bottom: 2rem;
+            }
+
+            &__grid {
+                display: flex;
+                flex-direction: column;
+            }
+
+            &__input {
+                width: 100%;
+                padding-bottom: 1rem;
+            }
+
+            &__button {
+                width: 100%;
+                background-color: $black-color;
+            }
+
+            &__link {
+                position: absolute;
+                min-width: max-content;
+                bottom: 3rem;
+                right: 55%;
+
+                @media (max-width: $min-with-left * 2) {
+                    left: $min-with-left - 200;
+                    right: auto;
+                }
+            }
+        }
+    }
+
+    &__right-side {
+        flex: 1;
+        background-color: $white-color;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+
+        @media (max-width: $min-with-left) {
+            display: none;
+        }
+
+        img {
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+            filter: brightness(40%);
+        }
+
+        .login-comment {
+            position: absolute;
+            color: $white-color;
+            top: 30%;
+            left: 40%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+
+            @media (max-width: $min-with-left * 2) {
+                display: none;
+            }
+        }
+    }
+}
