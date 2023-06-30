@@ -28,7 +28,6 @@ const LoginInput = ({label, type, name, value, handleChange}) => {
         </Grid>
     );
 };
-
 LoginInput.propTypes = {
     label: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,

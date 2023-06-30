@@ -34,7 +34,6 @@ const LoginForm = ({titleText, handleSubmit, loginInputArray, buttonText, linkTe
         </Box>
     );
 };
-
 LoginForm.propTypes = {
     titleText: PropTypes.string.isRequired,
     handleSubmit: PropTypes.func.isRequired,

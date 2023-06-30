@@ -14,12 +14,12 @@ const auth = getAuth(app);
  * Composant de formulaire de récupération de mot de passe de la page de connexion.
  *
  * @param {Object} props - Les props du composant.
- * @param {function} props.handleBackToLoginClick - La fonction de gestion du clic sur le lien "Revenir à la page de connexion".
+ * @param {function} props.handleChangeFormClick - La fonction de gestion du clic sur le lien "Revenir à la page de connexion".
+ * @param {function} props.setLog - La fonction de gestion de log lors de la connexion".
  * @returns {JSX.Element} Le composant LoginPageForgot.
  */
-const LoginFormForgot = ({handleBackToLoginClick}) => {
+const LoginFormForgot = ({handleChangeFormClick, setLog}) => {
     const [email, setEmail] = useState('');
-    // const [error, setError] = useState('');
 
     /**
      * Gère le changement de valeur des champs du formulaire.
@@ -43,9 +43,9 @@ const LoginFormForgot = ({handleBackToLoginClick}) => {
         e.preventDefault();
         try {
             await sendPasswordResetEmail(auth, email);
-            console.log('Email de réinitialisation du mot de passe envoyé.');
+            setLog('[forgot] Firebase: success (auth/valid-reset-password).');
         } catch (error) {
-            console.error('Une erreur s\'est produite lors de l\'envoi de l\'e-mail de réinitialisation du mot de passe:', error);
+            setLog('[forgot] ' + error.message);
         }
     };
 
@@ -59,14 +59,13 @@ const LoginFormForgot = ({handleBackToLoginClick}) => {
             buttonText={'Recuperer'}
             linkText={'Revenir a la page de connexion'}
             loginInputArray={loginInputArray}
-            handleClick={handleBackToLoginClick}
+            handleClick={() => handleChangeFormClick('default')}
             handleSubmit={handleSubmit}
         />
     );
 };
-
 LoginFormForgot.propTypes = {
-    handleBackToLoginClick: PropTypes.func.isRequired,
+    handleChangeFormClick: PropTypes.func.isRequired,
 };
 
 export default LoginFormForgot;

@@ -14,13 +14,13 @@ const auth = getAuth(app);
  * Composant de formulaire de connexion de la page de connexion.
  *
  * @param {Object} props - Les props du composant.
- * @param {function} props.handleForgotPasswordClick - La fonction de gestion du clic sur le lien "Mot de passe oublié".
+ * @param {function} props.handleChangeFormClick - La fonction de gestion du clic sur le lien "Mot de passe oublié".
+ * @param {function} props.setLog - La fonction de gestion de logs lors de la connexion".
  * @returns {JSX.Element} Le composant LoginFormDefault.
  */
-const LoginFormDefault = ({handleForgotPasswordClick}) => {
+const LoginFormDefault = ({handleChangeFormClick, setLog}) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    // const [error, setError] = useState('');
 
     /**
      * Gère le changement de valeur des champs du formulaire.
@@ -47,9 +47,9 @@ const LoginFormDefault = ({handleForgotPasswordClick}) => {
         e.preventDefault();
         try {
             await signInWithEmailAndPassword(auth, email, password);
-            console.log('Connexion réussie');
+            setLog('[default] Firebase: success (auth/valid-sign-in).')
         } catch (error) {
-            console.log('Connexion échouée');
+            setLog('[default] ' + error.message);
         }
     };
 
@@ -64,14 +64,13 @@ const LoginFormDefault = ({handleForgotPasswordClick}) => {
             buttonText={'Se connecter'}
             linkText={'J\'ai oublier mon mot de passe'}
             loginInputArray={loginInputArray}
-            handleClick={handleForgotPasswordClick}
+            handleClick={() => handleChangeFormClick('forgot')}
             handleSubmit={handleSubmit}
         />
     );
 };
-
 LoginFormDefault.propTypes = {
-    handleForgotPasswordClick: PropTypes.func.isRequired,
+    handleChangeFormClick: PropTypes.func.isRequired,
 };
 
 export default LoginFormDefault;

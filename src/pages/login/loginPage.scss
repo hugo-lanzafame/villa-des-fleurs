@@ -1,12 +1,8 @@
 // Déclaration de variable
-$primary-color-light: #C845F5;
-$primary-color-dark: #8B38A8;
-$secondary-color-light: #38F53B;
-$secondary-color-dark: #16A818;
-$tertiary-color-light: #F54B2C;
-$tertiary-color-dark: #A82C16;
 $black-color: #000000;
 $white-color: #ffffff;
+$success-color: green;
+$fail-color: red;
 $min-with-left: 450px;
 
 // Utilisation des variables
@@ -22,12 +18,34 @@ $min-with-left: 450px;
         align-items: center;
         min-width: $min-with-left;
         background-color: $white-color;
+        position: relative;
+
+        .login-log {
+            position: absolute;
+            text-align: center;
+            top: 3rem;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 20px;
+            margin-top: 3rem;
+            padding: 1rem;
+
+            &--error {
+                background-color: red;
+                color: white;
+            }
+
+            &--success {
+                background-color: green;
+                color: white;
+            }
+        }
 
         .login-form {
             width: 80%;
-            max-width: 400px;
             padding: 2rem;
             text-align: center;
+            max-width: $min-with-left;
 
             &__title {
                 margin-bottom: 2rem;
@@ -44,6 +62,7 @@ $min-with-left: 450px;
             }
 
             &__button {
+                margin-top: 1rem;
                 width: 100%;
                 background-color: $black-color;
             }
@@ -52,11 +71,10 @@ $min-with-left: 450px;
                 position: absolute;
                 min-width: max-content;
                 bottom: 3rem;
-                right: 55%;
+                right: 10%;
 
                 @media (max-width: $min-with-left * 2) {
-                    left: $min-with-left - 200;
-                    right: auto;
+                    right: 3rem;
                 }
             }
         }

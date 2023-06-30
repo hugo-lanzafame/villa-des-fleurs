@@ -1,10 +1,12 @@
 import React, {useState} from 'react';
 import {Box, Grid, Typography} from '@mui/material';
 import './loginPage.scss';
+import PropTypes from "prop-types";
 import image from '../../assets/ezgif-5-0be764f48f.png';
 //Components
 import LoginFormDefault from "./LoginFormDefault";
 import LoginFormForgot from "./LoginFormForgot";
+import LoginLog from "./LoginLog";
 
 /**
  * Composant de la page de connexion.
@@ -12,30 +14,41 @@ import LoginFormForgot from "./LoginFormForgot";
  * @returns {JSX.Element} Le composant LoginPage.
  */
 const LoginPage = () => {
-    const [isLoginForgot, setLoginForgot] = useState(false);
+    const [form, setForm] = useState('default');
+    const [log, setLog] = useState('');
 
     /**
-     * Gère le clic sur le lien "Mot de passe oublié".
+     * Gère le clic sur le lien en bas de page pour changer de formulaire.
+     *
+     * @param {string} targetForm - Le formulaire cible à afficher ('forgot' ou 'default').
      */
-    const handleForgotPasswordClick = () => {
-        setLoginForgot(true);
+    const handleChangeFormClick = (targetForm) => {
+        switch (targetForm) {
+            case 'forgot':
+                setForm('forgot');
+                break;
+            case 'default':
+            default:
+                setForm('default');
+                break;
+        }
+        setLog('');
     };
-
-    /**
-     * Gère le clic sur le lien "Revenir à la page de connexion".
-     */
-    const handleBackToLoginClick = () => {
-        setLoginForgot(false);
+    handleChangeFormClick.propTypes = {
+        targetForm: PropTypes.oneOf(['forgot', 'default']).isRequired,
     };
 
     return (
         <Grid container className="login-page">
             <Grid item className="login-page__left-side">
-                {!isLoginForgot ? (
-                    <LoginFormDefault handleForgotPasswordClick={handleForgotPasswordClick}/>
-                ) : (
-                    <LoginFormForgot handleBackToLoginClick={handleBackToLoginClick}/>
-                )}
+                {log !== '' &&
+                    <LoginLog log={log}/>
+                }
+                {form === 'default' ? (
+                    <LoginFormDefault handleChangeFormClick={handleChangeFormClick} setLog={setLog}/>
+                ) : form === 'forgot' ? (
+                    <LoginFormForgot handleChangeFormClick={handleChangeFormClick} setLog={setLog}/>
+                ) : null}
             </Grid>
             <Grid item className="login-page__right-side">
                 <img src={image} alt="villa-des-fleurs.png"/>
