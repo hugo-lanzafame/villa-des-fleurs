@@ -1,6 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {Box, Typography} from '@mui/material';
+import PropTypes from 'prop-types';
+import {LOG_TYPES} from "../../constants";
 
 /**
  * Composant de journal de connexion affichant différents types de logs.
@@ -12,11 +13,6 @@ import {Box, Typography} from '@mui/material';
 const LoginLog = ({log}) => {
     let type = '';
     let text = '';
-
-    const LOG_TYPES = {
-        SUCCESS: "success",
-        ERROR: "error",
-    };
 
     switch (log) {
         case '[forgot] Firebase: Error (auth/user-not-found).':
@@ -49,9 +45,7 @@ const LoginLog = ({log}) => {
     }
 
     return (
-        <Box
-            className={`login-log login-log--${type}`}
-        >
+        <Box className={`login-log login-log__${type}`}>
             <Typography variant="text">{text}</Typography>
         </Box>
     );

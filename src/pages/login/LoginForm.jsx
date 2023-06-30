@@ -20,13 +20,14 @@ const LoginForm = ({titleText, handleSubmit, loginInputArray, buttonText, linkTe
         <Box className="login-form">
             <Typography variant="h2" className="login-form__title">{titleText}</Typography>
             <form onSubmit={handleSubmit}>
-                <Grid container className="login-form__grid">
+                <Grid container className="login-form__form">
                     {loginInputArray.map((item, index) => (
                         <div key={index}>{item}</div>
                     ))}
                     <Grid item>
-                        <Button type="submit" variant="contained"
-                                className="login-form__button">{buttonText}</Button>
+                        <Button type="submit" variant="contained" className="login-form__button">
+                            {buttonText}
+                        </Button>
                     </Grid>
                 </Grid>
             </form>

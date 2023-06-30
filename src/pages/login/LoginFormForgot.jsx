@@ -1,14 +1,12 @@
 import React, {useState} from 'react';
+import {passwordReset} from '../../firebase/auth';
 import './loginPage.scss';
 import PropTypes from "prop-types";
+import {LOGIN_FORM_TYPES} from "../../constants";
+import '../../firebase/auth';
 //Components
 import LoginInput from "./LoginInput";
 import LoginForm from "./LoginForm";
-//Firebase
-import app from '../../firebaseConfig';
-import {getAuth, sendPasswordResetEmail} from 'firebase/auth';
-
-const auth = getAuth(app);
 
 /**
  * Composant de formulaire de récupération de mot de passe de la page de connexion.
@@ -26,13 +24,7 @@ const LoginFormForgot = ({handleChangeFormClick, setLog}) => {
      * @param {Object} e - L'événement de changement.
      */
     const handleChange = (e) => {
-        switch (e.target.name) {
-            case 'email':
-                setEmail(e.target.value);
-                break;
-            default:
-                break;
-        }
+        setEmail(e.target.value);
     };
 
     /**
@@ -41,12 +33,7 @@ const LoginFormForgot = ({handleChangeFormClick, setLog}) => {
      */
     const handleSubmit = async (e) => {
         e.preventDefault();
-        try {
-            await sendPasswordResetEmail(auth, email);
-            setLog('[forgot] Firebase: success (auth/valid-reset-password).');
-        } catch (error) {
-            setLog('[forgot] ' + error.message);
-        }
+        await passwordReset(email, setLog)
     };
 
     const loginInputArray = [
@@ -59,7 +46,7 @@ const LoginFormForgot = ({handleChangeFormClick, setLog}) => {
             buttonText={'Recuperer'}
             linkText={'Revenir a la page de connexion'}
             loginInputArray={loginInputArray}
-            handleClick={() => handleChangeFormClick('default')}
+            handleClick={() => handleChangeFormClick(LOGIN_FORM_TYPES.DEFAULT)}
             handleSubmit={handleSubmit}
         />
     );

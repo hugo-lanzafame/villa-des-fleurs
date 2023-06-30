@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {Box, Grid, Typography} from '@mui/material';
 import './loginPage.scss';
 import PropTypes from "prop-types";
+import {LOGIN_FORM_TYPES} from "../../constants";
 import image from '../../assets/ezgif-5-0be764f48f.png';
 //Components
 import LoginFormDefault from "./LoginFormDefault";
@@ -14,7 +15,7 @@ import LoginLog from "./LoginLog";
  * @returns {JSX.Element} Le composant LoginPage.
  */
 const LoginPage = () => {
-    const [form, setForm] = useState('default');
+    const [form, setForm] = useState(LOGIN_FORM_TYPES.DEFAULT);
     const [log, setLog] = useState('');
 
     /**
@@ -23,19 +24,11 @@ const LoginPage = () => {
      * @param {string} targetForm - Le formulaire cible à afficher ('forgot' ou 'default').
      */
     const handleChangeFormClick = (targetForm) => {
-        switch (targetForm) {
-            case 'forgot':
-                setForm('forgot');
-                break;
-            case 'default':
-            default:
-                setForm('default');
-                break;
-        }
+        setForm(targetForm);
         setLog('');
     };
     handleChangeFormClick.propTypes = {
-        targetForm: PropTypes.oneOf(['forgot', 'default']).isRequired,
+        targetForm: PropTypes.oneOf([LOGIN_FORM_TYPES.FORGOT, LOGIN_FORM_TYPES.DEFAULT]).isRequired,
     };
 
     return (
@@ -44,9 +37,9 @@ const LoginPage = () => {
                 {log !== '' &&
                     <LoginLog log={log}/>
                 }
-                {form === 'default' ? (
+                {form === LOGIN_FORM_TYPES.DEFAULT ? (
                     <LoginFormDefault handleChangeFormClick={handleChangeFormClick} setLog={setLog}/>
-                ) : form === 'forgot' ? (
+                ) : form === LOGIN_FORM_TYPES.FORGOT ? (
                     <LoginFormForgot handleChangeFormClick={handleChangeFormClick} setLog={setLog}/>
                 ) : null}
             </Grid>

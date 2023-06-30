@@ -1,14 +1,11 @@
 import React, {useState} from 'react';
+import {signIn} from '../../firebase/auth';
 import './loginPage.scss';
 import PropTypes from "prop-types";
+import {LOGIN_FORM_TYPES} from "../../constants";
 //Components
 import LoginInput from "./LoginInput";
 import LoginForm from "./LoginForm";
-//Firebase
-import app from '../../firebaseConfig';
-import {getAuth, signInWithEmailAndPassword} from 'firebase/auth';
-
-const auth = getAuth(app);
 
 /**
  * Composant de formulaire de connexion de la page de connexion.
@@ -45,12 +42,7 @@ const LoginFormDefault = ({handleChangeFormClick, setLog}) => {
      */
     const handleSubmit = async (e) => {
         e.preventDefault();
-        try {
-            await signInWithEmailAndPassword(auth, email, password);
-            setLog('[default] Firebase: success (auth/valid-sign-in).')
-        } catch (error) {
-            setLog('[default] ' + error.message);
-        }
+        await signIn(email, password, setLog);
     };
 
     const loginInputArray = [
@@ -64,7 +56,7 @@ const LoginFormDefault = ({handleChangeFormClick, setLog}) => {
             buttonText={'Se connecter'}
             linkText={'J\'ai oublier mon mot de passe'}
             loginInputArray={loginInputArray}
-            handleClick={() => handleChangeFormClick('forgot')}
+            handleClick={() => handleChangeFormClick(LOGIN_FORM_TYPES.FORGOT)}
             handleSubmit={handleSubmit}
         />
     );
