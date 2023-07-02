@@ -1,0 +1,50 @@
+// Déclaration de variable
+$black-color: #000000;
+$white-color: #ffffff;
+
+#root {
+    .custom-log {
+        // Styles pour le composant CustomLog
+        position: absolute;
+        text-align: center;
+        border-radius: 20px;
+        padding: 1rem;
+
+        &__error {
+            background-color: red;
+            color: white;
+        }
+
+        &__success {
+            background-color: green;
+            color: white;
+        }
+    }
+
+    .custom-form {
+        // Styles pour le composant CustomForm
+        width: 80%;
+        padding: 2rem;
+        text-align: center;
+
+        &__title {
+            margin-bottom: 2rem;
+        }
+
+        &__input-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        &__input {
+            width: 100%;
+            padding-bottom: 1rem;
+        }
+
+        &__button {
+            margin-top: 1rem;
+            width: 100%;
+            background-color: $black-color;
+        }
+    }
+}

@@ -1,13 +1,13 @@
 import React, {useState} from 'react';
 import {Box, Grid, Typography} from '@mui/material';
-import './loginPage.scss';
+import '../../styles/loginStyle.scss';
 import PropTypes from "prop-types";
 import {LOGIN_FORM_TYPES} from "../../constants";
 import image from '../../assets/ezgif-5-0be764f48f.png';
 //Components
 import LoginFormDefault from "./LoginFormDefault";
 import LoginFormForgot from "./LoginFormForgot";
-import LoginLog from "./LoginLog";
+import CustomLog from "../custom/CustomLog";
 
 /**
  * Composant de la page de connexion.
@@ -35,7 +35,7 @@ const LoginPage = () => {
         <Grid container className="login-page">
             <Grid item className="login-page__left-side">
                 {log !== '' &&
-                    <LoginLog log={log}/>
+                    <CustomLog log={log}/>
                 }
                 {form === LOGIN_FORM_TYPES.DEFAULT ? (
                     <LoginFormDefault handleChangeFormClick={handleChangeFormClick} setLog={setLog}/>

@@ -10,7 +10,7 @@ import {LOG_TYPES} from "../../constants";
  * @param {string} props.log - Le texte du log.
  * @returns {JSX.Element} Le composant LoginLog.
  */
-const LoginLog = ({log}) => {
+const CustomLog = ({log}) => {
     let type = '';
     let text = '';
 
@@ -45,13 +45,13 @@ const LoginLog = ({log}) => {
     }
 
     return (
-        <Box className={`login-log login-log__${type}`}>
+        <Box className={`custom-log custom-log__${type}`}>
             <Typography variant="text">{text}</Typography>
         </Box>
     );
 };
-LoginLog.propTypes = {
+CustomLog.propTypes = {
     log: PropTypes.string.isRequired,
 };
 
-export default LoginLog;
+export default CustomLog;

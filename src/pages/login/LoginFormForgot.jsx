@@ -1,12 +1,13 @@
 import React, {useState} from 'react';
 import {passwordReset} from '../../firebase/auth';
-import './loginPage.scss';
+import '../../styles/loginStyle.scss';
 import PropTypes from "prop-types";
 import {LOGIN_FORM_TYPES} from "../../constants";
 import '../../firebase/auth';
 //Components
-import LoginInput from "./LoginInput";
-import LoginForm from "./LoginForm";
+import CustomInput from "../custom/CustomInput";
+import CustomForm from "../custom/CustomForm";
+import {Link} from "@mui/material";
 
 /**
  * Composant de formulaire de récupération de mot de passe de la page de connexion.
@@ -37,18 +38,21 @@ const LoginFormForgot = ({handleChangeFormClick, setLog}) => {
     };
 
     const loginInputArray = [
-        <LoginInput handleChange={handleChange} type='email' label='E-mail' name='email' value={email}/>,
+        <CustomInput handleChange={handleChange} type='email' label='E-mail' name='email' value={email}/>,
     ];
 
     return (
-        <LoginForm
-            titleText={'Récuperation'}
-            buttonText={'Recuperer'}
-            linkText={'Revenir a la page de connexion'}
-            loginInputArray={loginInputArray}
-            handleClick={() => handleChangeFormClick(LOGIN_FORM_TYPES.DEFAULT)}
-            handleSubmit={handleSubmit}
-        />
+        <>
+            <CustomForm
+                titleText={'Récuperation'}
+                buttonText={'Recuperer'}
+                loginInputArray={loginInputArray}
+                handleSubmit={handleSubmit}
+            />
+            <Link onClick={() => handleChangeFormClick(LOGIN_FORM_TYPES.DEFAULT)} variant="body2" className="custom-form__link">
+                Revenir a la page de connexion
+            </Link>
+        </>
     );
 };
 LoginFormForgot.propTypes = {

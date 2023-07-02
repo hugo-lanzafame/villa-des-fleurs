@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
 import {signIn} from '../../firebase/auth';
-import './loginPage.scss';
+import '../../styles/loginStyle.scss';
 import PropTypes from "prop-types";
 import {LOGIN_FORM_TYPES} from "../../constants";
 //Components
-import LoginInput from "./LoginInput";
-import LoginForm from "./LoginForm";
+import CustomInput from "../custom/CustomInput";
+import CustomForm from "../custom/CustomForm";
+import {Link} from "@mui/material";
 
 /**
  * Composant de formulaire de connexion de la page de connexion.
@@ -46,19 +47,23 @@ const LoginFormDefault = ({handleChangeFormClick, setLog}) => {
     };
 
     const loginInputArray = [
-        <LoginInput handleChange={handleChange} type='email' label='E-mail' name='email' value={email}/>,
-        <LoginInput handleChange={handleChange} type='password' label='Mot de passe' name='password' value={password}/>
+        <CustomInput handleChange={handleChange} type='email' label='E-mail' name='email' value={email}/>,
+        <CustomInput handleChange={handleChange} type='password' label='Mot de passe' name='password' value={password}/>
     ];
 
     return (
-        <LoginForm
-            titleText={'Connexion'}
-            buttonText={'Se connecter'}
-            linkText={'J\'ai oublier mon mot de passe'}
-            loginInputArray={loginInputArray}
-            handleClick={() => handleChangeFormClick(LOGIN_FORM_TYPES.FORGOT)}
-            handleSubmit={handleSubmit}
-        />
+        <>
+            <CustomForm
+                titleText={'Connexion'}
+                buttonText={'Se connecter'}
+                linkText={'J\'ai oublier mon mot de passe'}
+                loginInputArray={loginInputArray}
+                handleSubmit={handleSubmit}
+            />
+            <Link onClick={() => handleChangeFormClick(LOGIN_FORM_TYPES.FORGOT)} variant="body2" className="custom-form__link">
+                J'ai oublier mon mot de passe
+            </Link>
+        </>
     );
 };
 LoginFormDefault.propTypes = {

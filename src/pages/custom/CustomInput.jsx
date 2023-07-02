@@ -1,6 +1,7 @@
 import React from 'react';
 import {Grid, TextField} from "@mui/material";
-import './loginPage.scss';
+import '../../styles/globalStyle.scss';
+import '../../styles/loginStyle.scss';
 import PropTypes from "prop-types";
 
 /**
@@ -14,11 +15,11 @@ import PropTypes from "prop-types";
  * @param {function} props.handleChange - La fonction de gestion du changement de valeur de l'entrée.
  * @returns {JSX.Element} Le composant LoginInput.
  */
-const LoginInput = ({label, type, name, value, handleChange}) => {
+const CustomInput = ({label, type, name, value, handleChange}) => {
     return (
         <Grid item>
             <TextField
-                className="login-form__input"
+                className="custom-form__input"
                 label={label}
                 type={type}
                 name={name}
@@ -28,7 +29,7 @@ const LoginInput = ({label, type, name, value, handleChange}) => {
         </Grid>
     );
 };
-LoginInput.propTypes = {
+CustomInput.propTypes = {
     label: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
@@ -36,4 +37,4 @@ LoginInput.propTypes = {
     handleChange: PropTypes.func.isRequired,
 };
 
-export default LoginInput;
+export default CustomInput;

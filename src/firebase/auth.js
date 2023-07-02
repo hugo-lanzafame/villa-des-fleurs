@@ -2,6 +2,7 @@ import app from './firebaseConfig';
 import {getAuth, sendPasswordResetEmail, signInWithEmailAndPassword} from 'firebase/auth';
 import PropTypes from "prop-types";
 
+// Obtenir une référence vers l'authentification
 const auth = getAuth(app);
 
 /**
