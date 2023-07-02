@@ -2,16 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-//Pages
-import LoginPage from './pages/login/LoginPage';
-import TenantCreationPage from './pages/tenant/TenantCreationPage';
-import BuildingCreationPage from "./pages/property/building/BuildingCreationPage";
+import App from "./App";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <React.StrictMode>
-        <BuildingCreationPage/>
-    </React.StrictMode>
+        <React.StrictMode>
+            <App/>
+        </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {signIn} from '../../firebase/auth';
 import '../../styles/loginStyle.scss';
 import PropTypes from "prop-types";
+import { useNavigate } from 'react-router-dom';
 import {LOGIN_FORM_TYPES} from "../../constants";
 //Components
 import CustomInput from "../custom/CustomInput";
@@ -19,6 +20,7 @@ import {Link} from "@mui/material";
 const LoginFormDefault = ({handleChangeFormClick, setLog}) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
     /**
      * Gère le changement de valeur des champs du formulaire.
@@ -44,9 +46,10 @@ const LoginFormDefault = ({handleChangeFormClick, setLog}) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         await signIn(email, password, setLog);
+        navigate('/');
     };
 
-    const contentArray = [
+    const fieldArray = [
         <CustomInput handleChange={handleChange} type='email' label='E-mail' name='email' value={email}/>,
         <CustomInput handleChange={handleChange} type='password' label='Mot de passe' name='password' value={password}/>
     ];
@@ -57,7 +60,7 @@ const LoginFormDefault = ({handleChangeFormClick, setLog}) => {
                 titleText={'Connexion'}
                 buttonText={'Se connecter'}
                 linkText={'J\'ai oublier mon mot de passe'}
-                contentArray={contentArray}
+                fieldArray={fieldArray}
                 handleSubmit={handleSubmit}
             />
             <Link onClick={() => handleChangeFormClick(LOGIN_FORM_TYPES.FORGOT)} variant="body2" className="custom-form__link">

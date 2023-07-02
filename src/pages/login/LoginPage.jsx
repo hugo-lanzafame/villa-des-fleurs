@@ -8,6 +8,7 @@ import image from '../../assets/ezgif-5-0be764f48f.png';
 import LoginFormDefault from "./LoginFormDefault";
 import LoginFormForgot from "./LoginFormForgot";
 import CustomLog from "../custom/CustomLog";
+import {Outlet} from "react-router-dom";
 
 /**
  * Composant de la page de connexion.

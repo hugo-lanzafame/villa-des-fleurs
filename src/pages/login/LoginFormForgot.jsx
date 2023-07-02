@@ -37,7 +37,7 @@ const LoginFormForgot = ({handleChangeFormClick, setLog}) => {
         await passwordReset(email, setLog)
     };
 
-    const contentArray = [
+    const fieldArray = [
         <CustomInput handleChange={handleChange} type='email' label='E-mail' name='email' value={email}/>,
     ];
 
@@ -46,7 +46,7 @@ const LoginFormForgot = ({handleChangeFormClick, setLog}) => {
             <CustomForm
                 titleText={'Récuperation'}
                 buttonText={'Recuperer'}
-                contentArray={contentArray}
+                fieldArray={fieldArray}
                 handleSubmit={handleSubmit}
             />
             <Link onClick={() => handleChangeFormClick(LOGIN_FORM_TYPES.DEFAULT)} variant="body2" className="custom-form__link">

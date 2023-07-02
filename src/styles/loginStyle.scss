@@ -29,6 +29,7 @@ $min-with-left: 450px;
 
             .custom-form {
                 // Styles pour le composant CustomForm
+                width: 80%;
                 max-width: $min-with-left;
 
                 &__input-container {

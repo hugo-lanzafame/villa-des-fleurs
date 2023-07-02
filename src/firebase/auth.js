@@ -1,5 +1,5 @@
 import app from './firebaseConfig';
-import {getAuth, sendPasswordResetEmail, signInWithEmailAndPassword} from 'firebase/auth';
+import {getAuth, sendPasswordResetEmail, signInWithEmailAndPassword, onAuthStateChanged} from 'firebase/auth';
 import PropTypes from "prop-types";
 
 // Obtenir une référence vers l'authentification
@@ -47,4 +47,4 @@ passwordReset.propTypes = {
     setLog: PropTypes.func.isRequired,
 };
 
-export {passwordReset, signIn};
+export {auth, passwordReset, signIn, onAuthStateChanged};
