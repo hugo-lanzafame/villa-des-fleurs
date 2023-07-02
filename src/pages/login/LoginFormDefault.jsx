@@ -46,7 +46,7 @@ const LoginFormDefault = ({handleChangeFormClick, setLog}) => {
         await signIn(email, password, setLog);
     };
 
-    const loginInputArray = [
+    const contentArray = [
         <CustomInput handleChange={handleChange} type='email' label='E-mail' name='email' value={email}/>,
         <CustomInput handleChange={handleChange} type='password' label='Mot de passe' name='password' value={password}/>
     ];
@@ -57,7 +57,7 @@ const LoginFormDefault = ({handleChangeFormClick, setLog}) => {
                 titleText={'Connexion'}
                 buttonText={'Se connecter'}
                 linkText={'J\'ai oublier mon mot de passe'}
-                loginInputArray={loginInputArray}
+                contentArray={contentArray}
                 handleSubmit={handleSubmit}
             />
             <Link onClick={() => handleChangeFormClick(LOGIN_FORM_TYPES.FORGOT)} variant="body2" className="custom-form__link">

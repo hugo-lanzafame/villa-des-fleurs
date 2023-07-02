@@ -7,6 +7,7 @@ import "firebase/database";
 const firebaseConfig = {
     apiKey: "AIzaSyCQmyCxEkGpX80YTwE1ovC5rQCkQJJgYXs",
     authDomain: "villadesfleurs-d4d5d.firebaseapp.com",
+    databaseURL: "https://villadesfleurs-d4d5d-default-rtdb.europe-west1.firebasedatabase.app",
     projectId: "villadesfleurs-d4d5d",
     storageBucket: "villadesfleurs-d4d5d.appspot.com",
     messagingSenderId: "838822137941",

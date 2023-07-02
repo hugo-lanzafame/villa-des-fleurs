@@ -10,17 +10,17 @@ import PropTypes from "prop-types";
  * @param {Object} props - Les props du composant.
  * @param {string} props.titleText - Le texte du titre du formulaire.
  * @param {function} props.handleSubmit - La fonction de gestion de la soumission du formulaire.
- * @param {Array<LoginInput>} props.loginInputArray - Le tableau des composants LoginInput à afficher dans le formulaire.
+ * @param {Array<Object>} props.contentArray - Le tableau des composants LoginInput à afficher dans le formulaire.
  * @param {string} props.buttonText - Le texte du bouton de soumission du formulaire.
  * @returns {JSX.Element} Le composant LoginForm.
  */
-const CustomForm = ({titleText, handleSubmit, loginInputArray, buttonText}) => {
+const CustomForm = ({titleText, handleSubmit, contentArray, buttonText}) => {
     return (
         <Box className="custom-form">
             <Typography variant="h2" className="custom-form__title">{titleText}</Typography>
             <form onSubmit={handleSubmit}>
                 <Grid container className="custom-form__input-container">
-                    {loginInputArray.map((item, index) => (
+                    {contentArray.map((item, index) => (
                         <div key={index}>{item}</div>
                     ))}
                     <Grid item>
@@ -36,7 +36,7 @@ const CustomForm = ({titleText, handleSubmit, loginInputArray, buttonText}) => {
 CustomForm.propTypes = {
     titleText: PropTypes.string.isRequired,
     handleSubmit: PropTypes.func.isRequired,
-    loginInputArray: PropTypes.arrayOf(PropTypes.element).isRequired,
+    contentArray: PropTypes.arrayOf(PropTypes.element).isRequired,
     buttonText: PropTypes.string.isRequired,
 };
 
