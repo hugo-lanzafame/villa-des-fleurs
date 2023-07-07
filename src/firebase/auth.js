@@ -1,50 +1,64 @@
-import app from './firebaseConfig';
-import {getAuth, sendPasswordResetEmail, signInWithEmailAndPassword, onAuthStateChanged} from 'firebase/auth';
+import app from './config';
+import {getAuth, sendPasswordResetEmail, signInWithEmailAndPassword, onAuthStateChanged, signOut} from 'firebase/auth';
 import PropTypes from "prop-types";
 
-// Obtenir une référence vers l'authentification
+// Get a reference to the authentication
 const auth = getAuth(app);
 
 /**
- * Effectue la connexion avec l'e-mail et le mot de passe fournis.
+ * Sign in the user with the provided email and password.
  *
- * @param {string} email - L'adresse e-mail de l'utilisateur.
- * @param {string} password - Le mot de passe de l'utilisateur.
- * @param {function} setLog - La fonction de gestion des logs.
- * @returns {Promise<void>} Une promesse indiquant la réussite ou l'échec de la connexion.
+ * @param {string} email - The user's email address.
+ * @param {string} password - The user's password.
+ * @returns {Promise<void>} A promise indicating the success or failure of the sign-in.
  */
-const signIn = async (email, password, setLog) => {
-    try {
-        await signInWithEmailAndPassword(auth, email, password);
-        setLog('[default] Firebase: success (auth/valid-sign-in).')
-    } catch (error) {
-        setLog('[default] ' + error.message);
-    }
+const signInUser = async (email, password) => {
+    await signInWithEmailAndPassword(auth, email, password);
 };
-signIn.propTypes = {
+signInUser.propTypes = {
     email: PropTypes.string.isRequired,
     password: PropTypes.string.isRequired,
-    setLog: PropTypes.func.isRequired,
 };
 
 /**
- * Envoie un e-mail de réinitialisation de mot de passe à l'adresse fournie.
+ * Sign out the currently authenticated user.
  *
- * @param {string} email - L'adresse e-mail de l'utilisateur.
- * @param {function} setLog - La fonction de gestion des logs.
- * @returns {Promise<void>} Une promesse indiquant la réussite ou l'échec de l'envoi de l'e-mail de réinitialisation.
+ * @returns {Promise<void>} A promise indicating the success or failure of the sign-out.
  */
-const passwordReset = async (email, setLog) => {
-    try {
-        await sendPasswordResetEmail(auth, email);
-        setLog('[forgot] Firebase: success (auth/valid-reset-password).');
-    } catch (error) {
-        setLog('[forgot] ' + error.message);
-    }
+const signOutUser = async () => {
+    await signOut(auth);
 };
-passwordReset.propTypes = {
+signOutUser.propTypes = {};
+
+/**
+ * Send a password reset email to the provided email address.
+ *
+ * @param {string} email - The user's email address.
+ * @returns {Promise<void>} A promise indicating the success or failure of sending the password reset email.
+ */
+const resetPassword = async (email) => {
+    await sendPasswordResetEmail(auth, email);
+};
+resetPassword.propTypes = {
     email: PropTypes.string.isRequired,
-    setLog: PropTypes.func.isRequired,
 };
 
-export {auth, passwordReset, signIn, onAuthStateChanged};
+/**
+ * Check if a user is authenticated and set the user state.
+ *
+ * @param {function} setUser - The function to set the user state.
+ */
+const isAuth = async (setUser) => {
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            setUser(user);
+        } else {
+            setUser(null);
+        }
+    });
+}
+isAuth.propTypes = {
+    setUser: PropTypes.func.isRequired,
+};
+
+export {resetPassword, signInUser, signOutUser, isAuth};

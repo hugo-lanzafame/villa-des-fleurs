@@ -23,7 +23,7 @@ Le site Villa des Fleurs utilise les technologies suivantes :
 * Firebase : Une plateforme de développement d'applications web et mobiles qui fournit des services d'authentification, de stockage de données, de base de données en temps réel et bien plus encore.
 * React : Une bibliothèque JavaScript pour la construction d'interfaces utilisateur interactives et réactives.
 * SCSS : Un langage de feuilles de style en cascade (CSS) avec des fonctionnalités étendues telles que les variables, les mixins et les modules.
-* Autres dépendances : Le projet utilise également d'autres dépendances et bibliothèques telles que React Router pour la gestion des routes, Axios pour les requêtes HTTP, etc.
+* Autres dépendances : Le projet utilise également d'autres dépendances et bibliothèques telles que React Routing pour la gestion des routes, Axios pour les requêtes HTTP, etc.
 
 Ces technologies combinées offrent une base solide pour la création d'un site de gestion locative robuste et évolutif, avec une interface utilisateur réactive et des fonctionnalités avancées de gestion des données.
 

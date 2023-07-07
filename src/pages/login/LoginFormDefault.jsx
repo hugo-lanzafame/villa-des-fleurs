@@ -1,21 +1,21 @@
 import React, {useState} from 'react';
-import {signIn} from '../../firebase/auth';
+import {signInUser} from '../../firebase/auth';
+import {Link} from "@mui/material";
 import '../../styles/loginStyle.scss';
 import PropTypes from "prop-types";
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import {LOGIN_FORM_TYPES} from "../../constants";
 //Components
 import CustomInput from "../custom/CustomInput";
 import CustomForm from "../custom/CustomForm";
-import {Link} from "@mui/material";
 
 /**
- * Composant de formulaire de connexion de la page de connexion.
+ * Component for the login form in the login page.
  *
- * @param {Object} props - Les props du composant.
- * @param {function} props.handleChangeFormClick - La fonction de gestion du clic sur le lien "Mot de passe oublié".
- * @param {function} props.setLog - La fonction de gestion de logs lors de la connexion".
- * @returns {JSX.Element} Le composant LoginFormDefault.
+ * @param {Object} props - The component props.
+ * @param {function} props.handleChangeFormClick - The function to handle the click on the "Forgot password" link.
+ * @param {function} props.setLog - The function to handle the login logs.
+ * @returns {JSX.Element} The LoginFormDefault component.
  */
 const LoginFormDefault = ({handleChangeFormClick, setLog}) => {
     const [email, setEmail] = useState('');
@@ -23,8 +23,9 @@ const LoginFormDefault = ({handleChangeFormClick, setLog}) => {
     const navigate = useNavigate();
 
     /**
-     * Gère le changement de valeur des champs du formulaire.
-     * @param {Object} e - L'événement de changement.
+     * Handles the change event of the form fields.
+     *
+     * @param {Object} e - The change event.
      */
     const handleChange = (e) => {
         switch (e.target.name) {
@@ -40,13 +41,20 @@ const LoginFormDefault = ({handleChangeFormClick, setLog}) => {
     };
 
     /**
-     * Gère la soumission du formulaire de connexion.
-     * @param {Object} e - L'événement de soumission du formulaire.
+     * Handles the submission of the login form.
+     *
+     * @param {Object} e - The form submission event.
      */
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await signIn(email, password, setLog);
-        navigate('/');
+        signInUser(email, password)
+            .then(() => {
+                setLog('[default] Firebase: success (auth/valid-sign-in).');
+                navigate('/');
+            })
+            .catch(error => {
+                setLog('[default] ' + error.message);
+            });
     };
 
     const fieldArray = [
@@ -71,6 +79,7 @@ const LoginFormDefault = ({handleChangeFormClick, setLog}) => {
 };
 LoginFormDefault.propTypes = {
     handleChangeFormClick: PropTypes.func.isRequired,
+    setLog: PropTypes.func.isRequired,
 };
 
 export default LoginFormDefault;

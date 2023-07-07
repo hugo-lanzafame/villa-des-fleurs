@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 import {LOG_TYPES} from "../../constants";
 
 /**
- * Composant de journal de connexion affichant différents types de logs.
+ * Component for displaying different types of login logs.
  *
- * @param {Object} props - Les props du composant.
- * @param {string} props.log - Le texte du log.
- * @returns {JSX.Element} Le composant LoginLog.
+ * @param {Object} props - The component props.
+ * @param {string} props.log - The log text.
+ * @returns {JSX.Element} The CustomLog component.
  */
 const CustomLog = ({log}) => {
     let type = '';

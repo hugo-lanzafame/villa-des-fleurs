@@ -1,39 +1,41 @@
 import React, { useState } from 'react';
-import { ref, push, set } from 'firebase/database';
-import { database } from '../../../firebase/database';
+import {createBuilding} from '../../../firebase/database';
+import {Box} from "@mui/material";
+//Components
 import CustomForm from "../../custom/CustomForm";
 import CustomInput from "../../custom/CustomInput";
-import {Box} from "@mui/material";
 
+/**
+ * Component for the Building Creation page.
+ *
+ * @returns {JSX.Element} The BuildingCreationPage component.
+ */
 function BuildingCreationPage() {
     const [buildingName, setBuildingName] = useState('');
-    const [apartments, setApartments] = useState([{ name: '' }]);
 
+    /**
+     * Handles the change event of the building name input.
+     *
+     * @param {Object} e - The change event.
+     */
     const handleBuildingNameChange = (e) => {
         setBuildingName(e.target.value);
     };
 
+    /**
+     * Handles the form submission.
+     *
+     * @param {Object} e - The form submission event.
+     */
     const handleSubmit = (e) => {
         e.preventDefault();
-
-        try {
-            // Ajouter le bâtiment à la base de données Firebase
-            const buildingRef = push(ref(database, 'buildings'));
-            const buildingId = buildingRef.key;
-
-            set(buildingRef, {
-                buildingName: buildingName,
-                apartments: apartments.map((apartment) => ({ apartmentName: apartment.name })),
+        createBuilding(buildingName)
+            .then(() => {
+                console.log('Building added');
+            })
+            .catch(error => {
+                console.error('Error adding building: ', error);
             });
-
-            console.log('Building added with ID: ', buildingId);
-
-            // Réinitialiser les champs du formulaire
-            setBuildingName('');
-            setApartments([{ name: '' }]);
-        } catch (error) {
-            console.error('Error adding building: ', error);
-        }
     };
 
     const fieldArray = [

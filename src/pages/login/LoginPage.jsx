@@ -8,21 +8,20 @@ import image from '../../assets/ezgif-5-0be764f48f.png';
 import LoginFormDefault from "./LoginFormDefault";
 import LoginFormForgot from "./LoginFormForgot";
 import CustomLog from "../custom/CustomLog";
-import {Outlet} from "react-router-dom";
 
 /**
- * Composant de la page de connexion.
+ * Component for the login page.
  *
- * @returns {JSX.Element} Le composant LoginPage.
+ * @returns {JSX.Element} The LoginPage component.
  */
 const LoginPage = () => {
     const [form, setForm] = useState(LOGIN_FORM_TYPES.DEFAULT);
     const [log, setLog] = useState('');
 
     /**
-     * Gère le clic sur le lien en bas de page pour changer de formulaire.
+     * Handles the click event on the link at the bottom of the page to switch forms.
      *
-     * @param {string} targetForm - Le formulaire cible à afficher ('forgot' ou 'default').
+     * @param {string} targetForm - The target form to display ('forgot' or 'default').
      */
     const handleChangeFormClick = (targetForm) => {
         setForm(targetForm);

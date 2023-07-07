@@ -3,17 +3,22 @@ import { Box, Table, TableBody, TableCell, TableHead, TableRow, Button, TextFiel
 import { ref, onValue, off } from 'firebase/database';
 import { database } from '../../../firebase/database';
 
+/**
+ * Component for displaying a list of buildings.
+ *
+ * @returns {JSX.Element} The BuildingListPage component.
+ */
 function BuildingListPage() {
     const [buildings, setBuildings] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
 
     useEffect(() => {
-        // Écoute des modifications des bâtiments dans la base de données Firebase
+        // Listen for changes to buildings in the Firebase database
         const buildingsRef = ref(database, 'buildings');
         const unsubscribe = onValue(buildingsRef, (snapshot) => {
             const data = snapshot.val();
             if (data) {
-                // Conversion de l'objet des bâtiments en un tableau pour le rendre itérable
+                // Convert the buildings object into an array for iteration
                 const buildingsArray = Object.keys(data).map((key) => ({
                     id: key,
                     name: data[key].buildingName,
@@ -24,14 +29,14 @@ function BuildingListPage() {
             }
         });
 
-        // Nettoyage de l'écouteur lors du démontage du composant
+        // Clean up the listener when the component is unmounted
         return () => {
             off(buildingsRef);
             unsubscribe();
         };
     }, []);
 
-    // Filtrer les bâtiments en fonction de la valeur de recherche
+    // Filter the buildings based on the search query
     const filteredBuildings = buildings.filter((building) =>
         building.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
@@ -72,4 +77,3 @@ function BuildingListPage() {
 }
 
 export default BuildingListPage;
-

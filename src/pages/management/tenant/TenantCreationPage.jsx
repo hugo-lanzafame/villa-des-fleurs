@@ -1,5 +1,10 @@
 import React, {useState} from 'react';
 
+/**
+ * Component for creating a new tenant.
+ *
+ * @returns {JSX.Element} The CreateTenantPage component.
+ */
 const CreateTenantPage = () => {
     const [building, setBuilding] = useState('');
     const [floor, setFloor] = useState('');

@@ -5,21 +5,21 @@ import '../../styles/globalStyle.scss';
 import PropTypes from "prop-types";
 
 /**
- * Composant du formulaire personnalisé à utiliser dans la page LoginPage.
+ * Custom form component used in the LoginPage.
  *
- * @param {Object} props - Les props du composant.
- * @param {string} props.titleText - Le texte du titre du formulaire.
- * @param {function} props.handleSubmit - La fonction de gestion de la soumission du formulaire.
- * @param {Array<Object>} props.fieldArray - Le tableau des composants LoginInput à afficher dans le formulaire.
- * @param {string} props.buttonText - Le texte du bouton de soumission du formulaire.
- * @returns {JSX.Element} Le composant LoginForm.
+ * @param {Object} props - The component props.
+ * @param {string} props.titleText - The text for the form title.
+ * @param {function} props.handleSubmit - The function to handle form submission.
+ * @param {Array<JSX.Element>} props.fieldArray - The array of LoginInput components to display in the form.
+ * @param {string} props.buttonText - The text for the form submit button.
+ * @returns {JSX.Element} The CustomForm component.
  */
 const CustomForm = ({titleText, handleSubmit, fieldArray, buttonText}) => {
     return (
         <Box className="custom-form">
             <Typography variant="h2" className="custom-form__title">{titleText}</Typography>
             <form onSubmit={handleSubmit}>
-                <Grid container className="custom-form__input-container">
+                <Grid container className="custom-form__field-container">
                     {fieldArray.map((item, index) => (
                         <div key={index}>{item}</div>
                     ))}

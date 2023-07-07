@@ -4,7 +4,7 @@ import "firebase/database";
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
-const firebaseConfig = {
+const config = {
     apiKey: "AIzaSyCQmyCxEkGpX80YTwE1ovC5rQCkQJJgYXs",
     authDomain: "villadesfleurs-d4d5d.firebaseapp.com",
     databaseURL: "https://villadesfleurs-d4d5d-default-rtdb.europe-west1.firebasedatabase.app",
@@ -15,6 +15,6 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+const app = initializeApp(config);
 
 export default app;

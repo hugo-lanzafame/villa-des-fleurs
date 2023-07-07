@@ -5,21 +5,21 @@ import '../../styles/loginStyle.scss';
 import PropTypes from "prop-types";
 
 /**
- * Composant d'entrée personnalisé à utiliser dans la page LoginPage
+ * Custom input component used in the LoginPage.
  *
- * @param {Object} props - Les props du composant.
- * @param {string} props.label - Le texte du label de l'entrée.
- * @param {string} props.type - Le type de l'entrée.
- * @param {string} props.name - Le nom de l'entrée.
- * @param {string} props.value - La valeur de l'entrée.
- * @param {function} props.handleChange - La fonction de gestion du changement de valeur de l'entrée.
- * @returns {JSX.Element} Le composant LoginInput.
+ * @param {Object} props - The component props.
+ * @param {string} props.label - The label text for the input.
+ * @param {string} props.type - The type of the input.
+ * @param {string} props.name - The name of the input.
+ * @param {string} props.value - The value of the input.
+ * @param {function} props.handleChange - The function to handle input value change.
+ * @returns {JSX.Element} The CustomInput component.
  */
 const CustomInput = ({label, type, name, value, handleChange}) => {
     return (
         <Grid item>
             <TextField
-                className="custom-form__input"
+                className="custom-form__field custom-form__input"
                 label={label}
                 type={type}
                 name={name}

@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
-import {passwordReset} from '../../firebase/auth';
+import {resetPassword} from '../../firebase/auth';
+import {Link} from "@mui/material";
 import '../../styles/loginStyle.scss';
 import PropTypes from "prop-types";
 import {LOGIN_FORM_TYPES} from "../../constants";
@@ -7,34 +8,47 @@ import '../../firebase/auth';
 //Components
 import CustomInput from "../custom/CustomInput";
 import CustomForm from "../custom/CustomForm";
-import {Link} from "@mui/material";
 
 /**
- * Composant de formulaire de récupération de mot de passe de la page de connexion.
+ * Component for the password recovery form in the login page.
  *
- * @param {Object} props - Les props du composant.
- * @param {function} props.handleChangeFormClick - La fonction de gestion du clic sur le lien "Revenir à la page de connexion".
- * @param {function} props.setLog - La fonction de gestion de log lors de la connexion".
- * @returns {JSX.Element} Le composant LoginPageForgot.
+ * @param {Object} props - The component props.
+ * @param {function} props.handleChangeFormClick - The function to handle the click on the "Back to login" link.
+ * @param {function} props.setLog - The function to handle the login logs.
+ * @returns {JSX.Element} The LoginFormForgot component.
  */
 const LoginFormForgot = ({handleChangeFormClick, setLog}) => {
     const [email, setEmail] = useState('');
 
     /**
-     * Gère le changement de valeur des champs du formulaire.
-     * @param {Object} e - L'événement de changement.
+     * Handles the change event of the form field.
+     *
+     * @param {Object} e - The change event.
      */
     const handleChange = (e) => {
-        setEmail(e.target.value);
+        switch (e.target.name) {
+            case 'email':
+                setEmail(e.target.value);
+                break;
+            default:
+                break;
+        }
     };
 
     /**
-     * Gère la soumission du formulaire de connexion.
-     * @param {Object} e - L'événement de soumission du formulaire.
+     * Handles the submission of the password recovery form.
+     *
+     * @param {Object} e - The form submission event.
      */
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await passwordReset(email, setLog)
+        resetPassword(email)
+            .then(() => {
+                setLog('[forgot] Firebase: success (auth/valid-reset-password).');
+            })
+            .catch(error => {
+                setLog('[forgot] ' + error.message);
+            });
     };
 
     const fieldArray = [
@@ -57,6 +71,7 @@ const LoginFormForgot = ({handleChangeFormClick, setLog}) => {
 };
 LoginFormForgot.propTypes = {
     handleChangeFormClick: PropTypes.func.isRequired,
+    setLog: PropTypes.func.isRequired,
 };
 
 export default LoginFormForgot;

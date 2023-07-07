@@ -1,19 +1,27 @@
 import React from 'react';
 import {useNavigate} from 'react-router-dom';
-import { auth } from "../../firebase/auth";
+import {signOutUser} from "../../firebase/auth";
 
+/**
+ * Component for the account page.
+ *
+ * @returns {JSX.Element} The AccountPage component.
+ */
 const AccountPage = () => {
     const navigate = useNavigate();
 
+    /**
+     * Handles the logout action.
+     */
     const handleLogout = () => {
-        // Déconnexion de l'utilisateur
-        auth.signOut().then(() => {
-            // Rediriger vers la page de connexion après la déconnexion
-            navigate('/login');
-        }).catch((error) => {
-            // Gérer les erreurs de déconnexion
-            console.error('Erreur lors de la déconnexion :', error);
-        });
+        signOutUser()
+            .then(() => {
+                console.error('Déconnexion effectuée');
+                navigate('/login');
+            })
+            .catch((error) => {
+                 console.error('Erreur lors de la déconnexion :', error);
+            });
     };
 
     return (
