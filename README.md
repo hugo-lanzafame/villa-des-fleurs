@@ -27,6 +27,13 @@ Le site Villa des Fleurs utilise les technologies suivantes :
 
 Ces technologies combinées offrent une base solide pour la création d'un site de gestion locative robuste et évolutif, avec une interface utilisateur réactive et des fonctionnalités avancées de gestion des données.
 
+## Prerequis
+
+- [nvm](https://github.com/nvm-sh/nvm)
+- [npm](https://github.com/npm/cli)
+- [Node.js](https://github.com/nodejs)
+- [node-gyp](https://github.com/nodejs/node-gyp)
+
 ## Installation
 
 1. Clonez le repository :
