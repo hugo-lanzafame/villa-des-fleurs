@@ -45,20 +45,13 @@ resetPassword.propTypes = {
 
 /**
  * Check if a user is authenticated and set the user state.
- *
- * @param {function} setUser - The function to set the user state.
  */
-const isAuth = async (setUser) => {
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-            setUser(user);
-        } else {
-            setUser(null);
-        }
+const isAuth = async () => {
+    return new Promise((resolve) => {
+        onAuthStateChanged(auth, (user) => {
+            resolve(user !== null);
+        });
     });
 }
-isAuth.propTypes = {
-    setUser: PropTypes.func.isRequired,
-};
 
 export {resetPassword, signInUser, signOutUser, isAuth};

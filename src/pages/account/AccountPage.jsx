@@ -16,12 +16,8 @@ const AccountPage = () => {
     const handleLogout = () => {
         signOutUser()
             .then(() => {
-                console.error('Déconnexion effectuée');
                 navigate('/login');
             })
-            .catch((error) => {
-                 console.error('Erreur lors de la déconnexion :', error);
-            });
     };
 
     return (

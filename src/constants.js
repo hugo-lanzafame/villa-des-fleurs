@@ -8,4 +8,15 @@ const LOG_TYPES = {
     ERROR: "error",
 };
 
-export {LOGIN_FORM_TYPES, LOG_TYPES};
+const PATH = {
+    LOGIN: "/login",
+    HOME: "/",
+    MANAGEMENT: "/management",
+    PROPERTIES: "/management/properties",
+    PROPERTIES_GESTION: "/management/properties/gestion",
+    TENANTS: "/management/tenants",
+    TENANTS_GESTION: "/management/tenants/gestion",
+    ACCOUNT: "/",
+}
+
+export {LOGIN_FORM_TYPES, LOG_TYPES, PATH};

@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import {BrowserRouter, Route, Routes,} from 'react-router-dom'
-import {isAuth} from "../firebase/auth";
+import {PATH} from '../constants';
 //Route
 import Navbar from "./Navbar";
 import RoutePrivate from "./RoutePrivate";
@@ -20,38 +20,25 @@ import AccountPage from "../pages/account/AccountPage";
  * @returns {JSX.Element} The Routing component.
  */
 const Routing = () => {
-    const [user, setUser] = useState(null);
-
-    useEffect(() => {
-        return () => isAuth(setUser);
-    }, []);
-
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/login"
-                       element={<RouteLogin user={user}><LoginPage/></RouteLogin>}
-                />
-                <Route path="/"
-                       element={<RoutePrivate user={user}><Navbar/></RoutePrivate>}>
-                    <Route path="/"
-                           element={<RoutePrivate user={user}><HomePage/></RoutePrivate>}
-                    />
-                    <Route path="/management"
-                           element={<RoutePrivate user={user}><ManagementPage/></RoutePrivate>}
-                    />
-                    <Route path="/management/building"
-                           element={<RoutePrivate user={user}><BuildingListPage/></RoutePrivate>}
-                    />
-                    <Route path="/management/building/creation"
-                           element={<RoutePrivate user={user}><BuildingCreationPage/></RoutePrivate>}
-                    />
-                    <Route path="/management/tenant/creation"
-                           element={<RoutePrivate user={user}><TenantCreationPage/></RoutePrivate>}
-                    />
-                    <Route path="/account"
-                           element={<RoutePrivate user={user}><AccountPage/></RoutePrivate>}
-                    />
+                <Route path={PATH.LOGIN}
+                       element={<RouteLogin><LoginPage/></RouteLogin>}/>
+                <Route path={PATH.HOME}
+                       element={<RoutePrivate><Navbar/></RoutePrivate>}>
+                    <Route path={PATH.HOME}
+                           element={<RoutePrivate><HomePage/></RoutePrivate>}/>
+                    <Route path={PATH.MANAGEMENT}
+                           element={<RoutePrivate><ManagementPage/></RoutePrivate>}/>
+                    <Route path={PATH.PROPERTIES}
+                           element={<RoutePrivate><BuildingListPage/></RoutePrivate>}/>
+                    <Route path={PATH.PROPERTIES_GESTION}
+                           element={<RoutePrivate><BuildingCreationPage/></RoutePrivate>}/>
+                    <Route path={PATH.TENANTS_GESTION}
+                           element={<RoutePrivate><TenantCreationPage/></RoutePrivate>}/>
+                    <Route path={PATH.ACCOUNT}
+                           element={<RoutePrivate><AccountPage/></RoutePrivate>}/>
                 </Route>
             </Routes>
         </BrowserRouter>
