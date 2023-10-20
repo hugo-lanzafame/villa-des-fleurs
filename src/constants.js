@@ -16,7 +16,7 @@ const PATH = {
     PROPERTIES_GESTION: "/management/properties/gestion",
     TENANTS: "/management/tenants",
     TENANTS_GESTION: "/management/tenants/gestion",
-    ACCOUNT: "/",
+    ACCOUNT: "/account",
 }
 
 export {LOGIN_FORM_TYPES, LOG_TYPES, PATH};
