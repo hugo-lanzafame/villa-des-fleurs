@@ -12,10 +12,10 @@ import PropTypes from "prop-types";
  * @param {string} props.type - The type of the input.
  * @param {string} props.name - The name of the input.
  * @param {string} props.value - The value of the input.
- * @param {function} props.handleChange - The function to handle input value change.
+ * @param {function} props.onChange - The function to handle input value change.
  * @returns {JSX.Element} The CustomInput component.
  */
-const CustomInput = ({label, type, name, value, handleChange}) => {
+const CustomInput = ({label, type, name, value, onChange}) => {
     return (
         <Grid item>
             <TextField
@@ -24,7 +24,7 @@ const CustomInput = ({label, type, name, value, handleChange}) => {
                 type={type}
                 name={name}
                 value={value}
-                onChange={handleChange}
+                onChange={onChange}
             />
         </Grid>
     );
@@ -34,7 +34,7 @@ CustomInput.propTypes = {
     type: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     value: PropTypes.string.isRequired,
-    handleChange: PropTypes.func.isRequired,
+    onChange: PropTypes.func.isRequired,
 };
 
 export default CustomInput;

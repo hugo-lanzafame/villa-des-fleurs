@@ -88,12 +88,27 @@ const LoginForm = () => {
     };
 
     const fieldArrayDefault = [
-        <CustomInput handleChange={handleChange} type='email' label='E-mail' name='email' value={email}/>,
-        <CustomInput handleChange={handleChange} type='password' label='Mot de passe' name='password' value={password}/>
+        <CustomInput
+            onChange={handleChange}
+            type='email'
+            label='E-mail'
+            name='email'
+            value={email}/>,
+        <CustomInput
+            onChange={handleChange}
+            type='password'
+            label='Mot de passe'
+            name='password'
+            value={password}/>
     ];
 
     const fieldArrayForgot = [
-        <CustomInput handleChange={handleChange} type='email' label='E-mail' name='email' value={email}/>,
+        <CustomInput
+            onChange={handleChange}
+            type='email'
+            label='E-mail'
+            name='email'
+            value={email}/>,
     ];
 
     switch (form) {
