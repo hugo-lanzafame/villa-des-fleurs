@@ -1,6 +1,7 @@
 import React from 'react';
 import {useNavigate} from 'react-router-dom';
 import {signOutUser} from "../../firebase/auth";
+import {PATH} from '../../constants';
 
 /**
  * Component for the account page.
@@ -16,7 +17,7 @@ const AccountPage = () => {
     const handleLogout = () => {
         signOutUser()
             .then(() => {
-                navigate('/login');
+                navigate(PATH.LOGIN);
             })
     };
 
