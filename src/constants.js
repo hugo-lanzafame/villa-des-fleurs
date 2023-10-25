@@ -1,11 +1,11 @@
 const LOGIN_FORM_TYPES = {
-    DEFAULT: "default",
-    FORGOT: "forgot",
+    LOGIN: "Login",
+    FORGOT: "Forgot",
 };
 
 const LOG_TYPES = {
-    SUCCESS: "success",
-    ERROR: "error",
+    SUCCESS: "Success",
+    ERROR: "Error",
 };
 
 const PATH = {
@@ -19,4 +19,9 @@ const PATH = {
     ACCOUNT: "/account",
 }
 
-export {LOGIN_FORM_TYPES, LOG_TYPES, PATH};
+const PROPERTY_TYPE = {
+    APARTMENT: 'Appartement',
+    BUILDING: 'Immeuble',
+}
+
+export {LOGIN_FORM_TYPES, LOG_TYPES, PATH, PROPERTY_TYPE};

@@ -1,0 +1,66 @@
+{
+  "LOGIN_PAGE": {
+    "RIGHT_SIDE_TITLE": {
+      "en": "WELCOME TO THE VILLA DES FLEURS",
+      "fr": "BIENVENUE A LA VILLA DES FLEURS"
+    },
+    "RIGHT_SIDE_DESCRIPTION": {
+      "en": "This site is cool",
+      "fr": "Ce site est cool"
+    },
+    "LOGIN_FORM_TITLE": {
+      "en": "Login",
+      "fr": "Connexion"
+    },
+    "LOGIN_FORM_LABEL_EMAIL": {
+      "en": "E-mail",
+      "fr": "E-mail"
+    },
+    "LOGIN_FORM_LABEL_PASSWORD": {
+      "en": "Password",
+      "fr": "Mot de passe"
+    },
+    "LOGIN_FORM_BUTTON_LOGIN": {
+      "en": "Login",
+      "fr": "Se connecter"
+    },
+    "LOGIN_FORM_BUTTON_TO_FORGOT": {
+      "en": "I forgot my password",
+      "fr": "J'ai oublié mon mot de passe"
+    },
+    "FORGOT_FORM_TITLE": {
+      "en": "Recover",
+      "fr": "Récuperation"
+    },
+    "FORGOT_FORM_LABEL_EMAIL": {
+      "en": "E-mail",
+      "fr": "E-mail"
+    },
+    "FORGOT_FORM_BUTTON_FORGOT": {
+      "en": "Recover",
+      "fr": "Récupérer"
+    },
+    "FORGOT_FORM_BUTTON_TO_LOGIN": {
+      "en": "Return to login page",
+      "fr": "Revenir a la page de connexion"
+    }
+  },
+  "ACCOUNT_PAGE": {
+    "TITLE_ACCOUNT": {
+      "en": "Account settings",
+      "fr": "Paramètres de profil"
+    },
+    "TRAD_FRENCH": {
+      "en": "Francais",
+      "fr": "Francais"
+    },
+    "TRAD_ENGLISH": {
+      "en": "English",
+      "fr": "English"
+    },
+    "BUTTON_LOGOUT": {
+      "en": "Logout",
+      "fr": "Déconnexion"
+    }
+  }
+}
