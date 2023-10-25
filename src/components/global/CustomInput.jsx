@@ -5,7 +5,7 @@ import '../../styles/loginStyle.scss';
 import PropTypes from "prop-types";
 
 /**
- * Custom input component used in the LoginPage.
+ * Custom input component used in form.
  *
  * @param {Object} props - The component props.
  * @param {string} props.label - The label text for the input.
@@ -13,6 +13,7 @@ import PropTypes from "prop-types";
  * @param {string} props.name - The name of the input.
  * @param {string} props.value - The value of the input.
  * @param {function} props.onChange - The function to handle input value change.
+ *
  * @returns {JSX.Element} The CustomInput component.
  */
 const CustomInput = ({label, type, name, value, onChange}) => {

@@ -1,18 +1,18 @@
 import React from 'react'
 import {BrowserRouter, Route, Routes,} from 'react-router-dom'
-import {PATH} from '../constants';
+import {PATH} from '../../constants';
 //Route
 import Navbar from "./Navbar";
 import RoutePrivate from "./RoutePrivate";
 import RouteLogin from "./RouteLogin";
 //Pages
-import LoginPage from '../pages/login/LoginPage';
-import HomePage from "../pages/home/HomePage";
-import ManagementPage from "../pages/management/ManagementPage";
-import TenantCreationPage from '../pages/management/tenant/TenantCreationPage';
-import BuildingCreationPage from "../pages/management/building/BuildingCreationPage";
-import BuildingListPage from "../pages/management/building/BuildingListPage";
-import AccountPage from "../pages/account/AccountPage";
+import LoginPage from '../login/LoginPage';
+import HomePage from "../home/HomePage";
+import ManagementPage from "../management/ManagementPage";
+import TenantCreationPage from '../management/tenant/TenantCreationPage';
+import PropertyGestionPage from "../management/property/PropertyGestionPage";
+import PropertyListPage from "../management/property/PropertyListPage";
+import AccountPage from "../account/AccountPage";
 
 /**
  * Component for handling the application routing.
@@ -32,9 +32,9 @@ const Routing = () => {
                     <Route path={PATH.MANAGEMENT}
                            element={<RoutePrivate><ManagementPage/></RoutePrivate>}/>
                     <Route path={PATH.PROPERTIES}
-                           element={<RoutePrivate><BuildingListPage/></RoutePrivate>}/>
+                           element={<RoutePrivate><PropertyListPage/></RoutePrivate>}/>
                     <Route path={PATH.PROPERTIES_GESTION}
-                           element={<RoutePrivate><BuildingCreationPage/></RoutePrivate>}/>
+                           element={<RoutePrivate><PropertyGestionPage/></RoutePrivate>}/>
                     <Route path={PATH.TENANTS_GESTION}
                            element={<RoutePrivate><TenantCreationPage/></RoutePrivate>}/>
                     <Route path={PATH.ACCOUNT}

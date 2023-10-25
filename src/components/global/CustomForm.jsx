@@ -9,12 +9,12 @@ import PropTypes from "prop-types";
  *
  * @param {Object} props - The component props.
  * @param {string} props.titleText - The text for the form title.
+ * @param {string} props.buttonText - The text for the form submit button.
  * @param {function} props.handleSubmit - The function to handle form submission.
  * @param {Array<JSX.Element>} props.fieldArray - The array of LoginInput components to display in the form.
- * @param {string} props.buttonText - The text for the form submit button.
  * @returns {JSX.Element} The CustomForm component.
  */
-const CustomForm = ({titleText, handleSubmit, fieldArray, buttonText}) => {
+const CustomForm = ({titleText, buttonText, handleSubmit, fieldArray}) => {
     return (
         <Box className="custom-form">
             <Typography variant="h2" className="custom-form__title">{titleText}</Typography>

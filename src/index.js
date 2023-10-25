@@ -2,12 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import Routing from "./navigation/Routing";
+import Routing from "./components/navigation/Routing";
+import {LanguageProvider} from "./context/LanguageProvider";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
         <React.StrictMode>
-            <Routing/>
+            <LanguageProvider>
+                <Routing/>
+            </LanguageProvider>
         </React.StrictMode>
 );
 

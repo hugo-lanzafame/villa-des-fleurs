@@ -2,6 +2,7 @@ import React from 'react';
 import {Box, Grid, Typography} from '@mui/material';
 import '../../styles/loginStyle.scss';
 import image from '../../assets/ezgif-5-0be764f48f.png';
+import {useLanguage} from '../../context/LanguageProvider';
 //Components
 import LoginForm from "./LoginForm";
 
@@ -11,6 +12,8 @@ import LoginForm from "./LoginForm";
  * @returns {JSX.Element} The LoginPage component.
  */
 const LoginPage = () => {
+    const {translate} = useLanguage();
+
     return (
         <Grid container className="login-page">
             <Grid item className="login-page__left-side">
@@ -19,8 +22,12 @@ const LoginPage = () => {
             <Grid item className="login-page__right-side">
                 <img src={image} alt="villa-des-fleurs.png"/>
                 <Box className="login-comment">
-                    <Typography variant="h3">BIENVENUE A LA VILLA DES FLEURS</Typography>
-                    <Typography variant="text">Ce site est cool.</Typography>
+                    <Typography variant="h3">
+                        {translate({section: "LOGIN_PAGE", key: "RIGHT_SIDE_TITLE"})}
+                    </Typography>
+                    <Typography variant="text">
+                        {translate({section: "LOGIN_PAGE", key: "RIGHT_SIDE_DESCRIPTION"})}
+                    </Typography>
                 </Box>
             </Grid>
         </Grid>
