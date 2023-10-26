@@ -62,5 +62,15 @@
       "en": "Logout",
       "fr": "Déconnexion"
     }
+  },
+  "PROPERTY_GESTION_PAGE": {
+    "PROPERTY_TYPE_APARTMENT": {
+      "en": "Apartment",
+      "fr": "Appartement"
+    },
+    "PROPERTY_TYPE_BUILDING": {
+      "en": "Building",
+      "fr": "Immeuble"
+    }
   }
 }

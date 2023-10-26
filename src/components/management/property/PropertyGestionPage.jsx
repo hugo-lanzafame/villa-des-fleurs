@@ -1,21 +1,25 @@
 import React, {useState} from 'react';
-import {createBuilding} from '../../../firebase/database';
 import {Box} from '@mui/material';
 import {useNavigate} from 'react-router-dom';
-import {PATH, PROPERTY_TYPE} from '../../../constants'
+import PropTypes from "prop-types";
+import {createBuilding} from '../../../firebase/database';
+import {PATHS, PROPERTY_TYPES} from '../../../constants';
+import {useLanguage} from '../../../context/LanguageProvider';
 //Components
-import CustomForm from "../../global/CustomForm";
 import CustomInput from "../../global/CustomInput";
 import CustomSelect from "../../global/CustomSelect";
 
 /**
- * Component for the Building Creation page.
+ * Component for the Building Creation/Edition page.
  *
+ * @param {object} props - The component's props.
+ * @param {string} props.id - The ID of the property.
  * @returns {JSX.Element} The PropertyGestionPage component.
  */
-function PropertyGestionPage(id) {
-    const [type, setType] = useState(PROPERTY_TYPE.APARTMENT);
+function PropertyGestionPage({id}) {
+    const [type, setType] = useState(PROPERTY_TYPES.APARTMENT);
     const [name, setName] = useState('');
+    const {translate} = useLanguage();
     const navigate = useNavigate();
 
     /**
@@ -44,16 +48,16 @@ function PropertyGestionPage(id) {
     const handleSubmit = (e) => {
         e.preventDefault();
         switch (type) {
-            case PROPERTY_TYPE.APARTMENT:
+            case PROPERTY_TYPES.APARTMENT:
                 createBuilding(name)
                     .then((buildingId) => {
-                        navigate(`${PATH.PROPERTIES_GESTION}?id=${buildingId}`);
+                        navigate(`${PATHS.PROPERTIES_GESTION}?id=${buildingId}`);
                     })
                     .catch(error => {
                         console.error('Error adding building: ', error);
                     });
                 break;
-            case PROPERTY_TYPE.BUILDING:
+            case PROPERTY_TYPES.BUILDING:
                 setName(e.target.value);
                 break;
             default:
@@ -61,9 +65,14 @@ function PropertyGestionPage(id) {
         }
     };
 
-    const propertyTypeOptions = Object.keys(PROPERTY_TYPE).map((key) => ({
-        value: PROPERTY_TYPE[key],
-        label: PROPERTY_TYPE[key],
+    /**
+     * Generates property type options for the Select component.
+     *
+     * @type {Array} An array of property type options.
+     */
+    const propertyTypeOptions = Object.keys(PROPERTY_TYPES).map((key) => ({
+        value: PROPERTY_TYPES[key],
+        label: translate({section: "PROPERTY_GESTION_PAGE", key: "PROPERTY_TYPE_" + key}),
     }));
 
     const fieldArray = [
@@ -84,14 +93,12 @@ function PropertyGestionPage(id) {
 
     return (
         <Box className='property-gestion-page'>
-            <CustomForm
-                titleText="Ajouter une propriété"
-                handleSubmit={handleSubmit}
-                buttonText="Submit"
-                fieldArray={fieldArray}
-            />
+            {fieldArray}
         </Box>
     );
 }
+PropertyGestionPage.propTypes = {
+    id: PropTypes.string.isRequired,
+};
 
 export default PropertyGestionPage;

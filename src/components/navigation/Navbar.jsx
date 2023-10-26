@@ -1,6 +1,6 @@
 import React from "react";
 import {NavLink, Outlet} from "react-router-dom";
-import {PATH} from '../../constants';
+import {PATHS} from '../../constants';
 
 /**
  * Component for the navigation bar.
@@ -11,11 +11,11 @@ const Navbar = () => {
     return (
         <>
             <nav>
-                <NavLink to={PATH.HOME} activeclassname="active">Acceuil</NavLink>
-                <NavLink to={PATH.MANAGEMENT} activeclassname="active">Management</NavLink>
-                <NavLink to={PATH.PROPERTIES_GESTION} activeclassname="active">Creation de propriétés</NavLink>
-                <NavLink to={PATH.PROPERTIES} activeclassname="active">Liste de propriétés</NavLink>
-                <NavLink to={PATH.ACCOUNT} activeclassname="active">Compte utilisateur</NavLink>
+                <NavLink to={PATHS.HOME} activeclassname="active">Acceuil</NavLink>
+                <NavLink to={PATHS.MANAGEMENT} activeclassname="active">Management</NavLink>
+                <NavLink to={PATHS.PROPERTIES_GESTION} activeclassname="active">Creation de propriétés</NavLink>
+                <NavLink to={PATHS.PROPERTIES} activeclassname="active">Liste de propriétés</NavLink>
+                <NavLink to={PATHS.ACCOUNT} activeclassname="active">Compte utilisateur</NavLink>
             </nav>
             <Outlet/>
         </>

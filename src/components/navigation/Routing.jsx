@@ -1,6 +1,6 @@
 import React from 'react'
 import {BrowserRouter, Route, Routes,} from 'react-router-dom'
-import {PATH} from '../../constants';
+import {PATHS} from '../../constants';
 //Route
 import Navbar from "./Navbar";
 import RoutePrivate from "./RoutePrivate";
@@ -23,21 +23,21 @@ const Routing = () => {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path={PATH.LOGIN}
+                <Route path={PATHS.LOGIN}
                        element={<RouteLogin><LoginPage/></RouteLogin>}/>
-                <Route path={PATH.HOME}
+                <Route path={PATHS.HOME}
                        element={<RoutePrivate><Navbar/></RoutePrivate>}>
-                    <Route path={PATH.HOME}
+                    <Route path={PATHS.HOME}
                            element={<RoutePrivate><HomePage/></RoutePrivate>}/>
-                    <Route path={PATH.MANAGEMENT}
+                    <Route path={PATHS.MANAGEMENT}
                            element={<RoutePrivate><ManagementPage/></RoutePrivate>}/>
-                    <Route path={PATH.PROPERTIES}
+                    <Route path={PATHS.PROPERTIES}
                            element={<RoutePrivate><PropertyListPage/></RoutePrivate>}/>
-                    <Route path={PATH.PROPERTIES_GESTION}
+                    <Route path={PATHS.PROPERTIES_GESTION}
                            element={<RoutePrivate><PropertyGestionPage/></RoutePrivate>}/>
-                    <Route path={PATH.TENANTS_GESTION}
+                    <Route path={PATHS.TENANTS_GESTION}
                            element={<RoutePrivate><TenantCreationPage/></RoutePrivate>}/>
-                    <Route path={PATH.ACCOUNT}
+                    <Route path={PATHS.ACCOUNT}
                            element={<RoutePrivate><AccountPage/></RoutePrivate>}/>
                 </Route>
             </Routes>
