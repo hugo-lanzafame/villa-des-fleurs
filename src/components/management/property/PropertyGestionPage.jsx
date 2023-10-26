@@ -98,7 +98,7 @@ function PropertyGestionPage({id}) {
     );
 }
 PropertyGestionPage.propTypes = {
-    id: PropTypes.string.isRequired,
+    id: PropTypes.string,
 };
 
 export default PropertyGestionPage;
