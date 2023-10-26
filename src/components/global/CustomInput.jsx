@@ -1,8 +1,8 @@
 import React from 'react';
 import {Grid, TextField} from "@mui/material";
-import '../../styles/globalStyle.scss';
-import '../../styles/loginStyle.scss';
 import PropTypes from "prop-types";
+import {useLanguage} from '../../context/LanguageProvider';
+import '../../styles/globalStyle.scss';
 
 /**
  * Custom input component used in form.
@@ -17,11 +17,14 @@ import PropTypes from "prop-types";
  * @returns {JSX.Element} The CustomInput component.
  */
 const CustomInput = ({label, type, name, value, onChange}) => {
+    const {translate} = useLanguage();
+
     return (
         <Grid item>
             <TextField
                 className="custom-form__field custom-form__input"
                 label={label}
+                aria-label={translate({section:"GLOBAL", key:"INPUT_ARIA_LABEL"}) + " " + label}
                 type={type}
                 name={name}
                 value={value}

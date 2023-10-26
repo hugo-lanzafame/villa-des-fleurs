@@ -72,5 +72,11 @@
       "en": "Building",
       "fr": "Immeuble"
     }
+  },
+  "GLOBAL": {
+    "INPUT_ARIA_LABEL": {
+      "en": "text field",
+      "fr": "champ de text"
+    }
   }
 }

@@ -13,6 +13,11 @@ const AccountPage = () => {
     const {currentLanguage, changeLanguage, translate} = useLanguage();
     const navigate = useNavigate();
 
+    /**
+     * Handles the language change event.
+     *
+     * @param {Object} e - The change event.
+     */
     const handleLanguageChange = (e) => {
         const newLanguage = e.target.value;
         changeLanguage(newLanguage);
