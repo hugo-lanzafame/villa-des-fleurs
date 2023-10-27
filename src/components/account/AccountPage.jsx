@@ -2,7 +2,7 @@ import React from 'react';
 import {useNavigate} from 'react-router-dom';
 import {signOutUser} from "../../firebase/auth";
 import {useLanguage} from '../../context/LanguageProvider';
-import {PATH} from '../../constants';
+import {PATHS} from '../../constants';
 
 /**
  * Component for the account page.
@@ -13,6 +13,11 @@ const AccountPage = () => {
     const {currentLanguage, changeLanguage, translate} = useLanguage();
     const navigate = useNavigate();
 
+    /**
+     * Handles the language change event.
+     *
+     * @param {Object} e - The change event.
+     */
     const handleLanguageChange = (e) => {
         const newLanguage = e.target.value;
         changeLanguage(newLanguage);
@@ -24,7 +29,7 @@ const AccountPage = () => {
     const handleLogout = () => {
         signOutUser()
             .then(() => {
-                navigate(PATH.LOGIN);
+                navigate(PATHS.LOGIN);
             })
     };
 
