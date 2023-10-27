@@ -72,7 +72,7 @@ const LoginForm = () => {
                         navigate('/');
                     })
                     .catch(error => {
-                        handleErrors(error, form);
+                        handleFormErrors(error, form);
                     });
                 break;
             case LOGIN_PAGE_FORM_TYPES.FORGOT:
@@ -81,7 +81,7 @@ const LoginForm = () => {
                         setEmail({...email, helper: translate({section: "LOGIN_FORM", key: "FORGOT_FORM_SUCCESS"})})
                     })
                     .catch(error => {
-                        handleErrors(error, form);
+                        handleFormErrors(error, form);
                     });
                 break;
             default:
@@ -89,7 +89,13 @@ const LoginForm = () => {
         }
     };
 
-    const handleErrors = (error, formType) => {
+    /**
+     * Handles form errors and displays error messages based on the form type.
+     *
+     * @param {Object} error - The error object.
+     * @param {string} formType - The type of the form ('LOGIN' or 'FORGOT').
+     */
+    const handleFormErrors = (error, formType) => {
         const errorKey = Object.keys(LOGIN_PAGE_FORM_ERRORS).find((key) => LOGIN_PAGE_FORM_ERRORS[key] === error.message.match(/\(([^)]+)\)/)[1]) ?? "DEFAULT";
         const errorFormTypes = {
             [LOGIN_PAGE_FORM_TYPES.LOGIN]: "LOGIN_FORM_ERROR_", [LOGIN_PAGE_FORM_TYPES.FORGOT]: "FORGOT_FORM_ERROR_",
@@ -134,13 +140,13 @@ const LoginForm = () => {
         }
 
         if (isPasswordError) {
-            setPassword(prevPassword => ({
+            setPassword({
                 value: "", helper: errorMessage, error: true
-            }));
+            });
         } else {
-            setPassword(prevPassword => ({
+            setPassword({
                 value: "", helper: "", error: false
-            }));
+            });
         }
     };
 
