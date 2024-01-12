@@ -1,0 +1,154 @@
+{
+  "LOGIN_PAGE": {
+    "RIGHT_SIDE_TITLE": {
+      "en": "WELCOME TO THE VILLA DES FLEURS",
+      "fr": "BIENVENUE A LA VILLA DES FLEURS"
+    },
+    "RIGHT_SIDE_DESCRIPTION": {
+      "en": "This site is cool",
+      "fr": "Ce site est cool"
+    },
+    "LOGIN_FORM_TITLE": {
+      "en": "Login",
+      "fr": "Connexion"
+    },
+    "LOGIN_FORM_LABEL_EMAIL": {
+      "en": "E-mail",
+      "fr": "E-mail"
+    },
+    "LOGIN_FORM_LABEL_PASSWORD": {
+      "en": "Password",
+      "fr": "Mot de passe"
+    },
+    "LOGIN_FORM_BUTTON_LOGIN": {
+      "en": "Login",
+      "fr": "Se connecter"
+    },
+    "LOGIN_FORM_BUTTON_TO_FORGOT": {
+      "en": "I forgot my password",
+      "fr": "J'ai oublié mon mot de passe"
+    },
+    "FORGOT_FORM_TITLE": {
+      "en": "Recover",
+      "fr": "Récuperation"
+    },
+    "FORGOT_FORM_LABEL_EMAIL": {
+      "en": "E-mail",
+      "fr": "E-mail"
+    },
+    "FORGOT_FORM_BUTTON_FORGOT": {
+      "en": "Recover",
+      "fr": "Récupérer"
+    },
+    "FORGOT_FORM_BUTTON_TO_LOGIN": {
+      "en": "Return to login page",
+      "fr": "Revenir a la page de connexion"
+    },
+    "LOGIN_FORM_ERROR_INVALID_EMAIL": {
+      "en": "The email provided is invalid.",
+      "fr": "L'e-mail fourni n'est pas valide."
+    },
+    "LOGIN_FORM_ERROR_WRONG_PASSWORD": {
+      "en": "No user matches this email or the password is incorrect.",
+      "fr": "Aucun utilisateur ne correspond à cet e-mail ou le mot de passe est incorrect."
+    },
+    "LOGIN_FORM_ERROR_USER_NOT_FOUND": {
+      "en": "No user matches this email or the password is incorrect.",
+      "fr": "Aucun utilisateur ne correspond à cet e-mail ou le mot de passe est incorrect."
+    },
+    "LOGIN_FORM_ERROR_MISSING_EMAIL": {
+      "en": "The email is missing.",
+      "fr": "L'e-mail est manquant."
+    },
+    "LOGIN_FORM_ERROR_MISSING_PASSWORD": {
+      "en": "The password is missing.",
+      "fr": "Le mot de passe est manquant."
+    },
+    "LOGIN_FORM_ERROR_TOO_MANY_REQUEST": {
+      "en": "Too many connection attempts have been made. Try again later.",
+      "fr": "Trop de tentatives de connexion ont été effectuées. Réessayez plus tard."
+    },
+    "LOGIN_FORM_ERROR_NETWORK_REQUEST_FAILED": {
+      "en": "A network error has occurred. Check your Internet connection.",
+      "fr": "Une erreur réseau s'est produite. Vérifiez votre connexion Internet."
+    },
+    "LOGIN_FORM_ERROR_USER_DISABLED": {
+      "en": "The user account has been disabled by an administrator.",
+      "fr": "Le compte utilisateur a été désactivé par un administrateur."
+    },
+    "LOGIN_FORM_ERROR_WEAK_PASSWORD": {
+      "en": "The password is too weak. Make sure it's strong enough.",
+      "fr": "Le mot de passe est trop faible. Assurez-vous qu'il est assez fort."
+    },
+    "LOGIN_FORM_ERROR_DEFAULT": {
+      "en": "Unknown error.",
+      "fr": "Erreur inconnue."
+    },
+    "FORGOT_FORM_ERROR_INVALID_EMAIL": {
+      "en": "The email provided is invalid.",
+      "fr": "L'e-mail fourni n'est pas valide."
+    },
+    "FORGOT_FORM_ERROR_USER_NOT_FOUND": {
+      "en": "If the email matches an existing account, an email has been sent to the address you provided. Please check your inbox for password reset instructions.",
+      "fr": "Si l'e-mail correspond à un compte existant, un e-mail a été envoyé à l'adresse que vous avez fournie. Veuillez vérifier votre boîte de réception pour les instructions de réinitialisation du mot de passe."
+    },
+    "FORGOT_FORM_ERROR_MISSING_EMAIL": {
+      "en": "The email is missing.",
+      "fr": "L'e-mail est manquant."
+    },
+    "FORGOT_FORM_ERROR_TOO_MANY_REQUEST": {
+      "en": "Too many connection attempts have been made. Try again later.",
+      "fr": "Trop de tentatives de connexion ont été effectuées. Réessayez plus tard."
+    },
+    "FORGOT_FORM_ERROR_NETWORK_REQUEST_FAILED": {
+      "en": "A network error has occurred. Check your Internet connection.",
+      "fr": "Une erreur réseau s'est produite. Vérifiez votre connexion Internet."
+    },
+    "FORGOT_FORM_ERROR_USER_DISABLED": {
+      "en": "The user account has been disabled by an administrator.",
+      "fr": "Le compte utilisateur a été désactivé par un administrateur."
+    },
+    "FORGOT_FORM_ERROR_DEFAULT": {
+      "en": "Unknown error.",
+      "fr": "Erreur inconnue."
+    },
+    "FORGOT_FORM_SUCCESS": {
+      "en": "If the email matches an existing account, an email has been sent to the address you provided. Please check your inbox for password reset instructions.",
+      "fr": "Si l'e-mail correspond à un compte existant, un e-mail a été envoyé à l'adresse que vous avez fournie. Veuillez vérifier votre boîte de réception pour les instructions de réinitialisation du mot de passe."
+    }
+  },
+  "ACCOUNT_PAGE": {
+    "TITLE_ACCOUNT": {
+      "en": "Account settings",
+      "fr": "Paramètres de profil"
+    },
+    "TRAD_FRENCH": {
+      "en": "Francais",
+      "fr": "Francais"
+    },
+    "TRAD_ENGLISH": {
+      "en": "English",
+      "fr": "English"
+    },
+    "BUTTON_LOGOUT": {
+      "en": "Logout",
+      "fr": "Déconnexion"
+    }
+  },
+  "PROPERTY_GESTION_PAGE": {
+    "PROPERTY_TYPE_APARTMENT": {
+      "en": "Apartment",
+      "fr": "Appartement"
+    },
+    "PROPERTY_TYPE_BUILDING": {
+      "en": "Building",
+      "fr": "Immeuble"
+    }
+  },
+  "GLOBAL": {
+    "INPUT_ARIA_LABEL": {
+      "en": "text field",
+      "fr": "champ de text"
+    }
+  }
+}

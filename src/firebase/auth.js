@@ -1,8 +1,10 @@
+import PropTypes from "prop-types";
 import app from './config';
 import {getAuth, sendPasswordResetEmail, signInWithEmailAndPassword, onAuthStateChanged, signOut} from 'firebase/auth';
-import PropTypes from "prop-types";
 
-// Get a reference to the authentication
+/**
+ * Get a reference to the authentication
+ */
 const auth = getAuth(app);
 
 /**
@@ -28,7 +30,6 @@ signInUser.propTypes = {
 const signOutUser = async () => {
     await signOut(auth);
 };
-signOutUser.propTypes = {};
 
 /**
  * Send a password reset email to the provided email address.

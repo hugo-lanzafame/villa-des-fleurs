@@ -6,9 +6,9 @@ import { database } from '../../../firebase/database';
 /**
  * Component for displaying a list of buildings.
  *
- * @returns {JSX.Element} The BuildingListPage component.
+ * @returns {JSX.Element} The PropertyListPage component.
  */
-function BuildingListPage() {
+function PropertyListPage() {
     const [buildings, setBuildings] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
 
@@ -76,4 +76,4 @@ function BuildingListPage() {
     );
 }
 
-export default BuildingListPage;
+export default PropertyListPage;
