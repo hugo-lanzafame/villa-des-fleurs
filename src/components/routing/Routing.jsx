@@ -2,7 +2,6 @@ import React from 'react'
 import {BrowserRouter, Route, Routes,} from 'react-router-dom'
 import {PATHS} from '../../constants';
 //Route
-import Navbar from "./Navbar";
 import RoutePrivate from "./RoutePrivate";
 import RouteLogin from "./RouteLogin";
 //Pages
@@ -13,6 +12,8 @@ import TenantCreationPage from '../management/tenant/TenantCreationPage';
 import PropertyGestionPage from "../management/property/PropertyGestionPage";
 import PropertyListPage from "../management/property/PropertyListPage";
 import AccountPage from "../account/AccountPage";
+import Layout from "../navigation/Layout";
+import NotFoundPage from "../notfound/NotFoundPage";
 
 /**
  * Component for handling the application routing.
@@ -26,7 +27,7 @@ const Routing = () => {
                 <Route path={PATHS.LOGIN}
                        element={<RouteLogin><LoginPage/></RouteLogin>}/>
                 <Route path={PATHS.HOME}
-                       element={<RoutePrivate><Navbar/></RoutePrivate>}>
+                       element={<RoutePrivate><Layout/></RoutePrivate>}>
                     <Route path={PATHS.HOME}
                            element={<RoutePrivate><HomePage/></RoutePrivate>}/>
                     <Route path={PATHS.MANAGEMENT}
@@ -39,6 +40,7 @@ const Routing = () => {
                            element={<RoutePrivate><TenantCreationPage/></RoutePrivate>}/>
                     <Route path={PATHS.ACCOUNT}
                            element={<RoutePrivate><AccountPage/></RoutePrivate>}/>
+                    <Route path="*" element={<NotFoundPage/>}/>
                 </Route>
             </Routes>
         </BrowserRouter>

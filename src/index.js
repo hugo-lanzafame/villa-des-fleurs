@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import Routing from "./components/navigation/Routing";
+import Routing from "./components/routing/Routing";
 import {LanguageProvider} from "./context/LanguageProvider";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
