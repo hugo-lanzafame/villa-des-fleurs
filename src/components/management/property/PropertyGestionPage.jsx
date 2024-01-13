@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Box} from '@mui/material';
 import {useNavigate} from 'react-router-dom';
 import PropTypes from "prop-types";
-import {createBuilding} from '../../../firebase/database';
+import {createBuilding} from '../../../services/api/firebase/database';
 import {PATHS, PROPERTY_TYPES} from '../../../constants';
 import {useLanguage} from '../../../context/LanguageProvider';
 //Components

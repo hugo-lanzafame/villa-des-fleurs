@@ -1,6 +1,6 @@
 import React from 'react';
 import {useNavigate} from 'react-router-dom';
-import {signOutUser} from "../../firebase/auth";
+import {signOutUser} from "../../services/api/firebase/auth";
 import {useLanguage} from '../../context/LanguageProvider';
 import {PATHS} from '../../constants';
 

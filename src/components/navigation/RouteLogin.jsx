@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Navigate} from "react-router-dom";
 import PropTypes from "prop-types";
-import {isAuth} from "../../firebase/auth";
+import {isAuth} from "../../services/api/firebase/auth";
 
 /**
  * Component for handling login route redirection.

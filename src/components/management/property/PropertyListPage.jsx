@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Table, TableBody, TableCell, TableHead, TableRow, Button, TextField } from '@mui/material';
 import { ref, onValue, off } from 'firebase/database';
-import { database } from '../../../firebase/database';
+import { database } from '../../../services/api/firebase/database';
 
 /**
  * Component for displaying a list of buildings.
