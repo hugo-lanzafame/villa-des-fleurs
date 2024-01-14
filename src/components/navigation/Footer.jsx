@@ -25,14 +25,9 @@ const Footer = () => {
                     <Typography>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
                         incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</Typography>
                 </Grid>
-                <Grid item className="footer__column">
-                    <Typography className="footer__title">Contact</Typography>
-                    <Typography>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</Typography>
-                </Grid>
             </Grid>
             <Grid item container className="footer__bottom">
-                <Typography>© 2023-2024 <b>LaVillaDesFleurs</b>. Tous droits réservés.</Typography>
+                <Typography>© 2023-2024 <b>LaVillaDesFleurs</b>. All rights reserved.</Typography>
                 <Typography>Created by hugoLanzafame</Typography>
             </Grid>
         </Grid>

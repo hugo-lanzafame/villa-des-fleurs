@@ -75,10 +75,19 @@
             border-top: 1px solid $black-color;
             background-color: $dark-light-color;
             padding: 1rem 2rem;
-        }
+            justify-content: left;
 
-        &__column {
-            width: 30%;
+            @media (max-width: $mobile-size) {
+                display: flex;
+                flex-direction: column;
+            }
+
+            @media (min-width: $laptop-size) {
+                display: flex;
+                flex-wrap: nowrap;
+                flex-direction: row;
+                gap: 2rem;
+            }
         }
 
         &__title {
