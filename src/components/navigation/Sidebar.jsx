@@ -1,43 +1,62 @@
-import List from '@mui/material/List';
-import {
-    Box,
-    ListItemButton, Stack,
-} from "@mui/material";
+import {Box, ListItemButton, Stack, List, Typography} from "@mui/material";
+import BuildIcon from '@mui/icons-material/Build';
+import CalculateIcon from '@mui/icons-material/Calculate';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import ContentPasteIcon from '@mui/icons-material/ContentPaste';
 import HomeIcon from '@mui/icons-material/Home';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
-import ShowChartIcon from '@mui/icons-material/ShowChart';
 import {useNavigate} from "react-router-dom";
-import {PATHS} from '../../constants';
+import {useLanguage} from "../../context/LanguageProvider";
+import {PATHS} from "../../constants";
+import "./navigationStyle.scss";
 
+/**
+ * Component for the navigation sidebar.
+ *
+ * @returns {JSX.Element} The Sidebar component.
+ */
 const Sidebar = () => {
+    const {translate} = useLanguage();
     const navigate = useNavigate();
 
     return (
-        <Stack sx={{minWidth: 220, backgroundColor: '#302F37', overflowY: 'auto'}}>
-            <List sx={{color: '#FFFFFF', display: {xs: 'none', sm: 'block'}}}>
+        <Stack className="sidebar">
+            <List>
                 <Box>
-                    <ListItemButton sx={{gap: '10px'}}
+                    <ListItemButton className="sidebar__menu"
                                     onClick={() => navigate(PATHS.MANAGEMENT)}>
-                        {<ContentPasteIcon/>}Gestionnaire
+                        {<ContentPasteIcon/>}
+                        <Typography>{translate({section: "SIDEBAR", key: "MENU_MANAGEMENT"})}</Typography>
                     </ListItemButton>
                     <List disablePadding>
-                        <ListItemButton sx={{pl: 4, gap: "10px"}}
+                        <ListItemButton className="sidebar__sub-menu"
                                         onClick={() => navigate(PATHS.PROPERTIES)}>
-                            {<HomeIcon/>} Propriétés
+                            {<HomeIcon/>}
+                            <Typography>{translate({section: "SIDEBAR", key: "MENU_PROPERTIES"})}</Typography>
                         </ListItemButton>
-                        <ListItemButton sx={{pl: 4, gap: "10px"}}
+                        <ListItemButton className="sidebar__sub-menu"
                                         onClick={() => navigate(PATHS.HOME)}>
-                            {<PeopleAltIcon/>} Locataires
+                            {<PeopleAltIcon/>}
+                            <Typography>{translate({section: "SIDEBAR", key: "MENU_TENANTS"})}</Typography>
                         </ListItemButton>
-                        <ListItemButton sx={{pl: 4, gap: "10px"}}
+                        <ListItemButton className="sidebar__sub-menu"
                                         onClick={() => navigate(PATHS.HOME)}>
-                            {<CalendarMonthIcon/>} Locations
+                            {<CalendarMonthIcon/>}
+                            <Typography>{translate({section: "SIDEBAR", key: "MENU_RENTALS"})}</Typography>
                         </ListItemButton>
-                        <ListItemButton sx={{pl: 4, gap: "10px"}}
+                    </List>
+                </Box>
+                <Box>
+                    <ListItemButton className="sidebar__menu"
+                                    onClick={() => navigate(PATHS.HOME)}>
+                        {<BuildIcon/>}
+                        <Typography>{translate({section: "SIDEBAR", key: "MENU_TOOLS"})}</Typography>
+                    </ListItemButton>
+                    <List disablePadding>
+                        <ListItemButton className="sidebar__sub-menu"
                                         onClick={() => navigate(PATHS.HOME)}>
-                            {<ShowChartIcon/>} Finances
+                            {<CalculateIcon/>}
+                            <Typography>{translate({section: "SIDEBAR", key: "MENU_QUITTANCES"})}</Typography>
                         </ListItemButton>
                     </List>
                 </Box>

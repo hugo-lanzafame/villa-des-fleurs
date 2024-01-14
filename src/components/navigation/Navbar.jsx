@@ -1,8 +1,9 @@
 import React from "react";
-import {PATHS} from '../../constants';
-import {AppBar, IconButton, Stack, Toolbar} from "@mui/material";
-import {useNavigate} from "react-router-dom";
+import {IconButton, Stack} from "@mui/material";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import {useNavigate} from "react-router-dom";
+import {PATHS} from "../../constants";
+import "./navigationStyle.scss";
 
 /**
  * Component for the navigation bar.
@@ -13,26 +14,17 @@ const Navbar = () => {
     const navigate = useNavigate();
 
     return (
-        <AppBar position='static' sx={{backgroundColor: '#302F37', borderBottom: '#000000'}}>
-            <Toolbar sx={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                height: '64px',
-                overflowY: 'auto',
-            }}>
-                <Stack direction='row' spacing={1} alignItems='center'>
-                    <img
-                        src={require('../../assets/logo-lavilladesfleurs-Rectangle.png')}
-                        alt='VillaDesFleurs logo'
-                        onClick={() => navigate(PATHS.HOME)}
-                        style={{height: '56px', cursor: 'pointer'}}
-                    />
-                </Stack>
-                <IconButton onClick={() => navigate(PATHS.ACCOUNT)}>
-                    <AccountCircleIcon/>
-                </IconButton>
-            </Toolbar>
-        </AppBar>
+        <Stack className="navbar">
+            <IconButton onClick={() => navigate(PATHS.HOME)}>
+                <img className='logo'
+                    src={require('../../assets/logo-lavilladesfleurs-Carré.png')}
+                    alt='VillaDesFleurs logo'
+                />
+            </IconButton>
+            <IconButton onClick={() => navigate(PATHS.ACCOUNT)}>
+                <AccountCircleIcon className="navbar__account-icon"/>
+            </IconButton>
+        </Stack>
     );
 };
 

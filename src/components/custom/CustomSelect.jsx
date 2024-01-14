@@ -1,7 +1,7 @@
 import React from 'react';
 import {Grid, Select, MenuItem, FormControl, InputLabel} from '@mui/material';
-import '../../styles/globalStyle.scss';
-import '../../styles/loginStyle.scss';
+import './customStyle.scss';
+import '../login/loginStyle.scss';
 import PropTypes from 'prop-types';
 
 /**

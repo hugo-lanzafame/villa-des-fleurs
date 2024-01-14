@@ -117,6 +117,32 @@
       "fr": "Si l'e-mail correspond à un compte existant, un e-mail a été envoyé à l'adresse que vous avez fournie. Veuillez vérifier votre boîte de réception pour les instructions de réinitialisation du mot de passe."
     }
   },
+  "SIDEBAR" : {
+    "MENU_MANAGEMENT": {
+      "en": "Management",
+      "fr": "Gestionnaire"
+    },
+    "MENU_PROPERTIES": {
+      "en": "Properties",
+      "fr": "Propriétés"
+    },
+    "MENU_TENANTS": {
+      "en": "Tenants",
+      "fr": "Locataires"
+    },
+    "MENU_RENTALS": {
+      "en": "Rentals",
+      "fr": "Locations"
+    },
+    "MENU_TOOLS": {
+      "en": "Tools",
+      "fr": "Outils"
+    },
+    "MENU_QUITTANCES": {
+      "en": "Quittances",
+      "fr": "Quittances"
+    }
+  },
   "ACCOUNT_PAGE": {
     "TITLE_ACCOUNT": {
       "en": "Account settings",

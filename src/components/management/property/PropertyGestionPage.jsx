@@ -6,8 +6,8 @@ import {createBuilding} from '../../../services/api/firebase/database';
 import {PATHS, PROPERTY_TYPES} from '../../../constants';
 import {useLanguage} from '../../../context/LanguageProvider';
 //Components
-import CustomInput from "../../global/CustomInput";
-import CustomSelect from "../../global/CustomSelect";
+import CustomInput from "../../custom/CustomInput";
+import CustomSelect from "../../custom/CustomSelect";
 
 /**
  * Component for the Building Creation/Edition page.

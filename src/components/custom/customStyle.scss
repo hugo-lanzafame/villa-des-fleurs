@@ -1,28 +1,6 @@
-// Déclaration de variable
-$black-color: #000000;
-$white-color: #ffffff;
-$success-color: green;
-$fail-color: red;
+@import "../../colorPanel";
 
 #root {
-    .custom-log {
-        // Styles pour le composant CustomLog
-        position: absolute;
-        text-align: center;
-        border-radius: 20px;
-        padding: 1rem;
-
-        &__error {
-            background-color: $fail-color;
-            color: white;
-        }
-
-        &__success {
-            background-color: $success-color;
-            color: white;
-        }
-    }
-
     .custom-form {
         // Styles pour le composant CustomForm
         padding: 2rem;

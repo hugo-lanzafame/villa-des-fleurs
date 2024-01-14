@@ -1,17 +1,26 @@
-import { Outlet } from 'react-router-dom';
-import {Box, Stack} from "@mui/material";
+import {Outlet} from "react-router-dom";
+import {Stack} from "@mui/material";
+import "./navigationStyle.scss";
 import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
+import Footer from "./Footer";
 
+/**
+ * Layout component that represents the overall structure of the application.
+ *
+ * @component
+ * @returns {JSX.Element} The JSX element representing the Layout.
+ */
 const Layout = () => {
     return (
-        <Stack sx={{height: "100vh"}}>
+        <Stack className="layout">
             <Navbar/>
-            <Stack direction='row' sx={{ flexGrow: 1, overflow: 'hidden'}}>
-                <Sidebar sx={{ flexShrink: 0 }} />
-                <Box component="main" sx={{ flexGrow: 1, overflowY: 'auto' }}>
-                    <Outlet />
-                </Box>
+            <Stack className="layout__container-row">
+                <Sidebar/>
+                <Stack className="layout__container-column">
+                    <Outlet/>
+                    <Footer/>
+                </Stack>
             </Stack>
         </Stack>
     );
