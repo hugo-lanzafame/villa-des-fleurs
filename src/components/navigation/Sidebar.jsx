@@ -6,7 +6,7 @@ import ContentPasteIcon from '@mui/icons-material/ContentPaste';
 import HomeIcon from '@mui/icons-material/Home';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import {useNavigate} from "react-router-dom";
-import {useLanguage} from "../../context/LanguageProvider";
+import {useLanguage} from "../../contexts/LanguageProvider";
 import {PATHS} from "../../constants";
 import "./navigationStyle.scss";
 

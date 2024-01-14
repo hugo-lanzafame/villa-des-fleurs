@@ -6,7 +6,7 @@ import {resetPassword, signInUser} from '../../services/api/firebase/auth';
 import './loginStyle.scss';
 import {LOGIN_PAGE_FORM_ERRORS, LOGIN_PAGE_FORM_TYPES} from "../../constants";
 import '../../services/api/firebase/auth';
-import {useLanguage} from "../../context/LanguageProvider";
+import {useLanguage} from "../../contexts/LanguageProvider";
 //Components
 import CustomInput from "../custom/CustomInput";
 

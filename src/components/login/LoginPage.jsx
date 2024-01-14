@@ -2,7 +2,7 @@ import React from 'react';
 import {Box, Grid, Typography} from '@mui/material';
 import './loginStyle.scss';
 import image from '../../assets/ezgif-5-0be764f48f.png';
-import {useLanguage} from '../../context/LanguageProvider';
+import {useLanguage} from '../../contexts/LanguageProvider';
 //Components
 import LoginForm from "./LoginForm";
 

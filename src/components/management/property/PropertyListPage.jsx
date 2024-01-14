@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Box, Table, TableBody, TableCell, TableHead, TableRow, Button, TextField } from '@mui/material';
 import { ref, onValue, off } from 'firebase/database';
 import { database } from '../../../services/api/firebase/database';
+import {PATHS} from "../../../constants";
+import {useLanguage} from "../../../contexts/LanguageProvider";
+import Breadcrumb from "../../custom/Breadcrumb";
 
 /**
  * Component for displaying a list of buildings.
@@ -11,6 +14,14 @@ import { database } from '../../../services/api/firebase/database';
 function PropertyListPage() {
     const [buildings, setBuildings] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
+    const {translate} = useLanguage();
+
+    const breadcrumbLinks = [
+        {label: translate({section: "BREADCRUMB", key: "HOME"}), to: PATHS.HOME},
+        {label: translate({section: "BREADCRUMB", key: "MANAGEMENT"}), to: PATHS.MANAGEMENT},
+        {label: translate({section: "BREADCRUMB", key: "PROPERTIES"}), to: PATHS.PROPERTIES},
+    ];
+
 
     useEffect(() => {
         // Listen for changes to buildings in the Firebase database
@@ -43,6 +54,7 @@ function PropertyListPage() {
 
     return (
         <Box>
+            <Breadcrumb links={breadcrumbLinks}/>
             <h1>Building List</h1>
             <TextField
                 label="Search Building"

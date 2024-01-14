@@ -2,7 +2,6 @@
 
 #root {
     .custom-form {
-        // Styles pour le composant CustomForm
         padding: 2rem;
         text-align: center;
 
@@ -24,6 +23,29 @@
             margin-top: 1rem;
             width: 100%;
             background-color: $black-color;
+        }
+    }
+
+    .breadcrumb {
+        display: flex;
+        flex-direction: row;
+        color: $white-color;
+
+        &__typo {
+            display: flex;
+            flex-direction: row;
+        }
+
+        &__link {
+            color: $purple-light-color;
+        }
+
+        &__link:visited {
+            color: $purple-light-color;
+        }
+
+        &__separator {
+            margin: 0 0.5rem;
         }
     }
 }

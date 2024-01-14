@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import translations from "../translations/translations.json";
 
 /**
- * React context for language management.
+ * React contexts for language management.
  * @type {React.Context<LanguageContext>}
  */
 const LanguageContext = createContext();

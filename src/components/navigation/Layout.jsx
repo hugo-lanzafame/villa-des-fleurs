@@ -18,7 +18,9 @@ const Layout = () => {
             <Stack className="layout__container-row">
                 <Sidebar/>
                 <Stack className="layout__container-column">
-                    <Outlet/>
+                    <Stack className="layout__container-page">
+                        <Outlet/>
+                    </Stack>
                     <Footer/>
                 </Stack>
             </Stack>

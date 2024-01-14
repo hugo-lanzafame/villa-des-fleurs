@@ -1,8 +1,9 @@
 import React from 'react';
 import {useNavigate} from 'react-router-dom';
 import {signOutUser} from "../../services/api/firebase/auth";
-import {useLanguage} from '../../context/LanguageProvider';
+import {useLanguage} from '../../contexts/LanguageProvider';
 import {PATHS} from '../../constants';
+import Breadcrumb from "../custom/Breadcrumb";
 
 /**
  * Component for the account page.
@@ -12,6 +13,11 @@ import {PATHS} from '../../constants';
 const AccountPage = () => {
     const {currentLanguage, changeLanguage, translate} = useLanguage();
     const navigate = useNavigate();
+
+    const breadcrumbLinks = [
+        {label: translate({section: "BREADCRUMB", key: "HOME"}), to: PATHS.HOME},
+        {label: translate({section: "BREADCRUMB", key: "ACCOUNT"}), to: PATHS.ACCOUNT},
+    ];
 
     /**
      * Handles the language change event.
@@ -35,6 +41,7 @@ const AccountPage = () => {
 
     return (
         <div>
+            <Breadcrumb links={breadcrumbLinks}/>
             <h1>{translate({section:"ACCOUNT_PAGE", key:"TITLE_ACCOUNT"})}</h1>
             <select value={currentLanguage} onChange={handleLanguageChange}>
                 <option value="fr">{translate({section:"ACCOUNT_PAGE", key:"TRAD_FRENCH"})}</option>

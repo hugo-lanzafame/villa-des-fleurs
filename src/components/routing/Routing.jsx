@@ -9,7 +9,7 @@ import LoginPage from '../login/LoginPage';
 import HomePage from "../home/HomePage";
 import ManagementPage from "../management/ManagementPage";
 import TenantCreationPage from '../management/tenant/TenantCreationPage';
-import PropertyGestionPage from "../management/property/PropertyGestionPage";
+import PropertyCreateUpdatePage from "../management/property/PropertyCreateUpdatePage";
 import PropertyListPage from "../management/property/PropertyListPage";
 import AccountPage from "../account/AccountPage";
 import Layout from "../navigation/Layout";
@@ -35,7 +35,7 @@ const Routing = () => {
                     <Route path={PATHS.PROPERTIES}
                            element={<RoutePrivate><PropertyListPage/></RoutePrivate>}/>
                     <Route path={PATHS.PROPERTIES_GESTION}
-                           element={<RoutePrivate><PropertyGestionPage/></RoutePrivate>}/>
+                           element={<RoutePrivate><PropertyCreateUpdatePage/></RoutePrivate>}/>
                     <Route path={PATHS.TENANTS_GESTION}
                            element={<RoutePrivate><TenantCreationPage/></RoutePrivate>}/>
                     <Route path={PATHS.ACCOUNT}

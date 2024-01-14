@@ -117,7 +117,7 @@
       "fr": "Si l'e-mail correspond à un compte existant, un e-mail a été envoyé à l'adresse que vous avez fournie. Veuillez vérifier votre boîte de réception pour les instructions de réinitialisation du mot de passe."
     }
   },
-  "SIDEBAR" : {
+  "SIDEBAR": {
     "MENU_MANAGEMENT": {
       "en": "Management",
       "fr": "Gestionnaire"
@@ -175,6 +175,32 @@
     "INPUT_ARIA_LABEL": {
       "en": "text field",
       "fr": "champ de text"
+    }
+  },
+  "BREADCRUMB": {
+    "HOME": {
+      "en": "Home",
+      "fr": "Accueil"
+    },
+    "ACCOUNT": {
+      "en": "Account",
+      "fr": "Compte"
+    },
+    "MANAGEMENT": {
+      "en": "Management",
+      "fr": "Gestionnaire"
+    },
+    "PROPERTIES": {
+      "en": "Properties",
+      "fr": "Propriétés"
+    },
+    "CREATION": {
+      "en": "Creation",
+      "fr": "Création"
+    },
+    "EDITION": {
+      "en": "Edition",
+      "fr": "Édition"
     }
   }
 }
