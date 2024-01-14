@@ -31,7 +31,7 @@
         flex-direction: row;
         color: $white-color;
 
-        &__typo {
+        &__container {
             display: flex;
             flex-direction: row;
         }
@@ -46,6 +46,46 @@
 
         &__separator {
             margin: 0 0.5rem;
+        }
+    }
+
+    .custom-table {
+        background-color: $dark-light-color;
+        color: $white-color;
+
+        &__column {
+            color: $white-color;
+            border: 1px solid $black-color;
+
+            &__action {
+                color: $white-color;
+                text-align: right;
+                width: 30%;
+                border: 1px solid $black-color;
+            }
+        }
+
+        &__cell {
+            color: $white-color;
+            border: 1px solid $black-color;
+
+            &__action {
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-end;
+                border-bottom: 1px solid $black-color;
+            }
+        }
+
+        &__button {
+            color: $white-color;
+            border: 1px solid $white-color;
+
+            &__delete {
+                color: $red-light-color;
+                border: 1px solid $red-light-color;
+                margin-left: 1rem;
+            }
         }
     }
 }

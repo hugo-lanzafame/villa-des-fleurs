@@ -1,5 +1,5 @@
 import {Outlet} from "react-router-dom";
-import {Stack} from "@mui/material";
+import {Box, Stack} from "@mui/material";
 import "./navigationStyle.scss";
 import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
@@ -15,15 +15,15 @@ const Layout = () => {
     return (
         <Stack className="layout">
             <Navbar/>
-            <Stack className="layout__container-row">
+            <Box className="layout__container-row">
                 <Sidebar/>
-                <Stack className="layout__container-column">
-                    <Stack className="layout__container-page">
+                <Box className="layout__container-column">
+                    <Box className="layout__container-page">
                         <Outlet/>
-                    </Stack>
+                    </Box>
                     <Footer/>
-                </Stack>
-            </Stack>
+                </Box>
+            </Box>
         </Stack>
     );
 };

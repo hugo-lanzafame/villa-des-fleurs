@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import {Box} from '@mui/material';
+import {Box, Typography} from '@mui/material';
 import PropTypes from "prop-types";
 import {useNavigate} from 'react-router-dom';
 import {useLanguage} from '../../../contexts/LanguageProvider';
-import {createBuilding} from '../../../services/api/firebase/database';
+import {addProperty} from '../../../services/api/firebase/database';
 import {PATHS, PROPERTY_TYPES} from '../../../constants';
 import CustomInput from "../../custom/CustomInput";
 import CustomSelect from "../../custom/CustomSelect";
@@ -14,9 +14,9 @@ import Breadcrumb from "../../custom/Breadcrumb";
  *
  * @param {object} props - The component's props.
  * @param {string} props.id - The ID of the property.
- * @returns {JSX.Element} The PropertyCreateUpdatePage component.
+ * @returns {JSX.Element} The PropertyAddUpdatePage component.
  */
-function PropertyCreateUpdatePage({id}) {
+function PropertyAddUpdatePage({id}) {
     const [type, setType] = useState(PROPERTY_TYPES.APARTMENT);
     const [name, setName] = useState('');
     const {translate} = useLanguage();
@@ -56,7 +56,7 @@ function PropertyCreateUpdatePage({id}) {
         e.preventDefault();
         switch (type) {
             case PROPERTY_TYPES.APARTMENT:
-                createBuilding(name)
+                addProperty(name)
                     .then((buildingId) => {
                         navigate(`${PATHS.PROPERTIES_GESTION}?id=${buildingId}`);
                     })
@@ -79,7 +79,7 @@ function PropertyCreateUpdatePage({id}) {
      */
     const propertyTypeOptions = Object.keys(PROPERTY_TYPES).map((key) => ({
         value: PROPERTY_TYPES[key],
-        label: translate({section: "PROPERTY_GESTION_PAGE", key: "PROPERTY_TYPE_" + key}),
+        label: translate({section: "PROPERTY_ADD_UPDATE_PAGE", key: "PROPERTY_TYPE_" + key}),
     }));
 
     const fieldArray = [
@@ -99,15 +99,16 @@ function PropertyCreateUpdatePage({id}) {
     ]
 
     return (
-        <Box className='property-gestion-page'>
+        <Box className='property-add-update-page'>
             <Breadcrumb links={breadcrumbLinks}/>
+            <Typography className="page-title">Building List</Typography>
             {fieldArray}
         </Box>
     );
 }
 
-PropertyCreateUpdatePage.propTypes = {
+PropertyAddUpdatePage.propTypes = {
     id: PropTypes.string,
 };
 
-export default PropertyCreateUpdatePage;
+export default PropertyAddUpdatePage;

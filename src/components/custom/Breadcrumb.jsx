@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import {Stack, Typography} from "@mui/material";
+import {Box, Stack, Typography} from "@mui/material";
 
 /**
  * Component representing a breadcrumb navigation.
@@ -12,22 +12,22 @@ import {Stack, Typography} from "@mui/material";
  */
 const Breadcrumb = ({links}) => {
     return (
-        <Stack className="breadcrumb">
+        <Box className="breadcrumb">
             {links.map((link, index) => (
                 index < links.length - 1 ? (
-                    <Typography className="breadcrumb__typo" key={index}>
+                    <Box className="breadcrumb__container" key={index}>
                         <Link className="breadcrumb__link" to={link.to}>
-                            {link.label}
+                            <Typography>{link.label}</Typography>
                         </Link>
-                        <Stack className="breadcrumb__separator">/</Stack>
-                    </Typography>
+                        <Typography className="breadcrumb__separator">/</Typography>
+                    </Box>
                 ) : (
                     <Typography className="breadcrumb__typo" key={index}>
                         {link.label}
                     </Typography>
                 )
             ))}
-        </Stack>
+        </Box>
     )
 };
 
