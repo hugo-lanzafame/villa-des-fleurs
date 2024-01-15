@@ -1,77 +1,58 @@
-import React, { useEffect, useState } from 'react';
-import { Box, Table, TableBody, TableCell, TableHead, TableRow, Button, TextField } from '@mui/material';
-import { ref, onValue, off } from 'firebase/database';
-import { database } from '../../../firebase/database';
+import React, {useEffect, useState} from 'react';
+import {Box, TextField, Typography} from '@mui/material';
+import {useLanguage} from "../../../contexts/LanguageProvider";
+import {getProperties} from '../../../services/api/firebase/database';
+import {PATHS} from "../../../constants";
+import CustomTable from "../../custom/CustomTable";
+import Breadcrumb from "../../custom/Breadcrumb";
 
 /**
- * Component for displaying a list of buildings.
+ * Component for displaying a list of properties.
  *
  * @returns {JSX.Element} The PropertyListPage component.
  */
 function PropertyListPage() {
-    const [buildings, setBuildings] = useState([]);
+    const {translate} = useLanguage();
+
+    const [properties, setProperties] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
 
+    const breadcrumbLinks = [
+        {label: translate({section: "BREADCRUMB", key: "HOME"}), to: PATHS.HOME},
+        {label: translate({section: "BREADCRUMB", key: "MANAGEMENT"}), to: PATHS.MANAGEMENT},
+        {label: translate({section: "BREADCRUMB", key: "PROPERTIES"}), to: PATHS.PROPERTIES},
+    ];
+
     useEffect(() => {
-        // Listen for changes to buildings in the Firebase database
-        const buildingsRef = ref(database, 'buildings');
-        const unsubscribe = onValue(buildingsRef, (snapshot) => {
-            const data = snapshot.val();
-            if (data) {
-                // Convert the buildings object into an array for iteration
-                const buildingsArray = Object.keys(data).map((key) => ({
-                    id: key,
-                    name: data[key].buildingName,
-                }));
-                setBuildings(buildingsArray);
-            } else {
-                setBuildings([]);
+        const fetchData = async () => {
+            try {
+                const propertiesData = await getProperties(searchQuery);
+                setProperties(propertiesData);
+            } catch (error) {
+                console.error(error);
             }
-        });
-
-        // Clean up the listener when the component is unmounted
-        return () => {
-            off(buildingsRef);
-            unsubscribe();
         };
-    }, []);
 
-    // Filter the buildings based on the search query
-    const filteredBuildings = buildings.filter((building) =>
-        building.name.toLowerCase().includes(searchQuery.toLowerCase())
+        fetchData();
+    }, [searchQuery]);
+
+    const filteredProperties = properties.filter((property) =>
+        property.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
     return (
-        <Box>
-            <h1>Building List</h1>
+        <Box className="property-list-page">
+            <Breadcrumb links={breadcrumbLinks}/>
+            <Typography className="page-title">
+                {translate({section: "PROPERTY_LIST_PAGE", key: "PAGE_TITLE"})}
+            </Typography>
             <TextField
-                label="Search Building"
+                label={translate({section: "PROPERTY_LIST_PAGE", key: "SEARCH_NAME_LABEL"})}
+                placeholder={translate({section: "PROPERTY_LIST_PAGE", key: "SEARCH_NAME_PLACEHOLDER"})}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
             />
-            <Table>
-                <TableHead>
-                    <TableRow>
-                        <TableCell>Name</TableCell>
-                        <TableCell>Actions</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {filteredBuildings.map((building) => (
-                        <TableRow key={building.id}>
-                            <TableCell>{building.name}</TableCell>
-                            <TableCell>
-                                <Button>
-                                    View
-                                </Button>
-                                <Button>
-                                    Edit
-                                </Button>
-                            </TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
+            <CustomTable entries={filteredProperties}/>
         </Box>
     );
 }

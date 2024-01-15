@@ -2,14 +2,13 @@ import React, {useState} from 'react';
 import {Box, Button, Grid, Link, Typography} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 import PropTypes from "prop-types";
-import {resetPassword, signInUser} from '../../firebase/auth';
-import '../../styles/loginStyle.scss';
+import {resetPassword, signInUser} from '../../services/api/firebase/auth';
+import './loginStyle.scss';
 import {LOGIN_PAGE_FORM_ERRORS, LOGIN_PAGE_FORM_TYPES} from "../../constants";
-import '../../firebase/auth';
-import {useLanguage} from "../../context/LanguageProvider";
+import '../../services/api/firebase/auth';
+import {useLanguage} from "../../contexts/LanguageProvider";
 //Components
-import CustomInput from "../global/CustomInput";
-
+import CustomInput from "../custom/CustomInput";
 
 /**
  * Component for the authentification/password recovery form in the login page.

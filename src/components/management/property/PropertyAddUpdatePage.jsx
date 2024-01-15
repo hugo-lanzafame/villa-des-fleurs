@@ -1,26 +1,33 @@
 import React, {useState} from 'react';
-import {Box} from '@mui/material';
-import {useNavigate} from 'react-router-dom';
+import {Box, Typography} from '@mui/material';
 import PropTypes from "prop-types";
-import {createBuilding} from '../../../firebase/database';
+import {useNavigate} from 'react-router-dom';
+import {useLanguage} from '../../../contexts/LanguageProvider';
+import {addProperty} from '../../../services/api/firebase/database';
 import {PATHS, PROPERTY_TYPES} from '../../../constants';
-import {useLanguage} from '../../../context/LanguageProvider';
-//Components
-import CustomInput from "../../global/CustomInput";
-import CustomSelect from "../../global/CustomSelect";
+import CustomInput from "../../custom/CustomInput";
+import CustomSelect from "../../custom/CustomSelect";
+import Breadcrumb from "../../custom/Breadcrumb";
 
 /**
  * Component for the Building Creation/Edition page.
  *
  * @param {object} props - The component's props.
  * @param {string} props.id - The ID of the property.
- * @returns {JSX.Element} The PropertyGestionPage component.
+ * @returns {JSX.Element} The PropertyAddUpdatePage component.
  */
-function PropertyGestionPage({id}) {
+function PropertyAddUpdatePage({id}) {
     const [type, setType] = useState(PROPERTY_TYPES.APARTMENT);
     const [name, setName] = useState('');
     const {translate} = useLanguage();
     const navigate = useNavigate();
+
+    const breadcrumbLinks = [
+        {label: translate({section: "BREADCRUMB", key: "HOME"}), to: PATHS.HOME},
+        {label: translate({section: "BREADCRUMB", key: "MANAGEMENT"}), to: PATHS.MANAGEMENT},
+        {label: translate({section: "BREADCRUMB", key: "PROPERTIES"}), to: PATHS.PROPERTIES},
+        {label: translate({section: "BREADCRUMB", key: "CREATION"}), to: PATHS.PROPERTIES_GESTION},
+    ];
 
     /**
      * Handles the change event of the property name input.
@@ -49,7 +56,7 @@ function PropertyGestionPage({id}) {
         e.preventDefault();
         switch (type) {
             case PROPERTY_TYPES.APARTMENT:
-                createBuilding(name)
+                addProperty(name)
                     .then((buildingId) => {
                         navigate(`${PATHS.PROPERTIES_GESTION}?id=${buildingId}`);
                     })
@@ -72,7 +79,7 @@ function PropertyGestionPage({id}) {
      */
     const propertyTypeOptions = Object.keys(PROPERTY_TYPES).map((key) => ({
         value: PROPERTY_TYPES[key],
-        label: translate({section: "PROPERTY_GESTION_PAGE", key: "PROPERTY_TYPE_" + key}),
+        label: translate({section: "PROPERTY_ADD_UPDATE_PAGE", key: "PROPERTY_TYPE_" + key}),
     }));
 
     const fieldArray = [
@@ -92,13 +99,16 @@ function PropertyGestionPage({id}) {
     ]
 
     return (
-        <Box className='property-gestion-page'>
+        <Box className='property-add-update-page'>
+            <Breadcrumb links={breadcrumbLinks}/>
+            <Typography className="page-title">Building List</Typography>
             {fieldArray}
         </Box>
     );
 }
-PropertyGestionPage.propTypes = {
+
+PropertyAddUpdatePage.propTypes = {
     id: PropTypes.string,
 };
 
-export default PropertyGestionPage;
+export default PropertyAddUpdatePage;

@@ -117,6 +117,32 @@
       "fr": "Si l'e-mail correspond à un compte existant, un e-mail a été envoyé à l'adresse que vous avez fournie. Veuillez vérifier votre boîte de réception pour les instructions de réinitialisation du mot de passe."
     }
   },
+  "SIDEBAR": {
+    "MENU_MANAGEMENT": {
+      "en": "Management",
+      "fr": "Gestionnaire"
+    },
+    "MENU_PROPERTIES": {
+      "en": "Properties",
+      "fr": "Propriétés"
+    },
+    "MENU_TENANTS": {
+      "en": "Tenants",
+      "fr": "Locataires"
+    },
+    "MENU_RENTALS": {
+      "en": "Rentals",
+      "fr": "Locations"
+    },
+    "MENU_TOOLS": {
+      "en": "Tools",
+      "fr": "Outils"
+    },
+    "MENU_QUITTANCES": {
+      "en": "Quittances",
+      "fr": "Quittances"
+    }
+  },
   "ACCOUNT_PAGE": {
     "TITLE_ACCOUNT": {
       "en": "Account settings",
@@ -135,7 +161,21 @@
       "fr": "Déconnexion"
     }
   },
-  "PROPERTY_GESTION_PAGE": {
+  "PROPERTY_LIST_PAGE": {
+    "PAGE_TITLE": {
+      "en": "Properties list",
+      "fr": "Liste des propriétés"
+    },
+    "SEARCH_NAME_LABEL": {
+      "en": "Property's name",
+      "fr": "Nom de la propriété"
+    },
+    "SEARCH_NAME_PLACEHOLDER": {
+      "en": "Ex: VillaDesFleurs",
+      "fr": "Ex: VillaDesFleurs"
+    }
+  },
+  "PROPERTY_ADD_UPDATE_PAGE": {
     "PROPERTY_TYPE_APARTMENT": {
       "en": "Apartment",
       "fr": "Appartement"
@@ -149,6 +189,32 @@
     "INPUT_ARIA_LABEL": {
       "en": "text field",
       "fr": "champ de text"
+    }
+  },
+  "BREADCRUMB": {
+    "HOME": {
+      "en": "Home",
+      "fr": "Accueil"
+    },
+    "ACCOUNT": {
+      "en": "Account",
+      "fr": "Compte"
+    },
+    "MANAGEMENT": {
+      "en": "Management",
+      "fr": "Gestionnaire"
+    },
+    "PROPERTIES": {
+      "en": "Properties",
+      "fr": "Propriétés"
+    },
+    "CREATION": {
+      "en": "Creation",
+      "fr": "Création"
+    },
+    "EDITION": {
+      "en": "Edition",
+      "fr": "Édition"
     }
   }
 }

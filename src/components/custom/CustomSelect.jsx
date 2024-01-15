@@ -1,7 +1,7 @@
 import React from 'react';
-import { Grid, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
-import '../../styles/globalStyle.scss';
-import '../../styles/loginStyle.scss';
+import {Grid, Select, MenuItem, FormControl, InputLabel} from '@mui/material';
+import './customStyle.scss';
+import '../login/loginStyle.scss';
 import PropTypes from 'prop-types';
 
 /**
@@ -18,7 +18,7 @@ import PropTypes from 'prop-types';
  *
  * @returns {JSX.Element} The CustomSelect component.
  */
-const CustomSelect = ({ label, name, value, options, onChange }) => {
+const CustomSelect = ({label, name, value, options, onChange}) => {
     return (
         <Grid item>
             <FormControl>
