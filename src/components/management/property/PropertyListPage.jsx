@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Box, TextField, Typography} from '@mui/material';
 import {useLanguage} from "../../../contexts/LanguageProvider";
-import {getProperties} from '../../../services/api/firebase/database';
+import {getPropertiesByFilters} from '../../../services/api/firebase/database';
 import {PATHS} from "../../../constants";
 import CustomTable from "../../custom/CustomTable";
 import Breadcrumb from "../../custom/Breadcrumb";
@@ -13,7 +13,6 @@ import Breadcrumb from "../../custom/Breadcrumb";
  */
 function PropertyListPage() {
     const {translate} = useLanguage();
-
     const [properties, setProperties] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
 
@@ -26,7 +25,7 @@ function PropertyListPage() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const propertiesData = await getProperties(searchQuery);
+                const propertiesData = await getPropertiesByFilters(searchQuery);
                 setProperties(propertiesData);
             } catch (error) {
                 console.error(error);
