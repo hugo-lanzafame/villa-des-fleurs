@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { getIRL } from "../../services/api/BDM/IRL.js";
+import React, {useEffect, useState} from 'react';
+import {getIRL} from "../../services/api/BDM/IRL.js";
 
 /**
  * Component for the home page.

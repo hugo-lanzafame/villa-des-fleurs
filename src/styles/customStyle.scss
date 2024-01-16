@@ -1,4 +1,4 @@
-@import "../../colorPanel";
+@import "colorPanel";
 
 #root {
     .custom-form {
@@ -51,30 +51,36 @@
 
     .custom-table {
         background-color: $dark-light-color;
-        color: $white-color;
+        border: 1px solid $black-color;
+        border-collapse: separate;
+        border-radius: 10px;
 
         &__column {
             color: $white-color;
-            border: 1px solid $black-color;
+            border-bottom: 1px solid $black-color;
 
             &__action {
                 color: $white-color;
+                border-bottom: 1px solid $black-color;
                 text-align: right;
-                width: 30%;
-                border: 1px solid $black-color;
+                width: 20%;
             }
         }
 
         &__cell {
             color: $white-color;
-            border: 1px solid $black-color;
+            border-bottom: 1px solid $black-color;
 
             &__action {
+                border-bottom: 1px solid $black-color;
                 display: flex;
                 flex-direction: row;
                 justify-content: flex-end;
-                border-bottom: 1px solid $black-color;
             }
+        }
+
+        tr:last-child td {
+            border: 0;
         }
 
         &__button {

@@ -1,9 +1,14 @@
 import React from "react";
 import {Grid, IconButton, Typography} from "@mui/material";
 import {useNavigate} from "react-router-dom";
-import {PATHS} from "../../constants";
-import "./navigationStyle.scss";
+import {PATHS} from "../../constants/routing";
+import "../../styles/navigationStyle.scss";
 
+/**
+ * Footer component representing the footer section of the application.
+ *
+ * @returns {JSX.Element} The rendered Footer component.
+ */
 const Footer = () => {
     const navigate = useNavigate();
 

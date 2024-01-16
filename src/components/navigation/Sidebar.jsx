@@ -1,3 +1,4 @@
+import React from "react";
 import {Box, ListItemButton, Stack, List, Typography} from "@mui/material";
 import BuildIcon from '@mui/icons-material/Build';
 import CalculateIcon from '@mui/icons-material/Calculate';
@@ -7,8 +8,8 @@ import HomeIcon from '@mui/icons-material/Home';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import {useNavigate} from "react-router-dom";
 import {useLanguage} from "../../contexts/LanguageProvider";
-import {PATHS} from "../../constants";
-import "./navigationStyle.scss";
+import {PATHS} from "../../constants/routing";
+import "../../styles/navigationStyle.scss";
 
 /**
  * Component for the navigation sidebar.

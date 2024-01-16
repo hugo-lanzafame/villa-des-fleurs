@@ -1,9 +1,11 @@
-import {Outlet} from "react-router-dom";
+import React from "react";
 import {Box, Stack} from "@mui/material";
-import "./navigationStyle.scss";
-import Sidebar from "./Sidebar";
-import Navbar from "./Navbar";
+import {Outlet} from "react-router-dom";
+import "../../styles/navigationStyle.scss";
+import "../../styles/globalStyle.scss";
 import Footer from "./Footer";
+import Navbar from "./Navbar";
+import Sidebar from "./Sidebar";
 
 /**
  * Layout component that represents the overall structure of the application.

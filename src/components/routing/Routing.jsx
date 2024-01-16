@@ -1,19 +1,17 @@
 import React from 'react'
 import {BrowserRouter, Route, Routes,} from 'react-router-dom'
-import {PATHS} from '../../constants';
-//Route
+import {PATHS} from '../../constants/routing';
+import AccountPage from "../account/AccountPage";
+import HomePage from "../home/HomePage";
+import Layout from "../navigation/Layout";
+import LoginPage from '../login/LoginPage';
+import ManagementPage from "../management/ManagementPage";
+import UnknownPage from "../unknown/UnknownPage";
+import PropertyAddUpdatePage from "../property/PropertyAddUpdatePage";
+import PropertyListPage from "../property/PropertyListPage";
 import RoutePrivate from "./RoutePrivate";
 import RouteLogin from "./RouteLogin";
-//Pages
-import LoginPage from '../login/LoginPage';
-import HomePage from "../home/HomePage";
-import ManagementPage from "../management/ManagementPage";
-import TenantCreationPage from '../management/tenant/TenantCreationPage';
-import PropertyAddUpdatePage from "../management/property/PropertyAddUpdatePage";
-import PropertyListPage from "../management/property/PropertyListPage";
-import AccountPage from "../account/AccountPage";
-import Layout from "../navigation/Layout";
-import NotFoundPage from "../notfound/NotFoundPage";
+import TenantAddUpdatePage from '../tenant/TenantCreationPage';
 
 /**
  * Component for handling the application routing.
@@ -34,13 +32,16 @@ const Routing = () => {
                            element={<RoutePrivate><ManagementPage/></RoutePrivate>}/>
                     <Route path={PATHS.PROPERTIES}
                            element={<RoutePrivate><PropertyListPage/></RoutePrivate>}/>
-                    <Route path={PATHS.PROPERTIES_GESTION}
+                    <Route path={PATHS.PROPERTIES_CREATION}
                            element={<RoutePrivate><PropertyAddUpdatePage/></RoutePrivate>}/>
-                    <Route path={PATHS.TENANTS_GESTION}
-                           element={<RoutePrivate><TenantCreationPage/></RoutePrivate>}/>
+                    <Route path={PATHS.PROPERTIES_EDITION}
+                           element={<RoutePrivate><PropertyAddUpdatePage/></RoutePrivate>}/>
+                    <Route path={PATHS.TENANTS_CREATION}
+                           element={<RoutePrivate><TenantAddUpdatePage/></RoutePrivate>}/>
                     <Route path={PATHS.ACCOUNT}
                            element={<RoutePrivate><AccountPage/></RoutePrivate>}/>
-                    <Route path="*" element={<NotFoundPage/>}/>
+                    <Route path={PATHS.UNKNOWN}
+                           element={<RoutePrivate><UnknownPage/></RoutePrivate>}/>
                 </Route>
             </Routes>
         </BrowserRouter>

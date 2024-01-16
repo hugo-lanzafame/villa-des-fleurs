@@ -1,22 +1,25 @@
 import app from './config';
 import {getDatabase, push, ref, set, get, remove} from 'firebase/database';
 import PropTypes from 'prop-types';
+import {DATABASE} from "../../../constants/database";
 
 const database = getDatabase(app);
 
 /**
- * Add a new property in the database.
+ * Add a new property in the properties.
  *
  * @param {string} propertyName - The name of the property.
+ * @param {string} propertyType - The type of the property.
  * @returns {Promise<string>} A promise indicating the key of the property.
  * @throws {Error} If there is an error during the creation process.
  */
-const addProperty = async (propertyName) => {
+const addProperty = async (propertyName, propertyType) => {
     try {
-        const propertyThenableRef = push(ref(database, "properties"));
+        const propertyThenableRef = push(ref(database, DATABASE.PROPERTIES.TABLE));
 
         await set(propertyThenableRef, {
-            name: propertyName,
+            [DATABASE.PROPERTIES.COLUMN_NAME]: propertyName,
+            [DATABASE.PROPERTIES.COLUMN_TYPE]: propertyType,
         })
 
         return propertyThenableRef.key;
@@ -26,19 +29,21 @@ const addProperty = async (propertyName) => {
 }
 addProperty.propTypes = {
     propertyName: PropTypes.string.isRequired,
+    propertyType: PropTypes.string.isRequired,
 };
 
 /**
- * Get properties from the database and filter them by name.
+ * Get properties and filter them.
  *
  * @param {string?} propertyName - The property name to use for sorting.
+ * @param {string?} propertyType - The property type to use for sorting.
  * @returns {Promise<Array>} A promise that resolves to an array of properties.
  * @throws {Error} If there is an error during the getting process.
  */
-const getPropertiesByFilters = async (propertyName) => {
+const getPropertiesByFilters = async (propertyName, propertyType) => {
     try {
-        const propertyRef = ref(database, "properties");
-        const properties = [];
+        const propertyRef = ref(database, DATABASE.PROPERTIES.TABLE);
+        let properties = [];
 
         const snapshot = await get(propertyRef);
         snapshot.forEach((childSnapshot) => {
@@ -49,8 +54,18 @@ const getPropertiesByFilters = async (propertyName) => {
         });
 
         if (propertyName) {
-            properties.sort((a, b) => (a[propertyName] < b[propertyName] ? -1 : 1));
+            properties = properties.filter(property =>
+                property.name.toLowerCase().includes(propertyName.toLowerCase())
+            );
         }
+
+        if (propertyType) {
+            properties = properties.filter(property =>
+                property.type === propertyType
+            );
+        }
+
+        properties.sort((a, b) => (a[propertyName] < b[propertyName] ? -1 : 1));
 
         return properties;
     } catch (error) {
@@ -59,10 +74,11 @@ const getPropertiesByFilters = async (propertyName) => {
 };
 getPropertiesByFilters.propTypes = {
     propertyName: PropTypes.string,
+    propertyType: PropTypes.string,
 };
 
 /**
- * Deletes a property from the database by its ID.
+ * Delete a property by its ID.
  *
  * @param {string} propertyId - The ID of the property to be deleted.
  * @returns {Promise<void>} A promise indicating the success or failure of the deletion.
@@ -70,7 +86,7 @@ getPropertiesByFilters.propTypes = {
  */
 const deletePropertyById = async (propertyId) => {
     try {
-        const propertyRef = ref(database, `properties/${propertyId}`);
+        const propertyRef = ref(database, DATABASE.PROPERTIES.TABLE + "/" + propertyId);
 
         await remove(propertyRef);
     } catch (error) {
@@ -81,4 +97,4 @@ deletePropertyById.propTypes = {
     propertyId: PropTypes.string.isRequired,
 };
 
-export {addProperty, getPropertiesByFilters, deletePropertyById, database}
+export {addProperty, getPropertiesByFilters, deletePropertyById}

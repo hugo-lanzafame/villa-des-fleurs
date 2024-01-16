@@ -1,6 +1,6 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 import {Box, Typography} from "@mui/material";
+import {Link} from 'react-router-dom';
 
 /**
  * Component representing a breadcrumb navigation.
@@ -8,9 +8,9 @@ import {Box, Typography} from "@mui/material";
  * @param {Object[]} links - An array of link objects.
  * @param {string} links[].label - The label/text of the link.
  * @param {string} links[].to - The destination URL of the link.
- * @returns {JSX.Element} The Breadcrumb component.
+ * @returns {JSX.Element} The CustomBreadcrumb component.
  */
-const Breadcrumb = ({links}) => {
+const CustomBreadcrumb = ({links}) => {
     return (
         <Box className="breadcrumb">
             {links.map((link, index) => (
@@ -31,4 +31,4 @@ const Breadcrumb = ({links}) => {
     )
 };
 
-export default Breadcrumb;
+export default CustomBreadcrumb;

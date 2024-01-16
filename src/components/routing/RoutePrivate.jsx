@@ -1,7 +1,8 @@
-import {Navigate} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
+import {Navigate} from "react-router-dom";
 import {isAuth} from "../../services/api/firebase/auth";
+import {PATHS} from "../../constants/routing";
 
 /**
  * Component for handling private route redirection.
@@ -11,7 +12,7 @@ import {isAuth} from "../../services/api/firebase/auth";
  * @param {JSX.Element} props.children - The child components.
  * @returns {JSX.Element} The RoutePrivate component.
  */
-const RoutePrivate = ({redirectPath = '/login', children}) => {
+const RoutePrivate = ({redirectPath = PATHS.LOGIN, children}) => {
     const [isUserAuthenticated, setIsUserAuthenticated] = useState(null);
 
     useEffect(() => {

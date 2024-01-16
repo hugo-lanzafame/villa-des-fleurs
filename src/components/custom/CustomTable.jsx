@@ -1,21 +1,11 @@
-import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableRow,
-    Button,
-    Dialog,
-    DialogTitle,
-    DialogContent, DialogActions
-} from '@mui/material';
-import {useNavigate} from "react-router-dom";
-import {PATHS} from "../../constants";
-import "./customStyle.scss";
 import React, {useState} from "react";
-import {deletePropertyById} from "../../services/api/firebase/database";
+import {Table, TableBody, TableCell, TableHead, TableRow, Button, Dialog, DialogTitle, DialogContent, DialogActions, Typography} from '@mui/material';
+import {useNavigate} from "react-router-dom";
+import {deletePropertyById} from "../../services/api/firebase/properties";
+import {PATHS} from "../../constants/routing";
+import "../../styles/customStyle.scss";
 
-const CustomTable = ({ entries }) => {
+const CustomTable = ({entries, columns}) => {
     const navigate = useNavigate();
     const [selectedProperty, setSelectedProperty] = useState(null);
     const [openDialog, setOpenDialog] = useState(false);
@@ -38,17 +28,21 @@ const CustomTable = ({ entries }) => {
         <Table className="custom-table">
             <TableHead>
                 <TableRow>
-                    <TableCell className="custom-table__column">Name</TableCell>
+                    {columns.map((column) => (
+                        <TableCell key={column.key} className="custom-table__column">{column.label}</TableCell>
+                    ))}
                     <TableCell className="custom-table__column__action">Actions</TableCell>
                 </TableRow>
             </TableHead>
             <TableBody>
                 {entries.map((entry) => (
                     <TableRow key={entry.id} className="custom-table__row">
-                        <TableCell className="custom-table__cell">{entry.name}</TableCell>
+                        {columns.map((column) => (
+                            <TableCell key={column.key} className="custom-table__cell">{entry[column.key]}</TableCell>
+                        ))}
                         <TableCell className="custom-table__cell__action">
                             <Button className="custom-table__button"
-                                    onClick={() => navigate(PATHS.PROPERTIES_GESTION)}>
+                                    onClick={() => navigate(PATHS.PROPERTIES_EDITION)}>
                                 Edit
                             </Button>
                             <Button className="custom-table__button__delete"
@@ -61,9 +55,11 @@ const CustomTable = ({ entries }) => {
             </TableBody>
 
             <Dialog open={openDialog} onClose={handleDeleteCancel}>
-                <DialogTitle>Delete Property</DialogTitle>
+                <DialogTitle>
+                    <Typography>Delete Property</Typography>
+                </DialogTitle>
                 <DialogContent>
-                    Are you sure you want to delete the property "{selectedProperty?.name}"?
+                    <Typography>Are you sure you want to delete the property "{selectedProperty?.name}"?</Typography>
                 </DialogContent>
                 <DialogActions>
                     <Button className="custom-table__button"

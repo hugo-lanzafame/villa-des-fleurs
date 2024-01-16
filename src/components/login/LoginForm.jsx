@@ -1,13 +1,11 @@
 import React, {useState} from 'react';
 import {Box, Button, Grid, Link, Typography} from "@mui/material";
-import {useNavigate} from "react-router-dom";
 import PropTypes from "prop-types";
-import {resetPassword, signInUser} from '../../services/api/firebase/auth';
-import './loginStyle.scss';
-import {LOGIN_PAGE_FORM_ERRORS, LOGIN_PAGE_FORM_TYPES} from "../../constants";
-import '../../services/api/firebase/auth';
+import {useNavigate} from "react-router-dom"
 import {useLanguage} from "../../contexts/LanguageProvider";
-//Components
+import {resetPassword, signInUser} from '../../services/api/firebase/auth';
+import {LOGIN_FORM_TYPES, LOGIN_FORM_ERRORS} from '../../constants/login'
+import '../../styles/loginStyle.scss';
 import CustomInput from "../custom/CustomInput";
 
 /**
@@ -16,7 +14,7 @@ import CustomInput from "../custom/CustomInput";
  * @returns {JSX.Element} The `LoginForm` component.
  */
 const LoginForm = () => {
-    const [form, setForm] = useState(LOGIN_PAGE_FORM_TYPES.LOGIN);
+    const [form, setForm] = useState(LOGIN_FORM_TYPES.LOGIN);
     const [email, setEmail] = useState({value: '', helper: '', error: false});
     const [password, setPassword] = useState({value: '', helper: '', error: false});
     const {translate} = useLanguage();
@@ -33,7 +31,7 @@ const LoginForm = () => {
         setPassword({value: "", helper: '', error: false})
     };
     handleChangeFormClick.propTypes = {
-        targetForm: PropTypes.oneOf(Object.values(LOGIN_PAGE_FORM_TYPES)).isRequired,
+        targetForm: PropTypes.oneOf(Object.values(LOGIN_FORM_TYPES)).isRequired,
     };
 
     /**
@@ -65,7 +63,7 @@ const LoginForm = () => {
         setPassword({...password, helper: '', error: false})
 
         switch (form) {
-            case LOGIN_PAGE_FORM_TYPES.LOGIN:
+            case LOGIN_FORM_TYPES.LOGIN:
                 signInUser(email.value, password.value)
                     .then(() => {
                         navigate('/');
@@ -74,7 +72,7 @@ const LoginForm = () => {
                         handleFormErrors(error, form);
                     });
                 break;
-            case LOGIN_PAGE_FORM_TYPES.FORGOT:
+            case LOGIN_FORM_TYPES.FORGOT:
                 resetPassword(email.value)
                     .then(() => {
                         setEmail({...email, helper: translate({section: "LOGIN_FORM", key: "FORGOT_FORM_SUCCESS"})})
@@ -95,9 +93,10 @@ const LoginForm = () => {
      * @param {string} formType - The type of the form ('LOGIN' or 'FORGOT').
      */
     const handleFormErrors = (error, formType) => {
-        const errorKey = Object.keys(LOGIN_PAGE_FORM_ERRORS).find((key) => LOGIN_PAGE_FORM_ERRORS[key] === error.message.match(/\(([^)]+)\)/)[1]) ?? "DEFAULT";
+        const errorKey = Object.keys(LOGIN_FORM_ERRORS).find((key) => LOGIN_FORM_ERRORS[key] === error.message.match(/\(([^)]+)\)/)[1]) ?? "DEFAULT";
         const errorFormTypes = {
-            [LOGIN_PAGE_FORM_TYPES.LOGIN]: "LOGIN_FORM_ERROR_", [LOGIN_PAGE_FORM_TYPES.FORGOT]: "FORGOT_FORM_ERROR_",
+            [LOGIN_FORM_TYPES.LOGIN]: "LOGIN_FORM_ERROR_",
+            [LOGIN_FORM_TYPES.FORGOT]: "FORGOT_FORM_ERROR_",
         };
         const errorKeyPrefix = errorFormTypes[formType];
         const errorMessage = translate({section: "LOGIN_PAGE", key: errorKeyPrefix + errorKey});
@@ -105,20 +104,20 @@ const LoginForm = () => {
         let isEmailError = false;
         let isPasswordError = false;
 
-        switch (LOGIN_PAGE_FORM_ERRORS[errorKey]) {
-            case LOGIN_PAGE_FORM_ERRORS.INVALID_EMAIL:
-            case LOGIN_PAGE_FORM_ERRORS.MISSING_EMAIL:
-            case LOGIN_PAGE_FORM_ERRORS.USER_DISABLED:
+        switch (LOGIN_FORM_ERRORS[errorKey]) {
+            case LOGIN_FORM_ERRORS.INVALID_EMAIL:
+            case LOGIN_FORM_ERRORS.MISSING_EMAIL:
+            case LOGIN_FORM_ERRORS.USER_DISABLED:
                 isEmailError = true;
                 break;
-            case LOGIN_PAGE_FORM_ERRORS.MISSING_PASSWORD:
-            case LOGIN_PAGE_FORM_ERRORS.WEAK_PASSWORD:
+            case LOGIN_FORM_ERRORS.MISSING_PASSWORD:
+            case LOGIN_FORM_ERRORS.WEAK_PASSWORD:
                 isPasswordError = true;
                 break
-            case LOGIN_PAGE_FORM_ERRORS.WRONG_PASSWORD:
-            case LOGIN_PAGE_FORM_ERRORS.USER_NOT_FOUND:
-            case LOGIN_PAGE_FORM_ERRORS.TOO_MANY_REQUEST:
-            case LOGIN_PAGE_FORM_ERRORS.NETWORK_REQUEST_FAILED:
+            case LOGIN_FORM_ERRORS.WRONG_PASSWORD:
+            case LOGIN_FORM_ERRORS.USER_NOT_FOUND:
+            case LOGIN_FORM_ERRORS.TOO_MANY_REQUEST:
+            case LOGIN_FORM_ERRORS.NETWORK_REQUEST_FAILED:
             default:
                 isEmailError = true;
                 isPasswordError = true;
@@ -126,7 +125,7 @@ const LoginForm = () => {
         }
 
         if (isEmailError) {
-            if (LOGIN_PAGE_FORM_ERRORS[errorKey] === LOGIN_PAGE_FORM_ERRORS.USER_NOT_FOUND && formType === LOGIN_PAGE_FORM_TYPES.FORGOT) {
+            if (LOGIN_FORM_ERRORS[errorKey] === LOGIN_FORM_ERRORS.USER_NOT_FOUND && formType === LOGIN_FORM_TYPES.FORGOT) {
                 //Special case for security
                 setEmail(prevEmail => ({
                     ...prevEmail, helper: errorMessage, error: false
@@ -157,18 +156,18 @@ const LoginForm = () => {
     const getFormConfig = () => {
         const commonConfig = {};
         switch (form) {
-            case LOGIN_PAGE_FORM_TYPES.LOGIN:
+            case LOGIN_FORM_TYPES.LOGIN:
                 return {
                     ...commonConfig,
                     title: translate({section: "LOGIN_PAGE", key: "LOGIN_FORM_TITLE"}),
                     inputs: [{
-                        type: 'email',
+                        type: 'text',
                         label: translate({section: "LOGIN_PAGE", key: "LOGIN_FORM_LABEL_EMAIL"}),
                         name: 'email',
                         value: email.value,
                         helper: email.helper,
                         error: email.error,
-                        isRequired: true,
+                        isRequired: false,
                     }, {
                         type: 'password',
                         label: translate({section: "LOGIN_PAGE", key: "LOGIN_FORM_LABEL_PASSWORD"}),
@@ -176,28 +175,28 @@ const LoginForm = () => {
                         value: password.value,
                         helper: password.helper,
                         error: password.error,
-                        isRequired: true,
+                        isRequired: false,
                     },],
                     buttonLabel: translate({section: "LOGIN_PAGE", key: "LOGIN_FORM_BUTTON_LOGIN"}),
-                    linkTo: LOGIN_PAGE_FORM_TYPES.FORGOT,
+                    linkTo: LOGIN_FORM_TYPES.FORGOT,
                     linkLabel: translate({section: "LOGIN_PAGE", key: "LOGIN_FORM_BUTTON_TO_FORGOT"}),
                 };
-            case LOGIN_PAGE_FORM_TYPES.FORGOT:
+            case LOGIN_FORM_TYPES.FORGOT:
                 return {
                     ...commonConfig,
                     title: translate({section: "LOGIN_PAGE", key: "FORGOT_FORM_TITLE"}),
                     inputs: [{
-                        type: 'email',
+                        type: 'text',
                         label: translate({section: "LOGIN_PAGE", key: "FORGOT_FORM_LABEL_EMAIL"}),
                         name: 'email',
                         value: email.value,
                         helper: email.helper,
                         error: email.error,
-                        isRequired: true,
+                        isRequired: false,
 
                     },],
                     buttonLabel: translate({section: "LOGIN_PAGE", key: "FORGOT_FORM_BUTTON_FORGOT"}),
-                    linkTo: LOGIN_PAGE_FORM_TYPES.LOGIN,
+                    linkTo: LOGIN_FORM_TYPES.LOGIN,
                     linkLabel: translate({section: "LOGIN_PAGE", key: "FORGOT_FORM_BUTTON_TO_LOGIN"}),
                 };
             default:

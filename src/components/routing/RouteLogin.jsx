@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from "react";
-import {Navigate} from "react-router-dom";
 import PropTypes from "prop-types";
+import {Navigate} from "react-router-dom";
 import {isAuth} from "../../services/api/firebase/auth";
+import {PATHS} from "../../constants/routing";
 
 /**
  * Component for handling login route redirection.
@@ -11,7 +12,7 @@ import {isAuth} from "../../services/api/firebase/auth";
  * @param {JSX.Element} props.children - The child components.
  * @returns {JSX.Element} The RouteLogin component.
  */
-const RouteLogin = ({redirectPath = '/', children}) => {
+const RouteLogin = ({redirectPath = PATHS.HOME, children}) => {
     const [isUserAuthenticated, setIsUserAuthenticated] = useState(null);
 
     useEffect(() => {

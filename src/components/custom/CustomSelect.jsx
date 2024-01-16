@@ -1,8 +1,7 @@
 import React from 'react';
 import {Grid, Select, MenuItem, FormControl, InputLabel} from '@mui/material';
-import './customStyle.scss';
-import '../login/loginStyle.scss';
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
+import '../../styles/customStyle.scss';
 
 /**
  * Custom select component used in forms.

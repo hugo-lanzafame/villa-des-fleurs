@@ -2,7 +2,7 @@ import React from 'react';
 import {Grid, TextField} from "@mui/material";
 import PropTypes from "prop-types";
 import {useLanguage} from '../../contexts/LanguageProvider';
-import './customStyle.scss';
+import '../../styles/customStyle.scss';
 
 /**
  * Custom input component used in form.

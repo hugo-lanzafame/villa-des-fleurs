@@ -1,7 +1,7 @@
 import React from 'react'
-import Breadcrumb from "../custom/Breadcrumb";
-import {PATHS} from "../../constants";
 import {useLanguage} from "../../contexts/LanguageProvider";
+import {PATHS} from "../../constants/routing";
+import CustomBreadcrumb from "../custom/CustomBreadcrumb";
 
 /**
  * Component for the management page.
@@ -18,7 +18,7 @@ function ManagementPage() {
 
     return (
         <>
-            <Breadcrumb links={breadcrumbLinks}/>
+            <CustomBreadcrumb links={breadcrumbLinks}/>
             <p>YOLO</p>
         </>
     )

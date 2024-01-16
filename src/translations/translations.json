@@ -146,7 +146,7 @@
   "ACCOUNT_PAGE": {
     "TITLE_ACCOUNT": {
       "en": "Account settings",
-      "fr": "Paramètres de profil"
+      "fr": "Paramètres du compte"
     },
     "TRAD_FRENCH": {
       "en": "Francais",
@@ -166,6 +166,10 @@
       "en": "Properties list",
       "fr": "Liste des propriétés"
     },
+    "SEARCH_FILTER" : {
+      "en": "Filter",
+      "fr": "Filtre"
+    },
     "SEARCH_NAME_LABEL": {
       "en": "Property's name",
       "fr": "Nom de la propriété"
@@ -173,22 +177,18 @@
     "SEARCH_NAME_PLACEHOLDER": {
       "en": "Ex: VillaDesFleurs",
       "fr": "Ex: VillaDesFleurs"
-    }
-  },
-  "PROPERTY_ADD_UPDATE_PAGE": {
+    },
+    "SEARCH_TYPE_LABEL": {
+      "en": "Property's type",
+      "fr": "Type de la propriété"
+    },
+    "SEARCH_TYPE_PLACEHOLDER": {
+      "en": "Ex: Apartment",
+      "fr": "Ex: Appartement"
+    },
     "PROPERTY_TYPE_APARTMENT": {
       "en": "Apartment",
       "fr": "Appartement"
-    },
-    "PROPERTY_TYPE_BUILDING": {
-      "en": "Building",
-      "fr": "Immeuble"
-    }
-  },
-  "GLOBAL": {
-    "INPUT_ARIA_LABEL": {
-      "en": "text field",
-      "fr": "champ de text"
     }
   },
   "BREADCRUMB": {
@@ -215,6 +215,12 @@
     "EDITION": {
       "en": "Edition",
       "fr": "Édition"
+    }
+  },
+  "GLOBAL": {
+    "INPUT_ARIA_LABEL": {
+      "en": "text field",
+      "fr": "champ de text"
     }
   }
 }

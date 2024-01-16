@@ -2,12 +2,39 @@ import React, {useState} from 'react';
 import {Box, Typography} from '@mui/material';
 import PropTypes from "prop-types";
 import {useNavigate} from 'react-router-dom';
-import {useLanguage} from '../../../contexts/LanguageProvider';
-import {addProperty} from '../../../services/api/firebase/database';
-import {PATHS, PROPERTY_TYPES} from '../../../constants';
-import CustomInput from "../../custom/CustomInput";
-import CustomSelect from "../../custom/CustomSelect";
-import Breadcrumb from "../../custom/Breadcrumb";
+import {useLanguage} from '../../contexts/LanguageProvider';
+import {addProperty} from '../../services/api/firebase/properties';
+import {PATHS} from '../../constants/routing';
+import CustomInput from "../custom/CustomInput";
+import CustomSelect from "../custom/CustomSelect";
+import CustomBreadcrumb from "../custom/CustomBreadcrumb";
+
+/**
+ * Constants representing different property types.
+ *
+ * @type {Object}
+ * @readonly
+ * @property {string} APARTMENT - Apartment type.
+ * @property {string} BUILDING - Building type.
+ *
+ * @note
+ * Please add translations for these property types in 'translations.json'.
+ */
+const PROPERTY_TYPES = {
+    /**
+     * Represents an apartment property type.
+     * @type {string}
+     * @value apartment
+     */
+    APARTMENT: 'apartment',
+
+    /**
+     * Represents a building property type.
+     * @type {string}
+     * @value building
+     */
+    BUILDING: 'building',
+}
 
 /**
  * Component for the Building Creation/Edition page.
@@ -26,7 +53,7 @@ function PropertyAddUpdatePage({id}) {
         {label: translate({section: "BREADCRUMB", key: "HOME"}), to: PATHS.HOME},
         {label: translate({section: "BREADCRUMB", key: "MANAGEMENT"}), to: PATHS.MANAGEMENT},
         {label: translate({section: "BREADCRUMB", key: "PROPERTIES"}), to: PATHS.PROPERTIES},
-        {label: translate({section: "BREADCRUMB", key: "CREATION"}), to: PATHS.PROPERTIES_GESTION},
+        {label: translate({section: "BREADCRUMB", key: "CREATION"}), to: PATHS.PROPERTIES_CREATION},
     ];
 
     /**
@@ -100,7 +127,7 @@ function PropertyAddUpdatePage({id}) {
 
     return (
         <Box className='property-add-update-page'>
-            <Breadcrumb links={breadcrumbLinks}/>
+            <CustomBreadcrumb links={breadcrumbLinks}/>
             <Typography className="page-title">Building List</Typography>
             {fieldArray}
         </Box>
