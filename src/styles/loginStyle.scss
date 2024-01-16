@@ -8,6 +8,11 @@ $min-with-left: 450px;
         display: flex;
         height: 100vh;
 
+        ::selection {
+            color: white;
+            background: #0074ffcc;
+        }
+
         &__left-side {
             // Sélecteurs du côté gauche de la page
             flex: 1;
@@ -23,6 +28,11 @@ $min-with-left: 450px;
                 // Styles pour le composant CustomForm
                 width: 80%;
                 max-width: $min-with-left;
+
+                &__title {
+                    color : $black-color;
+                    font-size: 3rem;
+                }
 
                 &__field-container {
                     display: flex;

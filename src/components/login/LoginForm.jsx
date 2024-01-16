@@ -209,7 +209,7 @@ const LoginForm = () => {
     if (formConfig) {
         return (<>
             <Box className="custom-form">
-                <Typography variant="h2" className="custom-form__title">
+                <Typography className="custom-form__title">
                     {formConfig.title}
                 </Typography>
                 <form onSubmit={handleSubmit}>
@@ -237,7 +237,7 @@ const LoginForm = () => {
             </Box>
             <Link onClick={() => handleChangeFormClick(formConfig.linkTo)} variant="body2"
                   className="custom-form__link">
-                {formConfig.linkLabel}
+                <Typography>{formConfig.linkLabel}</Typography>
             </Link>
         </>);
     }

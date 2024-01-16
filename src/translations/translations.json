@@ -166,29 +166,25 @@
       "en": "Properties list",
       "fr": "Liste des propriétés"
     },
-    "SEARCH_FILTER" : {
-      "en": "Filter",
-      "fr": "Filtre"
-    },
-    "SEARCH_NAME_LABEL": {
+    "SEARCH_NAME": {
       "en": "Property's name",
       "fr": "Nom de la propriété"
     },
-    "SEARCH_NAME_PLACEHOLDER": {
-      "en": "Ex: VillaDesFleurs",
-      "fr": "Ex: VillaDesFleurs"
-    },
-    "SEARCH_TYPE_LABEL": {
+    "SEARCH_TYPE": {
       "en": "Property's type",
       "fr": "Type de la propriété"
-    },
-    "SEARCH_TYPE_PLACEHOLDER": {
-      "en": "Ex: Apartment",
-      "fr": "Ex: Appartement"
     },
     "PROPERTY_TYPE_APARTMENT": {
       "en": "Apartment",
       "fr": "Appartement"
+    },
+    "COLUMN_NAME": {
+      "en": "Name",
+      "fr": "Nom"
+    },
+    "COLUMN_TYPE": {
+      "en": "Type",
+      "fr": "Type"
     }
   },
   "BREADCRUMB": {
@@ -217,10 +213,10 @@
       "fr": "Édition"
     }
   },
-  "GLOBAL": {
-    "INPUT_ARIA_LABEL": {
-      "en": "text field",
-      "fr": "champ de text"
+  "CUSTOM_TABLE_FILTER" : {
+    "SEARCH_FILTER" : {
+      "en": "Filter",
+      "fr": "Filtre"
     }
   }
 }
