@@ -1,33 +1,36 @@
-# Villa des Fleurs - Site de Gestion Locative
+# Villa des Fleurs - Rental Management Platform
 
-Villa des Fleurs est un site web de gestion locative développé avec Firebase, React, SCSS et d'autres technologies. Il permet de gérer efficacement les propriétés locatives, les locataires, les paiements et divers documents liés à la gestion immobilière.
+Discover Villa des Fleurs, a robust rental management platform developed with Firebase, React, and SCSS. Designed for efficiency, the platform offers practical features to simplify property, tenant, and rental management.
 
-## Fonctionnalités principales
+## Key Features
 
-### Pour le proprio (en cours de developpement)
-- Affichage des appartements avec des informations :
-  - locataires actuels
-  - locataires passés
-  - photos
-  - autres informations
-- Suivi des paiements des locataires
-- Génération de quittances et de comptes rendus à envoyer aux locataires
+### Rental Management
+* CRUD Operation : Effortlessly add, update, view and delete properties, tenants and rentals
 
-### Pour les locataires (pas pour le moment)
-- Accès à des informations importantes (dates de paiement, prix du loyer, etc.)
-- Lecture (et ecriture) d'actualités
+### Financial Insights
+* Receipt Generation: Create professional receipts and detailed financial reports.
+* Late Payment Alerts: Receive timely notifications for overdue payments.
 
-## Technologies utilisées
-Le site Villa des Fleurs utilise les technologies suivantes :
+### Overview and Analytics
+* Comprehensive Statistics: Gain insights into your real estate portfolio with detailed analytics.
 
-* Firebase : Une plateforme de développement d'applications web et mobiles qui fournit des services d'authentification, de stockage de données, de base de données en temps réel et bien plus encore.
-* React : Une bibliothèque JavaScript pour la construction d'interfaces utilisateur interactives et réactives.
-* SCSS : Un langage de feuilles de style en cascade (CSS) avec des fonctionnalités étendues telles que les variables, les mixins et les modules.
-* Autres dépendances : Le projet utilise également d'autres dépendances et bibliothèques telles que React Routing pour la gestion des routes, Axios pour les requêtes HTTP, etc.
+### Multilingual Interface
+* English and French Support: User-friendly interface available in two languages.
 
-Ces technologies combinées offrent une base solide pour la création d'un site de gestion locative robuste et évolutif, avec une interface utilisateur réactive et des fonctionnalités avancées de gestion des données.
+These features collectively create a powerful and versatile property management solution, simplifying tasks and enhancing the overall property management experience.
 
-## Prerequis
+## Technologies Used
+
+The Villa des Fleurs website utilizes the following technologies:
+
+* Firebase: A web and mobile application development platform that provides authentication services, data storage, real-time databases, and more.
+* React: A JavaScript library for building interactive and responsive user interfaces.
+* SCSS: A Cascading Style Sheets (CSS) preprocessor with extended features like variables, mixins, and modules.
+* Other Dependencies: The project also incorporates other dependencies and libraries such as React Routing for route management, Axios for HTTP requests, etc.
+
+These combined technologies provide a robust foundation for creating a scalable and responsive property management website with advanced data management features.
+
+## Prerequisites
 
 - [nvm](https://github.com/nvm-sh/nvm)
 - [npm](https://github.com/npm/cli)
@@ -36,24 +39,25 @@ Ces technologies combinées offrent une base solide pour la création d'un site 
 
 ## Installation
 
-1. Clonez le repository :
+1. Clone the repository:
    ```bash
    git clone https://github.com/votre-utilisateur/villa-des-fleurs.git
    ```
-2. Accédez au répertoire du projet :
+2. Navigate to the project directory:
    ```bash
    cd villa-des-fleurs
    ```
-3. Installez les dépendances :
+3. Install dependencies:
    ```bash
    npm install
    ```
-4. Lancez l'application :
+4. Run the application:
    ```bash
    npm start
    ```
-L'application sera accessible à l'adresse http://localhost:3000.
 
-## Auteur
+The application will be accessible at http://localhost:3000.
+
+## Author
 
 [Hugo Lanzafame](https://github.com/hugolanzafameynov)
