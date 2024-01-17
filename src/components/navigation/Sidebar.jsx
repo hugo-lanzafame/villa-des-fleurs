@@ -1,5 +1,6 @@
 import React from "react";
 import {Box, ListItemButton, Stack, List, Typography} from "@mui/material";
+import ApartmentIcon from '@mui/icons-material/Apartment';
 import BuildIcon from '@mui/icons-material/Build';
 import CalculateIcon from '@mui/icons-material/Calculate';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
@@ -25,6 +26,11 @@ const Sidebar = () => {
             <List>
                 <Box>
                     <ListItemButton className="sidebar__menu"
+                                    onClick={() => navigate(PATHS.HOME)}>
+                        {<HomeIcon/>}
+                        <Typography>{translate({section: "SIDEBAR", key: "MENU_HOME"})}</Typography>
+                    </ListItemButton>
+                    <ListItemButton className="sidebar__menu"
                                     onClick={() => navigate(PATHS.MANAGEMENT)}>
                         {<ContentPasteIcon/>}
                         <Typography>{translate({section: "SIDEBAR", key: "MENU_MANAGEMENT"})}</Typography>
@@ -32,7 +38,7 @@ const Sidebar = () => {
                     <List disablePadding>
                         <ListItemButton className="sidebar__sub-menu"
                                         onClick={() => navigate(PATHS.PROPERTIES)}>
-                            {<HomeIcon/>}
+                            {<ApartmentIcon/>}
                             <Typography>{translate({section: "SIDEBAR", key: "MENU_PROPERTIES"})}</Typography>
                         </ListItemButton>
                         <ListItemButton className="sidebar__sub-menu"

@@ -118,6 +118,10 @@
     }
   },
   "SIDEBAR": {
+    "MENU_HOME": {
+      "en": "Home",
+      "fr": "Acceuil"
+    },
     "MENU_MANAGEMENT": {
       "en": "Management",
       "fr": "Gestionnaire"
