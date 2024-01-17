@@ -73,7 +73,7 @@ function PropertyListPage() {
                 {translate({section: "PROPERTY_LIST_PAGE", key: "PAGE_TITLE"})}
             </Typography>
             <CustomTableFilter filters={filters} onFilterChange={handleFilterChange}/>
-            <CustomTable entries={properties} columns={columns}/>
+            <CustomTable columns={columns} entries={properties}/>
         </Box>
     );
 }
