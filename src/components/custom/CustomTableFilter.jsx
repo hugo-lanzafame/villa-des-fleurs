@@ -1,7 +1,8 @@
-import React from 'react';
-import {Box, TextField, Typography} from '@mui/material';
+import React, {useState} from 'react';
+import {Box, Button, TextField} from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
 import PropTypes from 'prop-types';
-import {useLanguage} from "../../contexts/LanguageProvider";
+import "../../styles/customStyle.scss";
 
 /**
  * A filter objects to customize the table filter component.
@@ -25,17 +26,18 @@ import {useLanguage} from "../../contexts/LanguageProvider";
  * Component for the table filter.
  *
  * @param {TableFilter[]} filters - The array of filter objects.
- * @param {function} onFilterChange - The callback function triggered on filter change.
+ * @param {function} handleSearchClick - The callback function triggered on filter change.
  * @returns {JSX.Element} The CustomTableFilter component.
  */
-function CustomTableFilter({filters, onFilterChange}) {
-    const {translate} = useLanguage();
+function CustomTableFilter({filters, handleSearchClick}) {
+    const [filterValues, setFilterValues] = useState([]);
+
+    const handleFilterChange = (key, value) => {
+        setFilterValues((prevValues) => ({...prevValues, [key]: value}));
+    };
 
     return (
         <Box className="table-filter">
-            <Typography>
-                {translate({section: "CUSTOM_TABLE_FILTER", key: "SEARCH_FILTER"})} :
-            </Typography>
             <Box className="table-filter__field-container">
                 {filters.map((filter) => (
                     <TextField
@@ -43,12 +45,11 @@ function CustomTableFilter({filters, onFilterChange}) {
                         className="table-filter__field"
                         label={filter.label}
                         size="small"
-                        onChange={(e) => onFilterChange(filter.key, e.target.value)}
+                        onChange={(e) => handleFilterChange(filter.key, e.target.value)}
                         {...(filter.select ? {
                             select: true,
                             SelectProps: {native: true},
-                        } : {})}
-                    >
+                        } : {})}>
                         {filter.options && filter.options.map((option) => (
                             <option key={option.value} value={option.value}>
                                 {option.label}
@@ -57,12 +58,19 @@ function CustomTableFilter({filters, onFilterChange}) {
                     </TextField>
                 ))}
             </Box>
+            <Box className="table-filter__button-container">
+                <Button className="white-button"
+                        onClick={() => handleSearchClick(filterValues)}>
+                    <SearchIcon/>
+                </Button>
+            </Box>
         </Box>
     );
 }
+
 CustomTableFilter.propTypes = {
     filters: PropTypes.array.isRequired,
-    onFilterChange: PropTypes.func.isRequired,
+    handleSearchClick: PropTypes.func.isRequired,
 };
 
 export default CustomTableFilter;

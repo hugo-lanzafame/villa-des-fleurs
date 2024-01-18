@@ -1,13 +1,20 @@
 import React from 'react';
 import {Box, Typography} from "@mui/material";
 import {Link} from 'react-router-dom';
+import "../../styles/customStyle.scss";
+
+/**
+ * Represents a link in the breadcrumb navigation.
+ *
+ * @typedef {Object} BreadcrumbLink
+ * @property {string} label - The label of the link.
+ * @property {string} to - The destination URL of the link.
+ */
 
 /**
  * Component representing a breadcrumb navigation.
  *
- * @param {Object[]} links - An array of link objects.
- * @param {string} links[].label - The label/text of the link.
- * @param {string} links[].to - The destination URL of the link.
+ * @param {BreadcrumbLink[]} links - An array of BreadcrumbLink objects.
  * @returns {JSX.Element} The CustomBreadcrumb component.
  */
 const CustomBreadcrumb = ({links}) => {

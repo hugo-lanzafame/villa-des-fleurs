@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from 'react';
-import {Box, Typography} from '@mui/material';
+import React from 'react';
+import {Box} from '@mui/material';
 import {useLanguage} from "../../contexts/LanguageProvider";
 import {getPropertiesByFilters} from '../../services/api/firebase/properties';
 import {PATHS} from "../../constants/routing";
-import CustomBreadcrumb from "../custom/CustomBreadcrumb";
-import CustomTable from "../custom/CustomTable";
-import CustomTableFilter from "../custom/CustomTableFilter";
+import CustomTableManager from "../custom/CustomTableManager";
+import CustomPageTop from "../custom/CustomPageTop";
+
 
 /**
  * Component for displaying a list of properties.
@@ -14,9 +14,6 @@ import CustomTableFilter from "../custom/CustomTableFilter";
  */
 function PropertyListPage() {
     const {translate} = useLanguage();
-    const [properties, setProperties] = useState([]);
-    const [searchName, setSearchName] = useState('');
-    const [searchType, setSearchType] = useState('');
 
     const breadcrumbLinks = [
         {label: translate({section: "BREADCRUMB", key: "HOME"}), to: PATHS.HOME},
@@ -24,13 +21,15 @@ function PropertyListPage() {
         {label: translate({section: "BREADCRUMB", key: "PROPERTIES"}), to: PATHS.PROPERTIES},
     ];
 
+    const title = translate({section: "PROPERTY_LIST_PAGE", key: "PAGE_TITLE"});
+
     const filters = [
         {
-            key: 'searchName',
+            key: 'filterByName',
             label: translate({section: "PROPERTY_LIST_PAGE", key: "SEARCH_NAME"})
         },
         {
-            key: 'searchType',
+            key: 'filterByType',
             label: translate({section: "PROPERTY_LIST_PAGE", key: "SEARCH_TYPE"}),
             select: true,
             options: [
@@ -45,35 +44,10 @@ function PropertyListPage() {
         {key: 'type', label: translate({section: "PROPERTY_LIST_PAGE", key: "COLUMN_TYPE"})},
     ];
 
-    const handleFilterChange = (filterName, value) => {
-        if (filterName === 'searchName') {
-            setSearchName(value);
-        } else if (filterName === 'searchType') {
-            setSearchType(value);
-        }
-    };
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const propertiesData = await getPropertiesByFilters(searchName, searchType);
-                setProperties(propertiesData);
-            } catch (error) {
-                console.error(error);
-            }
-        };
-
-        fetchData();
-    }, [searchName, searchType]);
-
     return (
         <Box className="property-list-page">
-            <CustomBreadcrumb links={breadcrumbLinks}/>
-            <Typography className="page-title">
-                {translate({section: "PROPERTY_LIST_PAGE", key: "PAGE_TITLE"})}
-            </Typography>
-            <CustomTableFilter filters={filters} onFilterChange={handleFilterChange}/>
-            <CustomTable columns={columns} entries={properties}/>
+            <CustomPageTop breadcrumbLinks={breadcrumbLinks} title={title}/>
+            <CustomTableManager filters={filters} columns={columns} getEntriesByFilters={getPropertiesByFilters}/>
         </Box>
     );
 }

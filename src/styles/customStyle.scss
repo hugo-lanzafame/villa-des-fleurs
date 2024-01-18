@@ -1,7 +1,7 @@
 @import "colorPanel";
 
 #root {
-    .custom-form {
+    .form {
         padding: 2rem;
         text-align: center;
 
@@ -49,7 +49,85 @@
         }
     }
 
-    .custom-table {
+    .table-manager {
+        &__top-bar {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        &__create-button {
+            height: 100%;
+            aspect-ratio: 1 / 1;
+
+            svg {
+                height: 2rem;
+                width: 2rem;
+            }
+        }
+    }
+
+    .table-filter {
+        background-color: $dark-light-color;
+        border: 1px solid $black-color;
+        border-collapse: separate;
+        border-radius: 10px;
+        padding: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1rem;
+        width: 100%;
+
+        &__field-container {
+            display: flex;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        &__button-container {
+            display: flex;
+            gap: 1rem;
+        }
+
+        &__field {
+            width: 13rem;
+
+            .MuiOutlinedInput-notchedOutline {
+                color: $grey-color;
+            }
+
+            .Mui-focused fieldset.MuiOutlinedInput-notchedOutline {
+                border-color: $purple-light-color;
+                -webkit-transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,
+                transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms, max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+            }
+
+            .MuiInputLabel-root {
+                color: $grey-color;
+            }
+
+            .Mui-focused.MuiInputLabel-root {
+                color: $purple-light-color;
+                -webkit-transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,
+                transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms, max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+            }
+
+            input,
+            select {
+                color: $white-color;
+            }
+
+            select option {
+                color: $black-color;
+            }
+        }
+    }
+
+    .table {
         background-color: $dark-light-color;
         border: 1px solid $black-color;
         border-collapse: separate;
@@ -76,22 +154,20 @@
                 display: flex;
                 flex-direction: row;
                 justify-content: flex-end;
+                gap: 1rem;
             }
         }
 
         tr:last-child td {
             border: 0;
         }
+    }
 
-        &__button {
+    .top-page {
+        &__title {
             color: $white-color;
-            border: 1px solid $white-color;
-
-            &__delete {
-                color: $red-light-color;
-                border: 1px solid $red-light-color;
-                margin-left: 1rem;
-            }
+            margin: 1rem 0;
+            font-size: 2rem;
         }
     }
 }

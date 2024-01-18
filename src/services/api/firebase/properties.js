@@ -13,7 +13,7 @@ const database = getDatabase(app);
  * @returns {Promise<string>} A promise indicating the key of the property.
  * @throws {Error} If there is an error during the creation process.
  */
-const addProperty = async (propertyName, propertyType) => {
+const addProperty = async ({propertyName, propertyType}) => {
     try {
         const propertyThenableRef = push(ref(database, DATABASE.PROPERTIES.TABLE));
 
@@ -33,15 +33,25 @@ addProperty.propTypes = {
 };
 
 /**
+ * A filter objects that contain name ad type filter values.
+ *
+ * @typedef {Object} PropertyFilter
+ * @property {string} filterByName - The property name to use for sorting.
+ * @property {string} filterByType - The property type to use for sorting.
+ */
+
+/**
  * Get properties and filter them.
  *
- * @param {string?} propertyName - The property name to use for sorting.
- * @param {string?} propertyType - The property type to use for sorting.
+ * @param {PropertyFilter} filterValues - The filter values to use for sorting.
  * @returns {Promise<Array>} A promise that resolves to an array of properties.
  * @throws {Error} If there is an error during the getting process.
  */
-const getPropertiesByFilters = async (propertyName, propertyType) => {
+const getPropertiesByFilters = async (filterValues) => {
     try {
+        const filterByName = filterValues.filterByName;
+        const filterByType = filterValues.filterByType;
+
         const propertyRef = ref(database, DATABASE.PROPERTIES.TABLE);
         let properties = [];
 
@@ -53,19 +63,17 @@ const getPropertiesByFilters = async (propertyName, propertyType) => {
             });
         });
 
-        if (propertyName) {
+        if (filterByName && filterByName !== '') {
             properties = properties.filter(property =>
-                property.name.toLowerCase().includes(propertyName.toLowerCase())
+                property.name.toLowerCase().includes(filterByName.toLowerCase())
             );
         }
 
-        if (propertyType) {
+        if (filterByType && filterByType !== '') {
             properties = properties.filter(property =>
-                property.type === propertyType
+                property.type === filterByType
             );
         }
-
-        properties.sort((a, b) => (a[propertyName] < b[propertyName] ? -1 : 1));
 
         return properties;
     } catch (error) {
@@ -73,8 +81,7 @@ const getPropertiesByFilters = async (propertyName, propertyType) => {
     }
 };
 getPropertiesByFilters.propTypes = {
-    propertyName: PropTypes.string,
-    propertyType: PropTypes.string,
+    filterValues: PropTypes.array,
 };
 
 /**
