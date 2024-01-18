@@ -189,6 +189,14 @@
     "COLUMN_TYPE": {
       "en": "Type",
       "fr": "Type"
+    },
+    "POPUP_DELETE_TITLE": {
+      "en": "Are you sure you want to delete this property?",
+      "fr": "Êtes-vous sur de vouloir supprimer cette propriété ?"
+    },
+    "POPUP_DELETE_CONTENT": {
+      "en": "This action will result in permanent deletion of the property and all associated elements. You will not be able to recover this data.",
+      "fr": "Cet action entrainera une suppression définitive de la propriété et de tous les éléments associés. Vous ne pourrez pas récupérer ces données. "
     }
   },
   "BREADCRUMB": {

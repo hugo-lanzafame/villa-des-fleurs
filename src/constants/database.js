@@ -1,43 +1,4 @@
 /**
- * Constants representing database-related information.
- *
- * @typedef {Object} DatabaseConstants
- * @property {PropertyConstants} PROPERTIES - Constants for the 'properties' table.
- * @property {TenantConstants} TENANTS - Constants for the 'tenants' table.
- * @property {RentalConstants} RENTALS - Constants for the 'rentals' table.
- */
-
-/**
- * Constants representing 'properties' database structure.
- *
- * @typedef {Object} PropertyConstants
- * @property {string} TABLE - The name of the 'properties' table.
- * @property {string} COLUMN_NAME - The column name for property names.
- * @property {string} COLUMN_TYPE - The column name for property types.
- */
-
-/**
- * Constants representing 'tenants' database structure.
- *
- * @typedef {Object} TenantConstants
- * @property {string} TABLE - The name of the 'tenants' table.
- * @property {string} COLUMN_NAME - The column name for tenant names.
- * @property {string} COLUMN_PHONE - The column name for tenant phone numbers.
- * @property {string} COLUMN_EMAIL - The column name for tenant email addresses.
- */
-
-/**
- * Constants representing 'rentals' database structure.
- *
- * @typedef {Object} RentalConstants
- * @property {string} TABLE - The name of the 'rentals' table.
- * @property {string} COLUMN_START_DATE - The column name for rental start dates.
- * @property {string} COLUMN_END_DATE - The column name for rental end dates.
- * @property {string} COLUMN_TENANT_IDS - The column name for tenant IDs in rentals.
- * @property {string} COLUMN_PROPERTY_IDS - The column name for property IDs in rentals.
- */
-
-/**
  * Object containing constants representing database-related information.
  *
  * @type {DatabaseConstants}
@@ -66,6 +27,12 @@ const DATABASE = {
          * @type {string}
          */
         COLUMN_TYPE: 'type',
+
+        /**
+         * The column 'type' of the 'properties' database.
+         * @type {string}
+         */
+        COLUMN_TENANTS: 'tenants',
     },
 
     /**

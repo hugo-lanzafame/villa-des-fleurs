@@ -1,30 +1,50 @@
 import React, {useState} from "react";
-import {Table, TableBody, TableCell, TableHead, TableRow, Button, Dialog, DialogTitle, DialogContent, DialogActions, Typography} from '@mui/material';
+import {Table, TableBody, TableCell, TableHead, TableRow, Button, Typography} from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import PropTypes from "prop-types";
 import {useNavigate} from "react-router-dom";
 import {useLanguage} from "../../contexts/LanguageProvider";
-import {deletePropertyById} from "../../services/api/firebase/properties";
 import {PATHS} from "../../constants/routing";
 import "../../styles/customStyle.scss";
+import CustomPopupValidation from "./CustomPopupValidation";
 
-const CustomTable = ({columns, entries}) => {
+/**
+ * Component representing a custom table.
+ *
+ * @param {TableColumn[]} columns - An array of column objects.
+ * @param {Object[]} entries - An array of entry objects.
+ * @param {PopupContent} popupDeleteContent - The text content in delete popup.
+ * @param {function} deleteEntryById  - A function to delete an entry.
+ * @returns {JSX.Element} The CustomTable component.
+ */
+const CustomTable = ({columns, entries, popupDeleteContent, deleteEntryById}) => {
     const navigate = useNavigate();
     const {translate} = useLanguage();
     const [selectedProperty, setSelectedProperty] = useState(null);
     const [openDialog, setOpenDialog] = useState(false);
 
+    /**
+     * Handles the click event on the delete button.
+     *
+     * @param {Property} property - The property to delete.
+     */
     const handleDeleteClick = (property) => {
         setSelectedProperty(property);
         setOpenDialog(true);
     };
 
-    const handleDeleteConfirm = () => {
-        deletePropertyById(selectedProperty.id)
-            .then(setOpenDialog(false));
+    /**
+     * Handles the confirmation action in delete popup.
+     */
+    const handlePopupDeleteConfirm = () => {
+        deleteEntryById(selectedProperty.id).then(setOpenDialog(false));
     };
 
-    const handleDeleteCancel = () => {
+    /**
+     * Handles the close action in delete popup.
+     */
+    const handlePopupDeleteClose = () => {
         setOpenDialog(false);
     };
 
@@ -65,27 +85,17 @@ const CustomTable = ({columns, entries}) => {
                     </TableRow>
                 ))}
             </TableBody>
-
-            <Dialog open={openDialog} onClose={handleDeleteCancel}>
-                <DialogTitle>
-                    <Typography>Delete Property</Typography>
-                </DialogTitle>
-                <DialogContent>
-                    <Typography>Are you sure you want to delete the property "{selectedProperty?.name}"?</Typography>
-                </DialogContent>
-                <DialogActions>
-                    <Button className="custom-table__button"
-                            onClick={handleDeleteCancel}>
-                        Cancel
-                    </Button>
-                    <Button className="custom-table__button__delete"
-                            onClick={handleDeleteConfirm}>
-                        Delete
-                    </Button>
-                </DialogActions>
-            </Dialog>
+            <CustomPopupValidation open={openDialog} popupContent={popupDeleteContent}
+                                   onConfirm={handlePopupDeleteConfirm} onClose={handlePopupDeleteClose}/>
         </Table>
     );
+};
+
+CustomTable.propTypes = {
+    columns: PropTypes.array.isRequired,
+    entries: PropTypes.array.isRequired,
+    popupDeleteContent: PropTypes.object.isRequired,
+    deleteEntryById: PropTypes.func.isRequired,
 };
 
 

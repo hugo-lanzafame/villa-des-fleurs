@@ -1,12 +1,4 @@
 /**
- * Constants representing types of login forms.
- *
- * @typedef {Object} LoginFormTypeConstants
- * @property {string} LOGIN - Standard login form.
- * @property {string} FORGOT - Password recovery form.
- */
-
-/**
  * Object containing constants representing types of login forms.
  *
  * @type {LoginFormTypeConstants}
@@ -25,21 +17,6 @@ const LOGIN_FORM_TYPES = {
      */
     FORGOT: "forgot",
 };
-
-/**
- * Constants representing possible error codes related to the login form.
- *
- * @typedef {Object} LoginFormErrorsConstants
- * @property {string} INVALID_EMAIL - Invalid email address.
- * @property {string} WRONG_PASSWORD - Incorrect password.
- * @property {string} USER_NOT_FOUND - User not found for the provided email.
- * @property {string} MISSING_EMAIL - Email is required.
- * @property {string} MISSING_PASSWORD - Password is required.
- * @property {string} TOO_MANY_REQUEST - Too many login attempts. Try again later.
- * @property {string} NETWORK_REQUEST_FAILED - Network error. Check your connection.
- * @property {string} USER_DISABLED - User account disabled by an admin.
- * @property {string} WEAK_PASSWORD - Weak password. Choose a stronger one.
- */
 
 /**
  * Object containing constants of possible error codes related to the login form.

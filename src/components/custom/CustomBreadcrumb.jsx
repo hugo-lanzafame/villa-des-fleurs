@@ -4,14 +4,6 @@ import {Link} from 'react-router-dom';
 import "../../styles/customStyle.scss";
 
 /**
- * Represents a link in the breadcrumb navigation.
- *
- * @typedef {Object} BreadcrumbLink
- * @property {string} label - The label of the link.
- * @property {string} to - The destination URL of the link.
- */
-
-/**
  * Component representing a breadcrumb navigation.
  *
  * @param {BreadcrumbLink[]} links - An array of BreadcrumbLink objects.

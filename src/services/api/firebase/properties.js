@@ -8,18 +8,17 @@ const database = getDatabase(app);
 /**
  * Add a new property in the properties.
  *
- * @param {string} propertyName - The name of the property.
- * @param {string} propertyType - The type of the property.
+ * @param {Property} property - The property object to create.
  * @returns {Promise<string>} A promise indicating the key of the property.
  * @throws {Error} If there is an error during the creation process.
  */
-const addProperty = async ({propertyName, propertyType}) => {
+const addProperty = async (property) => {
     try {
         const propertyThenableRef = push(ref(database, DATABASE.PROPERTIES.TABLE));
 
         await set(propertyThenableRef, {
-            [DATABASE.PROPERTIES.COLUMN_NAME]: propertyName,
-            [DATABASE.PROPERTIES.COLUMN_TYPE]: propertyType,
+            [DATABASE.PROPERTIES.COLUMN_NAME]: property.name,
+            [DATABASE.PROPERTIES.COLUMN_TYPE]: property.type,
         })
 
         return propertyThenableRef.key;
@@ -28,30 +27,18 @@ const addProperty = async ({propertyName, propertyType}) => {
     }
 }
 addProperty.propTypes = {
-    propertyName: PropTypes.string.isRequired,
-    propertyType: PropTypes.string.isRequired,
+    property: PropTypes.array.isRequired,
 };
-
-/**
- * A filter objects that contain name ad type filter values.
- *
- * @typedef {Object} PropertyFilter
- * @property {string} filterByName - The property name to use for sorting.
- * @property {string} filterByType - The property type to use for sorting.
- */
 
 /**
  * Get properties and filter them.
  *
- * @param {PropertyFilter} filterValues - The filter values to use for sorting.
- * @returns {Promise<Array>} A promise that resolves to an array of properties.
+ * @param {PropertyFilterValues} [propertyFilterValues] - The filter values to use for sorting.
+ * @returns {Promise<Property>} A promise that resolves to an array of properties.
  * @throws {Error} If there is an error during the getting process.
  */
-const getPropertiesByFilters = async (filterValues) => {
+const getPropertiesByFilters = async (propertyFilterValues) => {
     try {
-        const filterByName = filterValues.filterByName;
-        const filterByType = filterValues.filterByType;
-
         const propertyRef = ref(database, DATABASE.PROPERTIES.TABLE);
         let properties = [];
 
@@ -62,6 +49,9 @@ const getPropertiesByFilters = async (filterValues) => {
                 ...childSnapshot.val(),
             });
         });
+
+        const filterByName = propertyFilterValues.filterByName;
+        const filterByType = propertyFilterValues.filterByType;
 
         if (filterByName && filterByName !== '') {
             properties = properties.filter(property =>
@@ -81,7 +71,7 @@ const getPropertiesByFilters = async (filterValues) => {
     }
 };
 getPropertiesByFilters.propTypes = {
-    filterValues: PropTypes.array,
+    propertyFilterValues: PropTypes.array,
 };
 
 /**

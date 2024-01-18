@@ -1,28 +1,4 @@
 /**
- * Constants representing database-related information.
- *
- * @typedef {Object} PathConstants
- * @property {string} LOGIN - Login path.
- * @property {string} HOME - Home path.
- * @property {string} MANAGEMENT - Management path.
- * @property {string} PROPERTIES - Properties list path.
- * @property {string} PROPERTIES_CREATION - Properties creation path.
- * @property {string} PROPERTIES_EDITION - Properties edition path.
- * @property {string} TENANTS - Tenants list path.
- * @property {string} TENANTS_CREATION - Tenants creation path.
- * @property {string} TENANTS_EDITION - Tenants edition path.
- * @property {string} RENTALS - Rentals list path.
- * @property {string} RENTALS_CREATION - Rentals creation path.
- * @property {string} RENTALS_EDITION - Rentals edition path.
- * @property {string} TOOLS - Tools path.
- * @property {string} QUITTANCES - Quittances list path.
- * @property {string} QUITTANCES_CREATION - Quittances creation path.
- * @property {string} QUITTANCES_EDITION - Quittances edition path.
- * @property {string} ACCOUNT - Account path.
- * @property {string} UNKNOWN - Unknown path.
- */
-
-/**
  * Object containing constants for various paths in the application.
  *
  * @type {PathConstants}

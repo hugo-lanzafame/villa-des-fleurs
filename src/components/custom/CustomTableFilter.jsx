@@ -5,24 +5,6 @@ import PropTypes from 'prop-types';
 import "../../styles/customStyle.scss";
 
 /**
- * A filter objects to customize the table filter component.
- *
- * @typedef {Object} TableFilter
- * @property {string} key - The unique key for the filter.
- * @property {string} labelKey - The translation key for the filter label.
- * @property {boolean} [select] - Indicates if the filter is a select dropdown.
- * @property {TableFilterOption[]} [options] - The options for a select dropdown.
- */
-
-/**
- * An option object to customize the table filter component.
- *
- * @typedef {Object} TableFilterOption
- * @property {string} value - The value of the option.
- * @property {string} label - The label of the option.
- */
-
-/**
  * Component for the table filter.
  *
  * @param {TableFilter[]} filters - The array of filter objects.
@@ -32,6 +14,12 @@ import "../../styles/customStyle.scss";
 function CustomTableFilter({filters, handleSearchClick}) {
     const [filterValues, setFilterValues] = useState([]);
 
+    /**
+     * Handles the change in filter values.
+     *
+     * @param {string} key - The key of the filter.
+     * @param {string} value - The new value of the filter.
+     */
     const handleFilterChange = (key, value) => {
         setFilterValues((prevValues) => ({...prevValues, [key]: value}));
     };

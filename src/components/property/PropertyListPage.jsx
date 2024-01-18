@@ -1,11 +1,10 @@
 import React from 'react';
 import {Box} from '@mui/material';
 import {useLanguage} from "../../contexts/LanguageProvider";
-import {getPropertiesByFilters} from '../../services/api/firebase/properties';
+import {deletePropertyById, getPropertiesByFilters} from '../../services/api/firebase/properties';
 import {PATHS} from "../../constants/routing";
 import CustomTableManager from "../custom/CustomTableManager";
 import CustomPageTop from "../custom/CustomPageTop";
-
 
 /**
  * Component for displaying a list of properties.
@@ -15,14 +14,23 @@ import CustomPageTop from "../custom/CustomPageTop";
 function PropertyListPage() {
     const {translate} = useLanguage();
 
+    /**
+     * @type {BreadcrumbLink[]}
+     */
     const breadcrumbLinks = [
         {label: translate({section: "BREADCRUMB", key: "HOME"}), to: PATHS.HOME},
         {label: translate({section: "BREADCRUMB", key: "MANAGEMENT"}), to: PATHS.MANAGEMENT},
         {label: translate({section: "BREADCRUMB", key: "PROPERTIES"}), to: PATHS.PROPERTIES},
     ];
 
+    /**
+     * @type {string}
+     */
     const title = translate({section: "PROPERTY_LIST_PAGE", key: "PAGE_TITLE"});
 
+    /**
+     * @type {TableFilter[]}
+     */
     const filters = [
         {
             key: 'filterByName',
@@ -39,15 +47,27 @@ function PropertyListPage() {
         },
     ];
 
+    /**
+     * @type {TableColumn[]}
+     */
     const columns = [
         {key: 'name', label: translate({section: "PROPERTY_LIST_PAGE", key: "COLUMN_NAME"})},
         {key: 'type', label: translate({section: "PROPERTY_LIST_PAGE", key: "COLUMN_TYPE"})},
     ];
 
+    /**
+     * @type {PopupContent}
+     */
+    const popupDeleteContent = {
+        title: translate({section: "PROPERTY_LIST_PAGE", key: "POPUP_DELETE_TITLE"}),
+        content: translate({section: "PROPERTY_LIST_PAGE", key: "POPUP_DELETE_CONTENT"}),
+    };
+
     return (
         <Box className="property-list-page">
             <CustomPageTop breadcrumbLinks={breadcrumbLinks} title={title}/>
-            <CustomTableManager filters={filters} columns={columns} getEntriesByFilters={getPropertiesByFilters}/>
+            <CustomTableManager filters={filters} columns={columns} popupDeleteContent={popupDeleteContent}
+                                getEntriesByFilters={getPropertiesByFilters} deleteEntryById={deletePropertyById}/>
         </Box>
     );
 }

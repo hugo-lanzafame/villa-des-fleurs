@@ -1,41 +1,33 @@
 import React, {useEffect, useState} from "react";
 import {Box, Button} from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
+import PropTypes from "prop-types";
+import {useNavigate} from "react-router-dom";
+import {PATHS} from "../../constants/routing";
 import "../../styles/customStyle.scss";
 import CustomTable from "./CustomTable";
 import CustomTableFilter from "../custom/CustomTableFilter";
 
 /**
- * Represents a filter object to customize the table filter component.
- *
- * @typedef {Object} TableFilter
- * @property {string} key - The unique key for the filter.
- * @property {string} label - The label/text for the filter.
- * @property {boolean} [select] - Indicates if the filter is a select dropdown.
- * @property {TableFilterOption[]} [options] - The options for a select dropdown.
- */
-
-/**
- * Represents an option object to customize the table filter component.
- *
- * @typedef {Object} TableFilterOption
- * @property {string} value - The value of the option.
- * @property {string} label - The label/text of the option.
- */
-
-/**
  * Component for managing a custom table with filter capabilities.
  *
- * @param {Object} props - The component props.
- * @param {TableFilter[]} props.filters - An array of filter objects.
- * @param {Object[]} props.columns - An array of column objects for the table.
- * @param {function} props.getEntriesByFilters - A function to fetch entries based on filter values.
+ * @param {TableFilter[]} filters - An array of filter objects.
+ * @param {TableColumn[]} columns - An array of column objects for the table.
+ * @param {PopupContent} popupDeleteContent - The text content in delete popup.
+ * @param {function} getEntriesByFilters - A function to fetch entries based on filter values.
+ * @param {function} deleteEntryById - A function to delete an entry.
  * @returns {JSX.Element} The CustomTableManager component.
  */
-function CustomTableManager({filters, columns, getEntriesByFilters}) {
+function CustomTableManager({filters, columns, popupDeleteContent, getEntriesByFilters, deleteEntryById}) {
+    const navigate = useNavigate();
     const [filterValues, setFilterValues] = useState([])
     const [entries, setEntries] = useState([]);
 
+    /**
+     * Function triggered when the search button is clicked in the table.
+     *
+     * @param {Array} filterValues - The current filter values.
+     */
     const handleSearchClick = (filterValues) => {
         setFilterValues(filterValues);
     };
@@ -56,13 +48,23 @@ function CustomTableManager({filters, columns, getEntriesByFilters}) {
         <Box className="table-manager">
             <Box className="table-manager__top-bar">
                 <CustomTableFilter filters={filters} handleSearchClick={handleSearchClick}/>
-                <Button className="table-manager__create-button green-button">
+                <Button className="table-manager__create-button green-button"
+                        onClick={() => navigate(PATHS.PROPERTIES_CREATION)}>
                     <AddIcon/>
                 </Button>
             </Box>
-            <CustomTable columns={columns} entries={entries}/>
+            <CustomTable columns={columns} entries={entries} popupDeleteContent={popupDeleteContent}
+                         deleteEntryById={deleteEntryById}/>
         </Box>
     );
 }
+
+CustomTableManager.propTypes = {
+    filters: PropTypes.array.isRequired,
+    columns: PropTypes.array.isRequired,
+    popupDeleteContent: PropTypes.object.isRequired,
+    getEntriesByFilters: PropTypes.func.isRequired,
+    deleteEntryById: PropTypes.func.isRequired,
+};
 
 export default CustomTableManager;
