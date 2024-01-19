@@ -3,10 +3,12 @@ import {Box, Button} from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import PropTypes from "prop-types";
 import {useNavigate} from "react-router-dom";
+import {useTable} from "../../contexts/TableProvider";
 import {PATHS} from "../../constants/routing";
 import "../../styles/customStyle.scss";
 import CustomTable from "./CustomTable";
 import CustomTableFilter from "../custom/CustomTableFilter";
+import CustomTableEmpty from "./CustomTableEmpty";
 
 /**
  * Component for managing a custom table with filter capabilities.
@@ -16,12 +18,12 @@ import CustomTableFilter from "../custom/CustomTableFilter";
  * @param {PopupContent} popupDeleteContent - The text content in delete popup.
  * @param {function} getEntriesByFilters - A function to fetch entries based on filter values.
  * @param {function} deleteEntryById - A function to delete an entry.
- * @returns {JSX.Element} The CustomTableManager component.
+ * @returns {JSX.Element} The CustomTableLayout component.
  */
-function CustomTableManager({filters, columns, popupDeleteContent, getEntriesByFilters, deleteEntryById}) {
+function CustomTableLayout({filters, columns, popupDeleteContent, getEntriesByFilters, deleteEntryById}) {
     const navigate = useNavigate();
+    const {currentEntries, changeEntries} = useTable();
     const [filterValues, setFilterValues] = useState([])
-    const [entries, setEntries] = useState([]);
 
     /**
      * Function triggered when the search button is clicked in the table.
@@ -35,13 +37,14 @@ function CustomTableManager({filters, columns, popupDeleteContent, getEntriesByF
     useEffect(() => {
         const fetchData = async () => {
             try {
-                setEntries(await getEntriesByFilters(filterValues));
+                changeEntries(await getEntriesByFilters(filterValues));
             } catch (error) {
                 console.error(error);
             }
         };
 
         fetchData();
+        // eslint-disable-next-line
     }, [getEntriesByFilters, filterValues]);
 
     return (
@@ -53,13 +56,17 @@ function CustomTableManager({filters, columns, popupDeleteContent, getEntriesByF
                     <AddIcon/>
                 </Button>
             </Box>
-            <CustomTable columns={columns} entries={entries} popupDeleteContent={popupDeleteContent}
+            {currentEntries && currentEntries.length !== 0 ? (
+                <CustomTable columns={columns} popupDeleteContent={popupDeleteContent}
                          deleteEntryById={deleteEntryById}/>
+            ) : (
+                <CustomTableEmpty/>
+            )}
         </Box>
     );
 }
 
-CustomTableManager.propTypes = {
+CustomTableLayout.propTypes = {
     filters: PropTypes.array.isRequired,
     columns: PropTypes.array.isRequired,
     popupDeleteContent: PropTypes.object.isRequired,
@@ -67,4 +74,4 @@ CustomTableManager.propTypes = {
     deleteEntryById: PropTypes.func.isRequired,
 };
 
-export default CustomTableManager;
+export default CustomTableLayout;

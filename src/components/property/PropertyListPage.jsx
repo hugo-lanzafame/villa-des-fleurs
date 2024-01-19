@@ -2,8 +2,9 @@ import React from 'react';
 import {Box} from '@mui/material';
 import {useLanguage} from "../../contexts/LanguageProvider";
 import {deletePropertyById, getPropertiesByFilters} from '../../services/api/firebase/properties';
+import {TableProvider} from "../../contexts/TableProvider";
 import {PATHS} from "../../constants/routing";
-import CustomTableManager from "../custom/CustomTableManager";
+import CustomTableLayout from "../custom/CustomTableLayout";
 import CustomPageTop from "../custom/CustomPageTop";
 
 /**
@@ -66,8 +67,8 @@ function PropertyListPage() {
     return (
         <Box className="property-list-page">
             <CustomPageTop breadcrumbLinks={breadcrumbLinks} title={title}/>
-            <CustomTableManager filters={filters} columns={columns} popupDeleteContent={popupDeleteContent}
-                                getEntriesByFilters={getPropertiesByFilters} deleteEntryById={deletePropertyById}/>
+            <CustomTableLayout filters={filters} columns={columns} popupDeleteContent={popupDeleteContent}
+                               getEntriesByFilters={getPropertiesByFilters} deleteEntryById={deletePropertyById}/>
         </Box>
     );
 }

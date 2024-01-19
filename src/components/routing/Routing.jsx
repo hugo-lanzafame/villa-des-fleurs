@@ -12,6 +12,7 @@ import PropertyListPage from "../property/PropertyListPage";
 import RoutePrivate from "./RoutePrivate";
 import RouteLogin from "./RouteLogin";
 import TenantAddUpdatePage from '../tenant/TenantCreationPage';
+import {TableProvider} from "../../contexts/TableProvider";
 
 /**
  * Component for handling the application routing.
@@ -23,25 +24,67 @@ const Routing = () => {
         <BrowserRouter>
             <Routes>
                 <Route path={PATHS.LOGIN}
-                       element={<RouteLogin><LoginPage/></RouteLogin>}/>
+                       element={
+                           <RouteLogin>
+                               <LoginPage/>
+                           </RouteLogin>
+                       }/>
                 <Route path={PATHS.HOME}
-                       element={<RoutePrivate><Layout/></RoutePrivate>}>
+                       element={
+                           <RoutePrivate>
+                               <Layout/>
+                           </RoutePrivate>
+                       }>
                     <Route path={PATHS.HOME}
-                           element={<RoutePrivate><HomePage/></RoutePrivate>}/>
+                           element={
+                               <RoutePrivate>
+                                   <HomePage/>
+                               </RoutePrivate>
+                           }/>
                     <Route path={PATHS.MANAGEMENT}
-                           element={<RoutePrivate><ManagementPage/></RoutePrivate>}/>
+                           element={
+                               <RoutePrivate>
+                                   <ManagementPage/>
+                               </RoutePrivate>
+                           }/>
                     <Route path={PATHS.PROPERTIES}
-                           element={<RoutePrivate><PropertyListPage/></RoutePrivate>}/>
+                           element={
+                               <RoutePrivate>
+                                   <TableProvider>
+                                       <PropertyListPage/>
+                                   </TableProvider>
+                               </RoutePrivate>
+                           }/>
                     <Route path={PATHS.PROPERTIES_CREATION}
-                           element={<RoutePrivate><PropertyAddUpdatePage/></RoutePrivate>}/>
+                           element={
+                               <RoutePrivate>
+                                   <PropertyAddUpdatePage/>
+                               </RoutePrivate>
+                           }/>
                     <Route path={PATHS.PROPERTIES_EDITION}
-                           element={<RoutePrivate><PropertyAddUpdatePage/></RoutePrivate>}/>
+                           element={
+                               <RoutePrivate>
+                                   <PropertyAddUpdatePage/>
+                               </RoutePrivate>
+                           }/>
                     <Route path={PATHS.TENANTS_CREATION}
-                           element={<RoutePrivate><TenantAddUpdatePage/></RoutePrivate>}/>
+                           element={
+                               <RoutePrivate>
+                                   <TenantAddUpdatePage/>
+                               </RoutePrivate>
+                           }/>
                     <Route path={PATHS.ACCOUNT}
-                           element={<RoutePrivate><AccountPage/></RoutePrivate>}/>
+                           element={
+                               <RoutePrivate>
+                                   <AccountPage/>
+                               </RoutePrivate>
+                           }/>
                     <Route path={PATHS.UNKNOWN}
-                           element={<RoutePrivate><UnknownPage/></RoutePrivate>}/>
+                           element={
+                               <RoutePrivate>
+                                   <UnknownPage/>
+                               </RoutePrivate>
+                           }/>
                 </Route>
             </Routes>
         </BrowserRouter>

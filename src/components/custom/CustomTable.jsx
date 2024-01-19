@@ -5,32 +5,33 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import PropTypes from "prop-types";
 import {useNavigate} from "react-router-dom";
 import {useLanguage} from "../../contexts/LanguageProvider";
+import {useTable} from "../../contexts/TableProvider";
 import {PATHS} from "../../constants/routing";
 import "../../styles/customStyle.scss";
-import CustomPopupValidation from "./CustomPopupValidation";
+import CustomPopupDelete from "./CustomPopupDelete";
 
 /**
  * Component representing a custom table.
  *
  * @param {TableColumn[]} columns - An array of column objects.
- * @param {Object[]} entries - An array of entry objects.
  * @param {PopupContent} popupDeleteContent - The text content in delete popup.
  * @param {function} deleteEntryById  - A function to delete an entry.
  * @returns {JSX.Element} The CustomTable component.
  */
-const CustomTable = ({columns, entries, popupDeleteContent, deleteEntryById}) => {
+const CustomTable = ({columns, popupDeleteContent, deleteEntryById}) => {
     const navigate = useNavigate();
     const {translate} = useLanguage();
-    const [selectedProperty, setSelectedProperty] = useState(null);
+    const {currentEntries, changeEntries} = useTable();
+    const [selectedEntry, setSelectedEntry] = useState(null);
     const [openDialog, setOpenDialog] = useState(false);
 
     /**
      * Handles the click event on the delete button.
      *
-     * @param {Property} property - The property to delete.
+     * @param {Object} entry - The entry to delete.
      */
-    const handleDeleteClick = (property) => {
-        setSelectedProperty(property);
+    const handleDeleteClick = (entry) => {
+        setSelectedEntry(entry);
         setOpenDialog(true);
     };
 
@@ -38,7 +39,12 @@ const CustomTable = ({columns, entries, popupDeleteContent, deleteEntryById}) =>
      * Handles the confirmation action in delete popup.
      */
     const handlePopupDeleteConfirm = () => {
-        deleteEntryById(selectedProperty.id).then(setOpenDialog(false));
+        deleteEntryById(selectedEntry.id)
+            .then(() => {
+                    changeEntries(currentEntries.filter(objet => objet.id !== selectedEntry.id));
+                    setOpenDialog(false);
+                }
+            );
     };
 
     /**
@@ -65,7 +71,7 @@ const CustomTable = ({columns, entries, popupDeleteContent, deleteEntryById}) =>
                 </TableRow>
             </TableHead>
             <TableBody>
-                {entries.map((entry) => (
+                {currentEntries.map((entry) => (
                     <TableRow key={entry.id} className="table__row">
                         {columns.map((column) => (
                             <TableCell key={column.key} className="table__cell">
@@ -85,15 +91,14 @@ const CustomTable = ({columns, entries, popupDeleteContent, deleteEntryById}) =>
                     </TableRow>
                 ))}
             </TableBody>
-            <CustomPopupValidation open={openDialog} popupContent={popupDeleteContent}
-                                   onConfirm={handlePopupDeleteConfirm} onClose={handlePopupDeleteClose}/>
+            <CustomPopupDelete open={openDialog} popupContent={popupDeleteContent}
+                               onConfirm={handlePopupDeleteConfirm} onClose={handlePopupDeleteClose}/>
         </Table>
-    );
-};
+    )
+}
 
 CustomTable.propTypes = {
     columns: PropTypes.array.isRequired,
-    entries: PropTypes.array.isRequired,
     popupDeleteContent: PropTypes.object.isRequired,
     deleteEntryById: PropTypes.func.isRequired,
 };
