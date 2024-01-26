@@ -1,17 +1,21 @@
 import React, {useState} from 'react';
 import {Box, Button, TextField} from '@mui/material';
+import CachedIcon from '@mui/icons-material/Cached';
+import ClearIcon from '@mui/icons-material/Clear';
 import SearchIcon from '@mui/icons-material/Search';
 import PropTypes from 'prop-types';
+import {useTable} from "../../contexts/TableProvider";
 import "../../styles/customStyle.scss";
 
 /**
  * Component for the table filter.
  *
- * @param {TableFilter[]} filters - The array of filter objects.
- * @param {function} handleSearchClick - The callback function triggered on filter change.
+ * @param {function} reloadEntries - A function to fetch entries.
+ * @param {function} filterEntries - A function to filter entries.
  * @returns {JSX.Element} The CustomTableFilter component.
  */
-function CustomTableFilter({filters, handleSearchClick}) {
+function CustomTableFilter({reloadEntries, filterEntries}) {
+    const {filters, changeAllEntries, allEntries, changeEntries} = useTable();
     const [filterValues, setFilterValues] = useState([]);
 
     /**
@@ -21,7 +25,47 @@ function CustomTableFilter({filters, handleSearchClick}) {
      * @param {string} value - The new value of the filter.
      */
     const handleFilterChange = (key, value) => {
-        setFilterValues((prevValues) => ({...prevValues, [key]: value}));
+        setFilterValues((prevValues) => {
+            const newValues = {...prevValues};
+
+            if (value === '') {
+                delete newValues[key];
+            } else {
+                newValues[key] = value;
+            }
+
+            return newValues;
+        });
+    };
+
+    /**
+     * Function triggered when the search button is clicked in the table.
+     */
+    const handleSearchClick = async () => {
+        if (filterValues.length === 0) {
+            changeEntries(allEntries);
+        } else {
+            changeEntries(filterEntries(allEntries, filterValues));
+        }
+    };
+
+    /**
+     * Function triggered when the reload button is clicked in the table.
+     */
+    const handleReloadClick = async () => {
+        const reloadedEntries = await reloadEntries()
+
+        setFilterValues([]);
+        changeEntries(reloadedEntries);
+        changeAllEntries(reloadedEntries);
+    };
+
+    /**
+     * Function triggered when the clear button is clicked in the table.
+     */
+    const handleClearClick = async () => {
+        setFilterValues([]);
+        changeEntries(allEntries);
     };
 
     return (
@@ -33,6 +77,7 @@ function CustomTableFilter({filters, handleSearchClick}) {
                         className="table-filter__field"
                         label={filter.label}
                         size="small"
+                        value={filterValues[filter.key] || ''}
                         onChange={(e) => handleFilterChange(filter.key, e.target.value)}
                         {...(filter.select ? {
                             select: true,
@@ -48,8 +93,16 @@ function CustomTableFilter({filters, handleSearchClick}) {
             </Box>
             <Box className="table-filter__button-container">
                 <Button className="white-button"
-                        onClick={() => handleSearchClick(filterValues)}>
+                        onClick={() => handleSearchClick()}>
                     <SearchIcon/>
+                </Button>
+                <Button className="white-button"
+                        onClick={() => handleReloadClick()}>
+                    <CachedIcon/>
+                </Button>
+                <Button className="white-button"
+                        onClick={() => handleClearClick()}>
+                    <ClearIcon/>
                 </Button>
             </Box>
         </Box>
@@ -57,8 +110,8 @@ function CustomTableFilter({filters, handleSearchClick}) {
 }
 
 CustomTableFilter.propTypes = {
-    filters: PropTypes.array.isRequired,
-    handleSearchClick: PropTypes.func.isRequired,
+    reloadEntries: PropTypes.func.isRequired,
+    filterEntries: PropTypes.func.isRequired,
 };
 
 export default CustomTableFilter;

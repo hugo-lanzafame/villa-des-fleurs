@@ -31,13 +31,12 @@ addProperty.propTypes = {
 };
 
 /**
- * Get properties and filter them.
+ * Get all properties.
  *
- * @param {PropertyFilterValues} [propertyFilterValues] - The filter values to use for sorting.
  * @returns {Promise<Property>} A promise that resolves to an array of properties.
  * @throws {Error} If there is an error during the getting process.
  */
-const getPropertiesByFilters = async (propertyFilterValues) => {
+const getAllProperties = async () => {
     try {
         const propertyRef = ref(database, DATABASE.PROPERTIES.TABLE);
         let properties = [];
@@ -50,29 +49,14 @@ const getPropertiesByFilters = async (propertyFilterValues) => {
             });
         });
 
-        const filterByName = propertyFilterValues.filterByName;
-        const filterByType = propertyFilterValues.filterByType;
-
-        if (filterByName && filterByName !== '') {
-            properties = properties.filter(property =>
-                property.name.toLowerCase().includes(filterByName.toLowerCase())
-            );
-        }
-
-        if (filterByType && filterByType !== '') {
-            properties = properties.filter(property =>
-                property.type === filterByType
-            );
-        }
+        properties.sort((a, b) => (a.name < b.name ? -1 : 1));
 
         return properties;
     } catch (error) {
         throw error;
     }
 };
-getPropertiesByFilters.propTypes = {
-    propertyFilterValues: PropTypes.array,
-};
+
 
 /**
  * Delete a property by its ID.
@@ -94,4 +78,4 @@ deletePropertyById.propTypes = {
     propertyId: PropTypes.string.isRequired,
 };
 
-export {addProperty, getPropertiesByFilters, deletePropertyById}
+export {addProperty, getAllProperties, deletePropertyById}

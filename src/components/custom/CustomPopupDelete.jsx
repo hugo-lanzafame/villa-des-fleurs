@@ -3,6 +3,7 @@ import {Dialog, DialogTitle, DialogContent, DialogActions, Button, Box} from '@m
 import DeleteIcon from '@mui/icons-material/Delete';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import PropTypes from "prop-types";
+import "../../styles/customStyle.scss";
 
 /**
  * Component representing a custom popup.
@@ -15,28 +16,24 @@ import PropTypes from "prop-types";
  */
 const CustomPopupDelete = ({open, popupContent, onClose, onConfirm}) => {
     return (
-        <Dialog open={open} onClose={onClose}>
-            <Box style={{backgroundColor: "#302F37",
-                display: "flex", flexDirection: "column",
-                alignItems: "center", border: "1px solid #000", borderRadius: "10px"}}>
-                <DialogTitle style={{color: "#F54B2C"}}>
-                    {popupContent.title}
-                </DialogTitle>
-                <DialogContent style={{color: "#DEDEDE", textAlign: "center"}}>
-                    {popupContent.content}
-                </DialogContent>
-                <DialogActions style={{paddingBottom: "16px"}}>
-                    <Button className="white-button"
-                            onClick={onClose}>
-                        <KeyboardReturnIcon/>
-                    </Button>
-                    <Button className="red-button"
-                            onClick={onConfirm}>
-                        <DeleteIcon/>
-                    </Button>
-                </DialogActions>
-            </Box>
-        </Dialog>
+            <Dialog className="popup" open={open} onClose={onClose}>
+                    <DialogTitle className="popup__title">
+                        {popupContent.title}
+                    </DialogTitle>
+                    <DialogContent className="popup__content">
+                        {popupContent.content}
+                    </DialogContent>
+                    <DialogActions className="popup__actions">
+                        <Button className="white-button"
+                                onClick={onClose}>
+                            <KeyboardReturnIcon/>
+                        </Button>
+                        <Button className="red-button"
+                                onClick={onConfirm}>
+                            <DeleteIcon/>
+                        </Button>
+                    </DialogActions>
+            </Dialog>
     );
 };
 

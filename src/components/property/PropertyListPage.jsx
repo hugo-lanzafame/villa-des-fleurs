@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Box} from '@mui/material';
+import PropTypes from "prop-types";
 import {useLanguage} from "../../contexts/LanguageProvider";
-import {deletePropertyById, getPropertiesByFilters} from '../../services/api/firebase/properties';
-import {TableProvider} from "../../contexts/TableProvider";
+import {deletePropertyById, getAllProperties} from '../../services/api/firebase/properties';
+import {useTable} from "../../contexts/TableProvider";
 import {PATHS} from "../../constants/routing";
 import CustomTableLayout from "../custom/CustomTableLayout";
 import CustomPageTop from "../custom/CustomPageTop";
@@ -14,6 +15,15 @@ import CustomPageTop from "../custom/CustomPageTop";
  */
 function PropertyListPage() {
     const {translate} = useLanguage();
+    const {
+        changeFilters,
+        changeColumns,
+        changeAllEntries,
+        changeEntries,
+        changePopupDeleteContent,
+        changeEditionLink,
+        changeCreationLink
+    } = useTable();
 
     /**
      * @type {BreadcrumbLink[]}
@@ -64,11 +74,67 @@ function PropertyListPage() {
         content: translate({section: "PROPERTY_LIST_PAGE", key: "POPUP_DELETE_CONTENT"}),
     };
 
+    /**
+     * Get properties and filter them.
+     *
+     * @param {Property[]} properties - The properties to filter.
+     * @param {PropertyFilterValues} [propertyFilterValues] - The filter values to use.
+     * @returns {Property[]} An array of filtered properties.
+     */
+    const filterProperties = (properties, propertyFilterValues) => {
+        const filterByName = propertyFilterValues.filterByName;
+        const filterByType = propertyFilterValues.filterByType;
+
+        if (!propertyFilterValues) {
+            return properties;
+        }
+
+        if (filterByName && filterByName !== '') {
+            properties = properties.filter(property =>
+                property.name.toLowerCase().includes(filterByName.toLowerCase())
+            );
+        }
+
+        if (filterByType && filterByType !== '') {
+            properties = properties.filter(property =>
+                property.type === filterByType
+            );
+        }
+
+        return properties;
+    };
+    filterProperties.propTypes = {
+        properties: PropTypes.array.isRequired,
+        propertyFilterValues: PropTypes.array,
+    };
+
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const properties = await getAllProperties();
+
+                changeFilters(filters);
+                changeColumns(columns);
+                changeAllEntries(properties);
+                changeEntries(properties);
+                changeEditionLink(PATHS.PROPERTIES_EDITION);
+                changeCreationLink(PATHS.PROPERTIES_CREATION);
+                changePopupDeleteContent(popupDeleteContent);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+        fetchData();
+        // eslint-disable-next-line
+    }, []);
+
     return (
         <Box className="property-list-page">
             <CustomPageTop breadcrumbLinks={breadcrumbLinks} title={title}/>
-            <CustomTableLayout filters={filters} columns={columns} popupDeleteContent={popupDeleteContent}
-                               getEntriesByFilters={getPropertiesByFilters} deleteEntryById={deletePropertyById}/>
+            <CustomTableLayout reloadEntries={getAllProperties} filterEntries={filterProperties}
+                               deleteEntryById={deletePropertyById}/>
         </Box>
     );
 }

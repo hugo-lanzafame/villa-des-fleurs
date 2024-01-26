@@ -13,15 +13,14 @@ import CustomPopupDelete from "./CustomPopupDelete";
 /**
  * Component representing a custom table.
  *
- * @param {TableColumn[]} columns - An array of column objects.
- * @param {PopupContent} popupDeleteContent - The text content in delete popup.
  * @param {function} deleteEntryById  - A function to delete an entry.
+ * @param {function} reloadEntries - A function to fetch entries.
  * @returns {JSX.Element} The CustomTable component.
  */
-const CustomTable = ({columns, popupDeleteContent, deleteEntryById}) => {
+const CustomTable = ({deleteEntryById, reloadEntries}) => {
     const navigate = useNavigate();
     const {translate} = useLanguage();
-    const {currentEntries, changeEntries} = useTable();
+    const {columns, entries, changeEntries, changeAllEntries, popupDeleteContent} = useTable();
     const [selectedEntry, setSelectedEntry] = useState(null);
     const [openDialog, setOpenDialog] = useState(false);
 
@@ -38,13 +37,13 @@ const CustomTable = ({columns, popupDeleteContent, deleteEntryById}) => {
     /**
      * Handles the confirmation action in delete popup.
      */
-    const handlePopupDeleteConfirm = () => {
-        deleteEntryById(selectedEntry.id)
-            .then(() => {
-                    changeEntries(currentEntries.filter(objet => objet.id !== selectedEntry.id));
-                    setOpenDialog(false);
-                }
-            );
+    const handlePopupDeleteConfirm = async () => {
+        await deleteEntryById(selectedEntry.id)
+        const reloadedEntries = await reloadEntries();
+
+        changeEntries(reloadedEntries);
+        changeAllEntries(reloadedEntries);
+        setOpenDialog(false);
     };
 
     /**
@@ -71,7 +70,7 @@ const CustomTable = ({columns, popupDeleteContent, deleteEntryById}) => {
                 </TableRow>
             </TableHead>
             <TableBody>
-                {currentEntries.map((entry) => (
+                {entries.map((entry) => (
                     <TableRow key={entry.id} className="table__row">
                         {columns.map((column) => (
                             <TableCell key={column.key} className="table__cell">
@@ -98,8 +97,6 @@ const CustomTable = ({columns, popupDeleteContent, deleteEntryById}) => {
 }
 
 CustomTable.propTypes = {
-    columns: PropTypes.array.isRequired,
-    popupDeleteContent: PropTypes.object.isRequired,
     deleteEntryById: PropTypes.func.isRequired,
 };
 

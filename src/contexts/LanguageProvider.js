@@ -37,7 +37,7 @@ export const LanguageProvider = ({children}) => {
         localStorage.setItem('preferredLanguage', newLanguage);
         setCurrentLanguage(newLanguage);
     }
-    changeLanguage.protTypes = {
+    changeLanguage.propTypes = {
         newLanguage: PropTypes.string.isRequired,
     };
 

@@ -94,7 +94,7 @@
         }
 
         &__field {
-            width: 13rem;
+            width: 14rem;
 
             .MuiOutlinedInput-notchedOutline {
                 color: $grey-color;
@@ -169,5 +169,49 @@
             margin: 1rem 0;
             font-size: 2rem;
         }
+    }
+}
+
+.popup {
+    .MuiDialog-paper {
+        background-color: $dark-light-color;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border: 1px solid $black-color;
+        border-radius: 10px;
+        max-width: 40rem;
+        padding: 1rem;
+    }
+
+    &__title {
+        color: $red-light-color;
+    }
+
+    &__content {
+        color: $white-color;
+        text-align: center;
+    }
+
+    &__actions {
+        display: flex;
+        padding-top: 2rem;
+        padding-bottom: 1rem;
+        gap: 2rem;
+    }
+
+    .white-button {
+        color: $white-color;
+        border: 1px solid $white-color;
+    }
+
+    .green-button {
+        color: $green-light-color;
+        border: 1px solid $green-light-color;
+    }
+
+    .red-button {
+        color: $red-light-color;
+        border: 1px solid $red-light-color;
     }
 }
