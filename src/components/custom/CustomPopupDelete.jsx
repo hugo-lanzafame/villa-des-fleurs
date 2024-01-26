@@ -1,5 +1,5 @@
 import React from 'react';
-import {Dialog, DialogTitle, DialogContent, DialogActions, Button, Box} from '@mui/material';
+import {Dialog, DialogTitle, DialogContent, DialogActions, Button} from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import PropTypes from "prop-types";

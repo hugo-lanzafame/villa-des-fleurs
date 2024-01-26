@@ -236,5 +236,11 @@
       "en": "Actions",
       "fr": "Actions"
     }
+  },
+  "CUSTOM_TABLE_EMPTY": {
+    "NO_ENTRY": {
+      "en": "No entry available.",
+      "fr": "Aucune entrée disponible."
+    }
   }
 }
