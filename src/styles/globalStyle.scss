@@ -3,9 +3,55 @@
 #root {
     color: $white-color;
 
-    ::selection {
-        color: $black-color;
-        background: $green-light-color;
+    .property-add-update-form {
+        padding: 1rem;
+
+        &__field-container {
+            margin: 1rem 0;
+            display: flex;
+            gap: 1rem;
+        }
+
+        &__button-container {
+            margin-top: 2rem;
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+    }
+
+    .field {
+        width: 14rem;
+
+        .MuiOutlinedInput-notchedOutline {
+            color: $grey-color;
+        }
+
+        .Mui-focused fieldset.MuiOutlinedInput-notchedOutline {
+            border-color: $purple-light-color;
+            -webkit-transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,
+            transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms, max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+        }
+
+        .MuiInputLabel-root {
+            color: $grey-color;
+        }
+
+        .Mui-focused.MuiInputLabel-root {
+            color: $purple-light-color;
+            -webkit-transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,
+            transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms, max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+        }
+
+        input,
+        select {
+            color: $white-color;
+        }
+
+        select option {
+            color: $black-color;
+        }
     }
 
     .white-button {
@@ -22,4 +68,16 @@
         color: $red-light-color;
         border: 1px solid $red-light-color;
     }
+}
+
+.dark-light-box {
+    background-color: $dark-light-color;
+    border: 1px solid $black-color;
+    border-collapse: separate;
+    border-radius: 10px;
+}
+
+::selection {
+    color: $black-color;
+    background: $green-light-color;
 }

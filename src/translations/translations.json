@@ -199,6 +199,28 @@
       "fr": "Cet action entrainera une suppression définitive de la propriété et de tous les éléments associés. Vous ne pourrez pas récupérer ces données. "
     }
   },
+  "PROPERTY_ADD_UPDATE_PAGE": {
+    "PAGE_TITLE_CREATION": {
+      "en": "Property creation",
+      "fr": "Création d'une propriété"
+    },
+    "PAGE_TITLE_EDITION": {
+      "en": "Property edition",
+      "fr": "Édition d'une propriété"
+    },
+    "GENERAL_INFORMATION": {
+      "en": "General information",
+      "fr": "Informations générales"
+    },
+    "NAME_LABEL": {
+      "en": "Name",
+      "fr": "Nom"
+    },
+    "TYPE_LABEL": {
+      "en": "Type",
+      "fr": "Type"
+    }
+  },
   "BREADCRUMB": {
     "HOME": {
       "en": "Home",
@@ -223,12 +245,6 @@
     "EDITION": {
       "en": "Edition",
       "fr": "Édition"
-    }
-  },
-  "CUSTOM_TABLE_FILTER" : {
-    "SEARCH_FILTER" : {
-      "en": "Filter",
-      "fr": "Filtre"
     }
   },
   "CUSTOM_TABLE": {

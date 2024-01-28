@@ -31,7 +31,7 @@ function PropertyListPage() {
     const breadcrumbLinks = [
         {label: translate({section: "BREADCRUMB", key: "HOME"}), to: PATHS.HOME},
         {label: translate({section: "BREADCRUMB", key: "MANAGEMENT"}), to: PATHS.MANAGEMENT},
-        {label: translate({section: "BREADCRUMB", key: "PROPERTIES"}), to: PATHS.PROPERTIES},
+        {label: translate({section: "BREADCRUMB", key: "PROPERTIES"}), to: ''},
     ];
 
     /**

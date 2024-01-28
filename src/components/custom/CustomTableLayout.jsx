@@ -20,14 +20,14 @@ import CustomTableEmpty from "./CustomTableEmpty";
  */
 function CustomTableLayout({reloadEntries, filterEntries, deleteEntryById}) {
     const navigate = useNavigate();
-    const {entries} = useTable();
+    const {entries, creationLink} = useTable();
 
     return (
         <Box className="table-manager">
             <Box className="table-manager__top-bar">
                 <CustomTableFilter reloadEntries={reloadEntries} filterEntries={filterEntries}/>
                 <Button className="table-manager__create-button green-button"
-                        onClick={() => navigate(PATHS.PROPERTIES_CREATION)}>
+                        onClick={() => navigate(creationLink)}>
                     <AddIcon/>
                 </Button>
             </Box>

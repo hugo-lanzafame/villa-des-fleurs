@@ -55,8 +55,12 @@ function CustomTableFilter({reloadEntries, filterEntries}) {
     const handleReloadClick = async () => {
         const reloadedEntries = await reloadEntries()
 
-        setFilterValues([]);
-        changeEntries(reloadedEntries);
+        if (filterValues.length === 0) {
+            changeEntries(reloadedEntries);
+        } else {
+            changeEntries(filterEntries(reloadedEntries, filterValues));
+        }
+
         changeAllEntries(reloadedEntries);
     };
 
@@ -69,12 +73,12 @@ function CustomTableFilter({reloadEntries, filterEntries}) {
     };
 
     return (
-        <Box className="table-filter">
+        <Box className="table-filter dark-light-box">
             <Box className="table-filter__field-container">
                 {filters.map((filter) => (
                     <TextField
                         key={filter.key}
-                        className="table-filter__field"
+                        className="field"
                         label={filter.label}
                         size="small"
                         value={filterValues[filter.key] || ''}
@@ -97,12 +101,12 @@ function CustomTableFilter({reloadEntries, filterEntries}) {
                     <SearchIcon/>
                 </Button>
                 <Button className="white-button"
-                        onClick={() => handleReloadClick()}>
-                    <CachedIcon/>
-                </Button>
-                <Button className="white-button"
                         onClick={() => handleClearClick()}>
                     <ClearIcon/>
+                </Button>
+                <Button className="white-button"
+                        onClick={() => handleReloadClick()}>
+                    <CachedIcon/>
                 </Button>
             </Box>
         </Box>

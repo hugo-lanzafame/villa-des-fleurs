@@ -6,7 +6,6 @@ import PropTypes from "prop-types";
 import {useNavigate} from "react-router-dom";
 import {useLanguage} from "../../contexts/LanguageProvider";
 import {useTable} from "../../contexts/TableProvider";
-import {PATHS} from "../../constants/routing";
 import "../../styles/customStyle.scss";
 import CustomPopupDelete from "./CustomPopupDelete";
 
@@ -20,7 +19,7 @@ import CustomPopupDelete from "./CustomPopupDelete";
 const CustomTable = ({deleteEntryById, reloadEntries}) => {
     const navigate = useNavigate();
     const {translate} = useLanguage();
-    const {columns, entries, changeEntries, changeAllEntries, popupDeleteContent} = useTable();
+    const {columns, entries, changeEntries, changeAllEntries, popupDeleteContent, editionLink} = useTable();
     const [selectedEntry, setSelectedEntry] = useState(null);
     const [openDialog, setOpenDialog] = useState(false);
 
@@ -54,7 +53,7 @@ const CustomTable = ({deleteEntryById, reloadEntries}) => {
     };
 
     return (
-        <Table className="table">
+        <Table className="table dark-light-box">
             <TableHead>
                 <TableRow>
                     {columns.map((column) => (
@@ -79,7 +78,7 @@ const CustomTable = ({deleteEntryById, reloadEntries}) => {
                         ))}
                         <TableCell className="table__cell__action">
                             <Button className="table__button white-button"
-                                    onClick={() => navigate(PATHS.PROPERTIES_EDITION)}>
+                                    onClick={() => navigate(editionLink + "?id=" + entry.id)}>
                                 <EditIcon/>
                             </Button>
                             <Button className="table__button red-button"
