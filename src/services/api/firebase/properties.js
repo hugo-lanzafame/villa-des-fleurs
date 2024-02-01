@@ -27,7 +27,7 @@ const addProperty = async (property) => {
     }
 }
 addProperty.propTypes = {
-    property: PropTypes.array.isRequired,
+    property: PropTypes.object.isRequired,
 };
 
 /**
@@ -50,7 +50,7 @@ const updateProperty = async (property) => {
     }
 };
 updateProperty.propTypes = {
-    property: PropTypes.array.isRequired,
+    property: PropTypes.object.isRequired,
 };
 
 /**

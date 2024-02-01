@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import translations from "../translations/translations.json";
 
 /**
- * React contexts for language management.
+ * React context for language management.
  * @type {React.Context<LanguageContext>}
  */
 const LanguageContext = createContext();
@@ -20,8 +20,7 @@ export const useLanguage = () => {
 /**
  * Provides language management for the application.
  *
- * @param {Object} props - Props for the LanguageProvider component.
- * @param {React.ReactNode} props.children - The child components to be wrapped by LanguageProvider.
+ * @param {React.ReactNode} children - The child components to be wrapped by LanguageProvider.
  */
 export const LanguageProvider = ({children}) => {
     const [currentLanguage, setCurrentLanguage] = useState(

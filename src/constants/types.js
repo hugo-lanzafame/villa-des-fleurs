@@ -150,3 +150,22 @@
  * @property {string} content - The content for the popup.
  */
 
+// NOTIFICATION
+
+/**
+ * Constants representing types of notification.
+ *
+ * @typedef {Object} NotificationTypeConstants
+ * @property {string} SUCCESS - Success notification.
+ * @property {string} ERROR - Error notification.
+ * @property {string} INFO - Information notification.
+ * @property {string} WARNING - Warning notification.
+ */
+
+/**
+ * Notification object.
+ *
+ * @typedef {Object} NotificationP
+ * @property {string} type - Notification type.
+ * @property {string} message - Notification message.
+ */

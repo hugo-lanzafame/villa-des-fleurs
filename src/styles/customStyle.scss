@@ -130,6 +130,33 @@
             font-size: 2rem;
         }
     }
+
+    .notification-box {
+        border: 1px solid $black-color;
+        border-collapse: separate;
+        padding: 1rem;
+        border-radius: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+
+    .notification-success {
+        background-color: $green-dark-color;
+    }
+
+    .notification-error {
+        background-color: $red-dark-color;
+    }
+
+    .notification-info {
+        background-color: $dark-dark-color;
+    }
+
+    .notification-warning {
+        background-color: $purple-dark-color;
+    }
 }
 
 .popup {

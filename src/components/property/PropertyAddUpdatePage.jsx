@@ -5,6 +5,7 @@ import {getPropertyById} from "../../services/api/firebase/properties";
 import {PATHS} from '../../constants/routing';
 import CustomPageTop from "../custom/CustomPageTop";
 import PropertyAddUpdateForm from "./PropertyAddUpdateForm";
+import CustomNotifications from "../custom/CustomNotifications";
 
 /**
  * Component for the Building Creation/Edition page.
@@ -47,7 +48,6 @@ function PropertyAddUpdatePage() {
         const fetchData = async () => {
             try {
                 const property = await getPropertyById(propertyId) ?? {};
-
                 setProperty(property);
             } catch (error) {
                 console.error(error);
@@ -61,6 +61,7 @@ function PropertyAddUpdatePage() {
     return (
         <Box className="property-add-update-page">
             <CustomPageTop breadcrumbLinks={breadcrumbLinks} title={title}/>
+            <CustomNotifications/>
             <PropertyAddUpdateForm property={property}/>
         </Box>
     );

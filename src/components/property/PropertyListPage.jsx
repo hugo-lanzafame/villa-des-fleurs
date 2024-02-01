@@ -7,6 +7,7 @@ import {useTable} from "../../contexts/TableProvider";
 import {PATHS} from "../../constants/routing";
 import CustomTableLayout from "../custom/CustomTableLayout";
 import CustomPageTop from "../custom/CustomPageTop";
+import CustomNotifications from "../custom/CustomNotifications";
 
 /**
  * Component for displaying a list of properties.
@@ -133,6 +134,7 @@ function PropertyListPage() {
     return (
         <Box className="property-list-page">
             <CustomPageTop breadcrumbLinks={breadcrumbLinks} title={title}/>
+            <CustomNotifications/>
             <CustomTableLayout reloadEntries={getAllProperties} filterEntries={filterProperties}
                                deleteEntryById={deletePropertyById}/>
         </Box>

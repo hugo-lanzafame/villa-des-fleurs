@@ -1,11 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import {Box, Button, TextField, Typography} from '@mui/material';
 import AddIcon from "@mui/icons-material/Add";
+import EditIcon from '@mui/icons-material/Edit';
 import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn";
 import {useNavigate} from "react-router-dom";
 import {useLanguage} from "../../contexts/LanguageProvider";
 import {addProperty, updateProperty} from "../../services/api/firebase/properties";
 import {PATHS} from "../../constants/routing";
+import {useNotification} from "../../contexts/NotificationProvider";
+import {NOTIFICATION_TYPES} from "../../constants/notification";
 
 /**
  * Component for the Property Add/Update form.
@@ -15,6 +18,7 @@ import {PATHS} from "../../constants/routing";
  */
 function PropertyAddUpdateForm({property}) {
     const navigate = useNavigate();
+    const {addNotification} = useNotification();
     const {translate} = useLanguage();
     const [name, setName] = useState(property.name || '');
     const [type, setType] = useState(property.type || '');
@@ -32,12 +36,14 @@ function PropertyAddUpdateForm({property}) {
         property.type = type;
 
         if (!property.id) {
-            await addProperty(property);
+            property.id = await addProperty(property);
+            addNotification(NOTIFICATION_TYPES.SUCCESS, "La propriété " + property.name + "a bien été créée")
         } else {
             await updateProperty(property);
+            addNotification(NOTIFICATION_TYPES.SUCCESS, "La propriété " + property.name + "a bien été éditée")
         }
 
-        navigate(PATHS.PROPERTIES);
+        navigate(PATHS.PROPERTIES_EDITION + "?id=" + property.id);
     };
 
     const handleCancel = () => {
@@ -87,7 +93,9 @@ function PropertyAddUpdateForm({property}) {
                     <KeyboardReturnIcon/>
                 </Button>
                 <Button className="green-button" onClick={handleSubmit}>
-                    <AddIcon/>
+                    {
+                        property.id ? <EditIcon/> : <AddIcon/>
+                    }
                 </Button>
             </Box>
         </Box>

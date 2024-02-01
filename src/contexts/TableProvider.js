@@ -19,8 +19,7 @@ export const useTable = () => {
 /**
  * Provides table management for the application.
  *
- * @param {Object} props - Props for the TableProvider component.
- * @param {React.ReactNode} props.children - The child components to be wrapped by TableProvider.
+ * @param {React.ReactNode} children - The child components to be wrapped by TableProvider.
  */
 export const TableProvider = ({children}) => {
     const [filters, setFilters] = useState([]);

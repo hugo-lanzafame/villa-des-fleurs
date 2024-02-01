@@ -4,8 +4,10 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import PropTypes from "prop-types";
 import {useNavigate} from "react-router-dom";
+import {useNotification} from "../../contexts/NotificationProvider";
 import {useLanguage} from "../../contexts/LanguageProvider";
 import {useTable} from "../../contexts/TableProvider";
+import {NOTIFICATION_TYPES} from "../../constants/notification";
 import "../../styles/customStyle.scss";
 import CustomPopupDelete from "./CustomPopupDelete";
 
@@ -18,6 +20,7 @@ import CustomPopupDelete from "./CustomPopupDelete";
  */
 const CustomTable = ({deleteEntryById, reloadEntries}) => {
     const navigate = useNavigate();
+    const {addNotification} = useNotification();
     const {translate} = useLanguage();
     const {columns, entries, changeEntries, changeAllEntries, popupDeleteContent, editionLink} = useTable();
     const [selectedEntry, setSelectedEntry] = useState(null);
@@ -38,6 +41,8 @@ const CustomTable = ({deleteEntryById, reloadEntries}) => {
      */
     const handlePopupDeleteConfirm = async () => {
         await deleteEntryById(selectedEntry.id)
+        addNotification(NOTIFICATION_TYPES.SUCCESS, "L'entrée " + selectedEntry.name + " a bien été supprimée")
+
         const reloadedEntries = await reloadEntries();
 
         changeEntries(reloadedEntries);
