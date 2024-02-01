@@ -23,7 +23,8 @@ function PropertyListPage() {
         changeEntries,
         changePopupDeleteContent,
         changeEditionLink,
-        changeCreationLink
+        changeCreationLink,
+        changeDeleteNotification
     } = useTable();
 
     /**
@@ -76,6 +77,11 @@ function PropertyListPage() {
     };
 
     /**
+     * @type {string}
+     */
+    const deleteNotification = translate({section: "PROPERTY_ADD_UPDATE_PAGE", key: "NOTIFICATION_EDIT"})
+
+    /**
      * Get properties and filter them.
      *
      * @param {Property[]} properties - The properties to filter.
@@ -122,6 +128,7 @@ function PropertyListPage() {
                 changeEditionLink(PATHS.PROPERTIES_EDITION);
                 changeCreationLink(PATHS.PROPERTIES_CREATION);
                 changePopupDeleteContent(popupDeleteContent);
+                changeDeleteNotification(deleteNotification);
             } catch (error) {
                 console.error(error);
             }

@@ -22,7 +22,7 @@ const CustomTable = ({deleteEntryById, reloadEntries}) => {
     const navigate = useNavigate();
     const {addNotification} = useNotification();
     const {translate} = useLanguage();
-    const {columns, entries, changeEntries, changeAllEntries, popupDeleteContent, editionLink} = useTable();
+    const {columns, entries, changeEntries, changeAllEntries, popupDeleteContent, editionLink, deleteNotification} = useTable();
     const [selectedEntry, setSelectedEntry] = useState(null);
     const [openDialog, setOpenDialog] = useState(false);
 
@@ -40,8 +40,8 @@ const CustomTable = ({deleteEntryById, reloadEntries}) => {
      * Handles the confirmation action in delete popup.
      */
     const handlePopupDeleteConfirm = async () => {
-        await deleteEntryById(selectedEntry.id)
-        addNotification(NOTIFICATION_TYPES.SUCCESS, "L'entrée " + selectedEntry.name + " a bien été supprimée")
+        await deleteEntryById(selectedEntry.id);
+        addNotification(NOTIFICATION_TYPES.SUCCESS, deleteNotification + " (" + selectedEntry.name + ")");
 
         const reloadedEntries = await reloadEntries();
 

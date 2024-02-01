@@ -37,10 +37,10 @@ function PropertyAddUpdateForm({property}) {
 
         if (!property.id) {
             property.id = await addProperty(property);
-            addNotification(NOTIFICATION_TYPES.SUCCESS, "La propriété " + property.name + "a bien été créée")
+            addNotification(NOTIFICATION_TYPES.SUCCESS, translate({section: "PROPERTY_ADD_UPDATE_PAGE", key: "NOTIFICATION_CREATE"}) + " (" + property.name + ")")
         } else {
             await updateProperty(property);
-            addNotification(NOTIFICATION_TYPES.SUCCESS, "La propriété " + property.name + "a bien été éditée")
+            addNotification(NOTIFICATION_TYPES.SUCCESS, translate({section: "PROPERTY_ADD_UPDATE_PAGE", key: "NOTIFICATION_EDIT"}) + " (" + property.name + ")")
         }
 
         navigate(PATHS.PROPERTIES_EDITION + "?id=" + property.id);

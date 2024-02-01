@@ -197,6 +197,10 @@
     "POPUP_DELETE_CONTENT": {
       "en": "This action will result in permanent deletion of the property and all associated elements. You will not be able to recover this data.",
       "fr": "Cet action entrainera une suppression définitive de la propriété et de tous les éléments associés. Vous ne pourrez pas récupérer ces données. "
+    },
+    "NOTIFICATION_DELETE": {
+      "en": "The property was successfully deleted.",
+      "fr": "La propriété a été supprimée avec succès."
     }
   },
   "PROPERTY_ADD_UPDATE_PAGE": {
@@ -219,6 +223,14 @@
     "TYPE_LABEL": {
       "en": "Type",
       "fr": "Type"
+    },
+    "NOTIFICATION_CREATE": {
+      "en": "The property was successfully created.",
+      "fr": "La propriété a été créée avec succès."
+    },
+    "NOTIFICATION_EDIT": {
+      "en": "The property was successfully edited.",
+      "fr": "La propriété a été éditée avec succès."
     }
   },
   "BREADCRUMB": {

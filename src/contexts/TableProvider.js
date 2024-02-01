@@ -29,6 +29,7 @@ export const TableProvider = ({children}) => {
     const [editionLink, setEditionLink] = useState('');
     const [creationLink, setCreationLink] = useState('');
     const [popupDeleteContent, setPopupDeleteContent] = useState({});
+    const [deleteNotification, setDeleteNotification] = useState({});
 
     /**
      * Change the table filters.
@@ -115,6 +116,19 @@ export const TableProvider = ({children}) => {
         newContent: PropTypes.object.isRequired,
     };
 
+    /**
+     * Change the delete notification text.
+     *
+     * @param {string} notification - The notification to set.
+     */
+    const changeDeleteNotification = (notification) => {
+        setDeleteNotification(notification);
+    };
+    changeCreationLink.propTypes = {
+        notification: PropTypes.string.isRequired,
+    };
+
+
     return (
         <TableContext.Provider value={{
             filters,
@@ -131,7 +145,8 @@ export const TableProvider = ({children}) => {
             changeCreationLink,
             popupDeleteContent,
             changePopupDeleteContent,
-        }}>
+            deleteNotification,
+            changeDeleteNotification}}>
             {children}
         </TableContext.Provider>
     );
