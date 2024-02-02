@@ -79,7 +79,7 @@ function PropertyListPage() {
     /**
      * @type {string}
      */
-    const deleteNotification = translate({section: "PROPERTY_ADD_UPDATE_PAGE", key: "NOTIFICATION_EDIT"})
+    const deleteNotification = translate({section: "PROPERTY_LIST_PAGE", key: "NOTIFICATION_DELETE"})
 
     /**
      * Get properties and filter them.

@@ -9,6 +9,7 @@ import {addProperty, updateProperty} from "../../services/api/firebase/propertie
 import {PATHS} from "../../constants/routing";
 import {useNotification} from "../../contexts/NotificationProvider";
 import {NOTIFICATION_TYPES} from "../../constants/notification";
+import {LOGIN_FORM_ERRORS, LOGIN_FORM_TYPES} from "../../constants/login";
 
 /**
  * Component for the Property Add/Update form.
@@ -21,7 +22,9 @@ function PropertyAddUpdateForm({property}) {
     const {addNotification} = useNotification();
     const {translate} = useLanguage();
     const [name, setName] = useState(property.name || '');
+    const [nameError, setNameError] = useState('');
     const [type, setType] = useState(property.type || '');
+    const [typeError, setTypeError] = useState('');
 
     const handleChange = (key, value) => {
         if (key === 'name') {
@@ -35,15 +38,45 @@ function PropertyAddUpdateForm({property}) {
         property.name = name;
         property.type = type;
 
-        if (!property.id) {
-            property.id = await addProperty(property);
-            addNotification(NOTIFICATION_TYPES.SUCCESS, translate({section: "PROPERTY_ADD_UPDATE_PAGE", key: "NOTIFICATION_CREATE"}) + " (" + property.name + ")")
+        handleFormErrors();
+
+        if (nameError === "" && typeError === "") {
+            if (!property.id) {
+                property.id = await addProperty(property);
+                addNotification(NOTIFICATION_TYPES.SUCCESS, translate({
+                    section: "PROPERTY_ADD_UPDATE_PAGE",
+                    key: "NOTIFICATION_CREATE"
+                }) + " (" + property.name + ")")
+            } else {
+                await updateProperty(property);
+                addNotification(NOTIFICATION_TYPES.SUCCESS, translate({
+                    section: "PROPERTY_ADD_UPDATE_PAGE",
+                    key: "NOTIFICATION_EDIT"
+                }) + " (" + property.name + ")")
+            }
+
+
+            navigate(PATHS.PROPERTIES_EDITION + "?id=" + property.id);
         } else {
-            await updateProperty(property);
-            addNotification(NOTIFICATION_TYPES.SUCCESS, translate({section: "PROPERTY_ADD_UPDATE_PAGE", key: "NOTIFICATION_EDIT"}) + " (" + property.name + ")")
+            addNotification(NOTIFICATION_TYPES.ERROR, translate({
+                section: "PROPERTY_ADD_UPDATE_PAGE",
+                key: "NOTIFICATION_EDIT"
+            }) + " (" + property.name + ")")
+        }
+    };
+
+
+    /**
+     * Handles form errors and displays error messages.
+     */
+    const handleFormErrors = () => {
+        if (name === "") {
+            setNameError("CHAMP OBLIGATOIRE")
         }
 
-        navigate(PATHS.PROPERTIES_EDITION + "?id=" + property.id);
+        if (type === "") {
+            setTypeError("CHAMP OBLIGATOIRE")
+        }
     };
 
     const handleCancel = () => {
@@ -72,6 +105,8 @@ function PropertyAddUpdateForm({property}) {
                     label={translate({section: "PROPERTY_ADD_UPDATE_PAGE", key: "NAME_LABEL"})}
                     size="small"
                     value={name}
+                    helperText={nameError}
+                    error={nameError !== ''}
                     onChange={(e) => handleChange('name', e.target.value)}/>
                 <TextField
                     key="type"

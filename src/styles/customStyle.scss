@@ -178,12 +178,14 @@
     &__content {
         color: $white-color;
         text-align: center;
+        padding-top: 0!important;
+        padding-bottom: 0!important;
     }
 
     &__actions {
         display: flex;
-        padding-top: 2rem;
-        padding-bottom: 1rem;
+        padding-top: 1.5rem!important;
+        padding-bottom: 1rem!important;
         gap: 2rem;
     }
 
