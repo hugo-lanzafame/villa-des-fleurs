@@ -4,8 +4,8 @@ import config from "./config"
 /**
  * Returns the quarter based on the provided month.
  *
- * @param {number} month - The month (0-indexed) for which to determine the trimestre.
- * @returns {string} The corresponding trimestre (e.g., 'Q1', 'Q2', 'Q3', 'Q4').
+ * @param {number} month - The month (0-indexed) for which to determine the quarter.
+ * @returns {string} The corresponding quarter (e.g., 'Q1', 'Q2', 'Q3', 'Q4').
  * @throws {Error} Throws an error if the month is not within the valid range (0-11).
  */
 const getQuarter = (month) => {

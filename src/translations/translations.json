@@ -224,6 +224,10 @@
       "en": "Type",
       "fr": "Type"
     },
+    "TYPE_APARTMENT": {
+      "en": "Apartment",
+      "fr": "Appartement"
+    },
     "NOTIFICATION_CREATE": {
       "en": "The property was successfully created.",
       "fr": "La propriété a été créée avec succès."
@@ -231,6 +235,14 @@
     "NOTIFICATION_EDIT": {
       "en": "The property was successfully edited.",
       "fr": "La propriété a été éditée avec succès."
+    },
+    "NOTIFICATION_ERROR": {
+      "en": "Please correct the errors in the form.",
+      "fr": "Veuillez corriger les erreurs dans le formulaire."
+    },
+    "ERROR_REQUIRED_FIELD": {
+      "en": "This field is required.",
+      "fr": "Ce champ est obligatoire."
     }
   },
   "BREADCRUMB": {

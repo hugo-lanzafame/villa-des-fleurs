@@ -1,8 +1,5 @@
 @import "colorPanel";
 
-// Déclaration de variable
-$min-with-left: 450px;
-
 #root {
     .login-page {
         display: flex;
@@ -20,23 +17,36 @@ $min-with-left: 450px;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            min-width: $min-with-left;
+            max-width: 500px;
             background-color: $white-color;
             position: relative;
 
-            .custom-form {
+            .login-form {
                 // Styles pour le composant CustomForm
-                width: 80%;
-                max-width: $min-with-left;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                margin: 1rem;
 
                 &__title {
                     color : $black-color;
                     font-size: 3rem;
+                    margin-bottom: 2rem;
                 }
 
                 &__field-container {
                     display: flex;
                     flex-direction: column;
+                    align-items: center;
+                }
+
+                &__input {
+                    margin-bottom: 1rem;
+                    min-width: 20rem;
+                }
+
+                &__button {
+                    margin-top: 2rem;
                 }
 
                 &__link {
@@ -44,10 +54,6 @@ $min-with-left: 450px;
                     min-width: max-content;
                     bottom: 3rem;
                     right: 10%;
-
-                    @media (max-width: $min-with-left * 2) {
-                        right: 3rem;
-                    }
                 }
             }
         }
@@ -61,7 +67,12 @@ $min-with-left: 450px;
             align-items: center;
             position: relative;
 
-            @media (max-width: $min-with-left) {
+            @media (max-width: 800px) {
+                flex: min-content;
+            }
+
+
+            @media (max-width: 500px) {
                 display: none;
             }
 
@@ -81,7 +92,7 @@ $min-with-left: 450px;
                 transform: translate(-50%, -50%);
                 z-index: 1;
 
-                @media (max-width: $min-with-left * 2) {
+                @media (max-width: 800px) {
                     display: none;
                 }
             }

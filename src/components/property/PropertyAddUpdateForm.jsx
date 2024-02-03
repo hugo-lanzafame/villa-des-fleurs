@@ -3,13 +3,13 @@ import {Box, Button, TextField, Typography} from '@mui/material';
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from '@mui/icons-material/Edit';
 import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn";
+import PropTypes from "prop-types";
 import {useNavigate} from "react-router-dom";
 import {useLanguage} from "../../contexts/LanguageProvider";
-import {addProperty, updateProperty} from "../../services/api/firebase/properties";
-import {PATHS} from "../../constants/routing";
 import {useNotification} from "../../contexts/NotificationProvider";
+import {addProperty, updateProperty} from "../../services/api/firebase/properties";
 import {NOTIFICATION_TYPES} from "../../constants/notification";
-import {LOGIN_FORM_ERRORS, LOGIN_FORM_TYPES} from "../../constants/login";
+import {PATHS} from "../../constants/routing";
 
 /**
  * Component for the Property Add/Update form.
@@ -26,6 +26,12 @@ function PropertyAddUpdateForm({property}) {
     const [type, setType] = useState(property.type || '');
     const [typeError, setTypeError] = useState('');
 
+    /**
+     * Handles the change event for input fields.
+     *
+     * @param {string} key - The key of the input field.
+     * @param {string} value - The new value of the input field.
+     */
     const handleChange = (key, value) => {
         if (key === 'name') {
             setName(value);
@@ -34,25 +40,28 @@ function PropertyAddUpdateForm({property}) {
         }
     };
 
+    /**
+     * Handles the form submission.
+     */
     const handleSubmit = async () => {
         property.name = name;
         property.type = type;
 
-        handleFormErrors();
+        const isError = handleFormErrors();
 
-        if (nameError === "" && typeError === "") {
+        if (!isError) {
             if (!property.id) {
                 property.id = await addProperty(property);
                 addNotification(NOTIFICATION_TYPES.SUCCESS, translate({
                     section: "PROPERTY_ADD_UPDATE_PAGE",
                     key: "NOTIFICATION_CREATE"
-                }) + " (" + property.name + ")")
+                }) + (property.name !== "" ? " (" + property.name + ")" : ""))
             } else {
                 await updateProperty(property);
                 addNotification(NOTIFICATION_TYPES.SUCCESS, translate({
                     section: "PROPERTY_ADD_UPDATE_PAGE",
                     key: "NOTIFICATION_EDIT"
-                }) + " (" + property.name + ")")
+                }) + (property.name !== "" ? " (" + property.name + ")" : ""))
             }
 
 
@@ -60,25 +69,38 @@ function PropertyAddUpdateForm({property}) {
         } else {
             addNotification(NOTIFICATION_TYPES.ERROR, translate({
                 section: "PROPERTY_ADD_UPDATE_PAGE",
-                key: "NOTIFICATION_EDIT"
-            }) + " (" + property.name + ")")
+                key: "NOTIFICATION_ERROR"
+            }) + (property.name !== "" ? " (" + property.name + ")" : ""))
         }
     };
 
 
     /**
-     * Handles form errors and displays error messages.
+     * Handles form errors.
+     *
+     * @returns {boolean} True if there are errors, false otherwise.
      */
     const handleFormErrors = () => {
+        setNameError('');
+        setTypeError('');
+        let isError = false;
+
         if (name === "") {
-            setNameError("CHAMP OBLIGATOIRE")
+            setNameError(translate({section: "PROPERTY_ADD_UPDATE_PAGE", key: "ERROR_REQUIRED_FIELD"}))
+            isError = true;
         }
 
         if (type === "") {
-            setTypeError("CHAMP OBLIGATOIRE")
+            setTypeError(translate({section: "PROPERTY_ADD_UPDATE_PAGE", key: "ERROR_REQUIRED_FIELD"}))
+            isError = true;
         }
+
+        return isError;
     };
 
+    /**
+     * Handles the cancel action.
+     */
     const handleCancel = () => {
         navigate(PATHS.PROPERTIES);
     };
@@ -94,11 +116,11 @@ function PropertyAddUpdateForm({property}) {
     }, [property]);
 
     return (
-        <Box className="property-add-update-form dark-light-box">
+        <Box className="property-add-update-form form dark-light-box">
             <Typography>
                 {translate({section: "PROPERTY_ADD_UPDATE_PAGE", key: "GENERAL_INFORMATION"})}
             </Typography>
-            <Box className="property-add-update-form__field-container">
+            <Box className="form__field-container">
                 <TextField
                     key="name"
                     className="field"
@@ -114,16 +136,18 @@ function PropertyAddUpdateForm({property}) {
                     label={translate({section: "PROPERTY_ADD_UPDATE_PAGE", key: "TYPE_LABEL"})}
                     size="small"
                     value={type}
+                    helperText={typeError}
+                    error={typeError !== ''}
                     onChange={(e) => handleChange('type', e.target.value)}
                     select
                     SelectProps={{native: true}}>
                     <option key="" value=""></option>
                     <option key="apartment" value="apartment">
-                        Apartment
+                        {translate({section: "PROPERTY_ADD_UPDATE_PAGE", key: "TYPE_APARTMENT"})}
                     </option>
                 </TextField>
             </Box>
-            <Box className="property-add-update-form__button-container">
+            <Box className="form__button-container">
                 <Button className="white-button" onClick={handleCancel}>
                     <KeyboardReturnIcon/>
                 </Button>
@@ -136,5 +160,14 @@ function PropertyAddUpdateForm({property}) {
         </Box>
     );
 }
+
+PropertyAddUpdateForm.propTypes = {
+    property: PropTypes.shape({
+        id: PropTypes.string,
+        name: PropTypes.string,
+        type: PropTypes.string,
+    }),
+};
+
 
 export default PropertyAddUpdateForm;

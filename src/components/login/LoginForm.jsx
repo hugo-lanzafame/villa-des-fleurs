@@ -6,7 +6,7 @@ import {useLanguage} from "../../contexts/LanguageProvider";
 import {resetPassword, signInUser} from '../../services/api/firebase/auth';
 import {LOGIN_FORM_TYPES, LOGIN_FORM_ERRORS} from '../../constants/login'
 import '../../styles/loginStyle.scss';
-import CustomInput from "../custom/CustomInput";
+import LoginInput from "./LoginInput";
 
 /**
  * Component for the authentification/password recovery form in the login page.
@@ -207,15 +207,15 @@ const LoginForm = () => {
     const formConfig = getFormConfig();
 
     if (formConfig) {
-        return (<>
-            <Box className="custom-form">
-                <Typography className="custom-form__title">
-                    {formConfig.title}
-                </Typography>
-                <form onSubmit={handleSubmit}>
-                    <Grid container className="custom-form__field-container">
+        return (
+            <>
+                <form onSubmit={handleSubmit} className="login-form">
+                    <Typography className="login-form__title">
+                        {formConfig.title}
+                    </Typography>
+                    <Grid container className="login-form__field-container">
                         {formConfig.inputs.map((input, index) => (
-                            <CustomInput
+                            <LoginInput
                                 key={index}
                                 onChange={handleChange}
                                 type={input.type}
@@ -228,18 +228,18 @@ const LoginForm = () => {
                             />
                         ))}
                         <Grid item>
-                            <Button type="submit" variant="contained" className="custom-form__button">
+                            <Button type="submit" variant="contained" className="login-form__button">
                                 {formConfig.buttonLabel}
                             </Button>
                         </Grid>
                     </Grid>
                 </form>
-            </Box>
-            <Link onClick={() => handleChangeFormClick(formConfig.linkTo)} variant="body2"
-                  className="custom-form__link">
-                <Typography>{formConfig.linkLabel}</Typography>
-            </Link>
-        </>);
+                <Link onClick={() => handleChangeFormClick(formConfig.linkTo)} variant="body2"
+                      className="login-form__link">
+                    <Typography>{formConfig.linkLabel}</Typography>
+                </Link>
+            </>
+        );
     }
 };
 

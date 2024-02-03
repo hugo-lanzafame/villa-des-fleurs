@@ -1,31 +1,6 @@
 @import "colorPanel";
 
 #root {
-    .form {
-        padding: 2rem;
-        text-align: center;
-
-        &__title {
-            margin-bottom: 2rem;
-        }
-
-        &__field-container {
-            display: flex;
-            flex-direction: column;
-        }
-
-        &__input {
-            width: 100%;
-            padding-bottom: 1rem;
-        }
-
-        &__button {
-            margin-top: 1rem;
-            width: 100%;
-            background-color: $black-color;
-        }
-    }
-
     .breadcrumb {
         display: flex;
         flex-direction: row;

@@ -17,14 +17,14 @@ import '../../styles/customStyle.scss';
  * @param {boolean} props.isRequired - Specifies whether the input is required.
  * @param {function} props.onChange - The function to handle input value change.
  *
- * @returns {JSX.Element} The CustomInput component.
+ * @returns {JSX.Element} The LoginInput component.
  */
-const CustomInput = ({label, type, name, value, helper, error, isRequired, onChange}) => {
+const LoginInput = ({label, type, name, value, helper, error, isRequired, onChange}) => {
     const {translate} = useLanguage();
     return (
         <Grid item>
             <TextField
-                className="custom-form__field custom-form__input"
+                className="login-form__field login-form__input"
                 label={label}
                 aria-label={translate({section:"GLOBAL", key:"INPUT_ARIA_LABEL"}) + " " + label}
                 type={type}
@@ -38,7 +38,7 @@ const CustomInput = ({label, type, name, value, helper, error, isRequired, onCha
         </Grid>
     );
 };
-CustomInput.propTypes = {
+LoginInput.propTypes = {
     label: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
@@ -49,4 +49,4 @@ CustomInput.propTypes = {
     onChange: PropTypes.func.isRequired,
 };
 
-export default CustomInput;
+export default LoginInput;
