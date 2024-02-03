@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Box, Button, Grid, Link, Typography} from "@mui/material";
+import {Button, Grid, Link, Typography} from "@mui/material";
 import PropTypes from "prop-types";
 import {useNavigate} from "react-router-dom"
 import {useLanguage} from "../../contexts/LanguageProvider";

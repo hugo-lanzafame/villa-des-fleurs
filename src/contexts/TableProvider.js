@@ -37,6 +37,7 @@ export const TableProvider = ({children}) => {
      * @param {TableFilter[]} newFilters - The new filters to set.
      */
     const changeFilters = (newFilters) => {
+        console.log(newFilters);
         setFilters(newFilters);
     };
     changeFilters.propTypes = {

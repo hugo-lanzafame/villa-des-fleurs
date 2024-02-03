@@ -25,11 +25,11 @@
  * @property {string} id - The unique identifier of the property.
  * @property {string} name - The name of the property.
  * @property {string} type - The type of the property (e.g., "apartment").
- * @property {number[]} [tenants] - An array of tenant IDs associated with the property.
+ * @property {string[]} [rentals] - An array of rentals IDs associated with the property.
  */
 
 /**
- * A filter objects that contain name ad type filter values.
+ * A filter objects that contain property filters.
  *
  * @typedef {Object} PropertyFilterValues
  * @property {string} filterByName - The property name to use for sorting.
@@ -45,6 +45,25 @@
  * @property {string} COLUMN_PHONE - The column name for tenant phone numbers.
  * @property {string} COLUMN_EMAIL - The column name for tenant email addresses.
  */
+
+/**
+ * Represents a tenant entity.
+ *
+ * @typedef {Object} Tenant
+ * @property {string} id - The unique identifier of the tenant.
+ * @property {string} name - The name of the tenant.
+ * @property {string} email - The email of the tenant.
+ * @property {string} phone - The phone number of the tenant.
+ * @property {string[]} [rentals] - An array of rentals IDs associated with the tenant.
+ */
+
+/**
+ * A filter objects that contain tenant filters.
+ *
+ * @typedef {Object} TenantFilterValues
+ * @property {string} filterByName - The tenant name to use for sorting.
+ */
+
 
 /**
  * Constants representing 'rentals' database structure.

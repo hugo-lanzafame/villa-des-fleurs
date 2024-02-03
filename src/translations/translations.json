@@ -245,6 +245,90 @@
       "fr": "Ce champ est obligatoire."
     }
   },
+  "TENANT_LIST_PAGE": {
+    "PAGE_TITLE": {
+      "en": "Tenants list",
+      "fr": "Liste des locataires"
+    },
+    "SEARCH_NAME": {
+      "en": "Tenant's name",
+      "fr": "Nom du locataire"
+    },
+    "COLUMN_NAME": {
+      "en": "Name",
+      "fr": "Nom"
+    },
+    "COLUMN_TYPE": {
+      "en": "Email",
+      "fr": "Email"
+    },
+    "COLUMN_PHONE": {
+      "en": "Phone number",
+      "fr": "Numéro de téléphone"
+    },
+    "POPUP_DELETE_TITLE": {
+      "en": "Are you sure you want to delete this tenant?",
+      "fr": "Êtes-vous sur de vouloir supprimer ce locataire ?"
+    },
+    "POPUP_DELETE_CONTENT": {
+      "en": "This action will result in permanent deletion of the tenant and all associated elements. You will not be able to recover this data.",
+      "fr": "Cet action entrainera une suppression définitive du locataire et de tous les éléments associés. Vous ne pourrez pas récupérer ces données. "
+    },
+    "NOTIFICATION_DELETE": {
+      "en": "The tenant was successfully deleted.",
+      "fr": "Le locataire a été supprimée avec succès."
+    }
+  },
+  "TENANT_ADD_UPDATE_PAGE": {
+    "PAGE_TITLE_CREATION": {
+      "en": "Tenant creation",
+      "fr": "Création d'un locataire"
+    },
+    "PAGE_TITLE_EDITION": {
+      "en": "Tenant edition",
+      "fr": "Édition d'un locataire"
+    },
+    "GENERAL_INFORMATION": {
+      "en": "General information",
+      "fr": "Informations générales"
+    },
+    "NAME_LABEL": {
+      "en": "Name",
+      "fr": "Nom"
+    },
+    "EMAIL_LABEL": {
+      "en": "Email",
+      "fr": "Email"
+    },
+    "PHONE_LABEL": {
+      "en": "Phone number",
+      "fr": "Numéro de téléphone"
+    },
+    "NOTIFICATION_CREATE": {
+      "en": "The tenant was successfully created.",
+      "fr": "Le locataire a été créé avec succès."
+    },
+    "NOTIFICATION_EDIT": {
+      "en": "The tenant was successfully edited.",
+      "fr": "Le locataire a été édité avec succès."
+    },
+    "NOTIFICATION_ERROR": {
+      "en": "Please correct the errors in the form.",
+      "fr": "Veuillez corriger les erreurs dans le formulaire."
+    },
+    "ERROR_REQUIRED_FIELD": {
+      "en": "This field is required.",
+      "fr": "Ce champ est obligatoire."
+    },
+    "ERROR_EMAIL_FIELD": {
+      "en": "This field does not contain a valid email.",
+      "fr": "Ce champ ne contient pas d'email valide."
+    },
+    "ERROR_PHONE_FIELD": {
+      "en": "This field does not contain a valid number.",
+      "fr": "Ce champ ne contient pas de numéro valide."
+    }
+  },
   "BREADCRUMB": {
     "HOME": {
       "en": "Home",
@@ -261,6 +345,10 @@
     "PROPERTIES": {
       "en": "Properties",
       "fr": "Propriétés"
+    },
+    "TENANTS": {
+      "en": "Tenants",
+      "fr": "Locataires"
     },
     "CREATION": {
       "en": "Creation",

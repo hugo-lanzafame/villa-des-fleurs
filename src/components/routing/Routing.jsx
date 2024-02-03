@@ -11,7 +11,8 @@ import PropertyAddUpdatePage from "../property/PropertyAddUpdatePage";
 import PropertyListPage from "../property/PropertyListPage";
 import RoutePrivate from "./RoutePrivate";
 import RouteLogin from "./RouteLogin";
-import TenantAddUpdatePage from '../tenant/TenantCreationPage';
+import TenantAddUpdatePage from '../tenant/TenantAddUpdatePage';
+import TenantListPage from "../tenant/TenantListPage";
 import {TableProvider} from "../../contexts/TableProvider";
 
 /**
@@ -67,7 +68,21 @@ const Routing = () => {
                                    <PropertyAddUpdatePage/>
                                </RoutePrivate>
                            }/>
+                    <Route path={PATHS.TENANTS}
+                           element={
+                               <RoutePrivate>
+                                   <TableProvider>
+                                       <TenantListPage/>
+                                   </TableProvider>
+                               </RoutePrivate>
+                           }/>
                     <Route path={PATHS.TENANTS_CREATION}
+                           element={
+                               <RoutePrivate>
+                                   <TenantAddUpdatePage/>
+                               </RoutePrivate>
+                           }/>
+                    <Route path={PATHS.TENANTS_EDITION}
                            element={
                                <RoutePrivate>
                                    <TenantAddUpdatePage/>

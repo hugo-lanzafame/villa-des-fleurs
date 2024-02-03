@@ -42,7 +42,7 @@ const Sidebar = () => {
                             <Typography>{translate({section: "SIDEBAR", key: "MENU_PROPERTIES"})}</Typography>
                         </ListItemButton>
                         <ListItemButton className="sidebar__sub-menu"
-                                        onClick={() => navigate(PATHS.HOME)}>
+                                        onClick={() => navigate(PATHS.TENANTS)}>
                             {<PeopleAltIcon/>}
                             <Typography>{translate({section: "SIDEBAR", key: "MENU_TENANTS"})}</Typography>
                         </ListItemButton>
