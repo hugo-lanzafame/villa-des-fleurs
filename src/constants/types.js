@@ -73,7 +73,28 @@
  * @property {string} COLUMN_START_DATE - The column name for rental start dates.
  * @property {string} COLUMN_END_DATE - The column name for rental end dates.
  * @property {string} COLUMN_TENANT_IDS - The column name for tenant IDs in rentals.
- * @property {string} COLUMN_PROPERTY_IDS - The column name for property IDs in rentals.
+ * @property {string} COLUMN_PROPERTY_ID - The column name for property ID in rentals.
+ */
+
+/**
+ * Represents a rental entity.
+ *
+ * @typedef {Object} Rental
+ * @property {string} id - The unique identifier of the rental.
+ * @property {string} name - The name of the rental.
+ * @property {string} startDate - The email of the rental.
+ * @property {string} [endDate] - The phone number of the rental.
+ * @property {string} property - The property ID associated with the rental.
+ * @property {string[]} tenants - An array of tenants ID associated with the rental.
+ */
+
+/**
+ * A filter objects that contain rental filters.
+ *
+ * @typedef {Object} RentalFilterValues
+ * @property {string} filterByName - The rental name to use for sorting.
+ * @property {string} filterByProperty - The property to use for sorting.
+ * @property {string} filterByTenant - The tenant to use for sorting.
  */
 
 // ROUTING

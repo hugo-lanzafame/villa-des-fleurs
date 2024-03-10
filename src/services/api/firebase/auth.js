@@ -16,6 +16,7 @@ const auth = getAuth(app);
  */
 const signInUser = async (email, password) => {
     await signInWithEmailAndPassword(auth, email, password);
+    console.log(auth.currentUser)
 };
 signInUser.propTypes = {
     email: PropTypes.string.isRequired,
@@ -46,6 +47,8 @@ resetPassword.propTypes = {
 
 /**
  * Check if a user is authenticated and set the user state.
+ *
+ * @return {Promise<boolean>}
  */
 const isAuth = async () => {
     return new Promise((resolve) => {
@@ -55,4 +58,13 @@ const isAuth = async () => {
     });
 }
 
-export {resetPassword, signInUser, signOutUser, isAuth};
+/**
+ * Return information about current user
+ *
+ * @return {User} Information about current user
+ */
+const getCurrentUser = () => {
+    return auth.currentUser;
+}
+
+export {resetPassword, signInUser, signOutUser, isAuth, getCurrentUser};

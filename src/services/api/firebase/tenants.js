@@ -1,6 +1,7 @@
 import app from './config';
 import {get, getDatabase, push, ref, remove, set} from 'firebase/database';
 import PropTypes from 'prop-types';
+import {getCurrentUser} from "./auth";
 import {DATABASE} from "../../../constants/database";
 
 const database = getDatabase(app);
@@ -14,7 +15,8 @@ const database = getDatabase(app);
  */
 const addTenant = async (tenant) => {
     try {
-        const tenantThenableRef = push(ref(database, DATABASE.TENANTS.TABLE));
+        const tablePath = "users/" + getCurrentUser().uid + "/" + DATABASE.TENANTS.TABLE;
+        const tenantThenableRef = push(ref(database, tablePath));
 
         await set(tenantThenableRef, {
             [DATABASE.TENANTS.COLUMN_NAME]: tenant.name,
@@ -40,7 +42,8 @@ addTenant.propTypes = {
  */
 const updateTenant = async (tenant) => {
     try {
-        const tenantRef = ref(database, DATABASE.TENANTS.TABLE + "/" + tenant.id);
+        const tablePath = "users/" + getCurrentUser().uid + "/" + DATABASE.TENANTS.TABLE;
+        const tenantRef = ref(database, tablePath + "/" + tenant.id);
 
         await set(tenantRef, {
             [DATABASE.TENANTS.COLUMN_NAME]: tenant.name,
@@ -64,7 +67,8 @@ updateTenant.propTypes = {
  */
 const getTenantById = async (tenantId) => {
     try {
-        const tenantRef = ref(database, DATABASE.TENANTS.TABLE + "/" + tenantId);
+        const tablePath = "users/" + getCurrentUser().uid + "/" + DATABASE.TENANTS.TABLE;
+        const tenantRef = ref(database, tablePath + "/" + tenantId);
         const snapshot = await get(tenantRef);
 
         if (snapshot.exists()) {
@@ -93,7 +97,8 @@ getTenantById.propTypes = {
  */
 const getAllTenants = async () => {
     try {
-        const tenantRef = ref(database, DATABASE.TENANTS.TABLE);
+        const tablePath = "users/" + getCurrentUser().uid + "/" + DATABASE.TENANTS.TABLE;
+        const tenantRef = ref(database, tablePath);
         let tenants = [];
 
         const snapshot = await get(tenantRef);
@@ -121,7 +126,8 @@ const getAllTenants = async () => {
  */
 const deleteTenantById = async (tenantId) => {
     try {
-        const tenantRef = ref(database, DATABASE.TENANTS.TABLE + "/" + tenantId);
+        const tablePath = "users/" + getCurrentUser().uid + "/" + DATABASE.TENANTS.TABLE;
+        const tenantRef = ref(database, tablePath + "/" + tenantId);
 
         await remove(tenantRef);
     } catch (error) {

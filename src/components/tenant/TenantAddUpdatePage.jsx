@@ -8,7 +8,7 @@ import TenantAddUpdateForm from "./TenantAddUpdateForm";
 import CustomNotifications from "../custom/CustomNotifications";
 
 /**
- * Component for the Building Creation/Edition page.
+ * Component for the Tenant Creation/Edition page.
  *
  * @returns {JSX.Element} The TenantAddUpdatePage component.
  */

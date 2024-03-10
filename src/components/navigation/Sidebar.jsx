@@ -47,7 +47,7 @@ const Sidebar = () => {
                             <Typography>{translate({section: "SIDEBAR", key: "MENU_TENANTS"})}</Typography>
                         </ListItemButton>
                         <ListItemButton className="sidebar__sub-menu"
-                                        onClick={() => navigate(PATHS.HOME)}>
+                                        onClick={() => navigate(PATHS.RENTALS)}>
                             {<CalendarMonthIcon/>}
                             <Typography>{translate({section: "SIDEBAR", key: "MENU_RENTALS"})}</Typography>
                         </ListItemButton>

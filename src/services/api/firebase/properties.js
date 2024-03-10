@@ -1,6 +1,7 @@
 import app from './config';
 import {get, getDatabase, push, ref, remove, set} from 'firebase/database';
 import PropTypes from 'prop-types';
+import {getCurrentUser} from './auth';
 import {DATABASE} from "../../../constants/database";
 
 const database = getDatabase(app);
@@ -14,7 +15,8 @@ const database = getDatabase(app);
  */
 const addProperty = async (property) => {
     try {
-        const propertyThenableRef = push(ref(database, DATABASE.PROPERTIES.TABLE));
+        const tablePath = "users/" + getCurrentUser().uid + "/" + DATABASE.PROPERTIES.TABLE;
+        const propertyThenableRef = push(ref(database, tablePath));
 
         await set(propertyThenableRef, {
             [DATABASE.PROPERTIES.COLUMN_NAME]: property.name,
@@ -39,7 +41,8 @@ addProperty.propTypes = {
  */
 const updateProperty = async (property) => {
     try {
-        const propertyRef = ref(database, DATABASE.PROPERTIES.TABLE + "/" + property.id);
+        const tablePath = "users/" + getCurrentUser().uid + "/" + DATABASE.PROPERTIES.TABLE;
+        const propertyRef = ref(database, tablePath + "/" + property.id);
 
         await set(propertyRef, {
             [DATABASE.PROPERTIES.COLUMN_NAME]: property.name,
@@ -62,7 +65,8 @@ updateProperty.propTypes = {
  */
 const getPropertyById = async (propertyId) => {
     try {
-        const propertyRef = ref(database, DATABASE.PROPERTIES.TABLE + "/" + propertyId);
+        const tablePath = "users/" + getCurrentUser().uid + "/" + DATABASE.PROPERTIES.TABLE;
+        const propertyRef = ref(database, tablePath + "/" + propertyId);
         const snapshot = await get(propertyRef);
 
         if (snapshot.exists()) {
@@ -86,12 +90,13 @@ getPropertyById.propTypes = {
 /**
  * Get all properties.
  *
- * @returns {Promise<Property>} A promise that resolves to an array of properties.
+ * @returns {Promise<Property[]>} A promise that resolves to an array of properties.
  * @throws {Error} If there is an error during the getting process.
  */
 const getAllProperties = async () => {
     try {
-        const propertyRef = ref(database, DATABASE.PROPERTIES.TABLE);
+        const tablePath = "users/" + getCurrentUser().uid + "/" + DATABASE.PROPERTIES.TABLE;
+        const propertyRef = ref(database, tablePath);
         let properties = [];
 
         const snapshot = await get(propertyRef);
@@ -119,7 +124,8 @@ const getAllProperties = async () => {
  */
 const deletePropertyById = async (propertyId) => {
     try {
-        const propertyRef = ref(database, DATABASE.PROPERTIES.TABLE + "/" + propertyId);
+        const tablePath = "users/" + getCurrentUser().uid + "/" + DATABASE.PROPERTIES.TABLE;
+        const propertyRef = ref(database, tablePath + "/" + propertyId);
 
         await remove(propertyRef);
     } catch (error) {

@@ -14,6 +14,8 @@ import RouteLogin from "./RouteLogin";
 import TenantAddUpdatePage from '../tenant/TenantAddUpdatePage';
 import TenantListPage from "../tenant/TenantListPage";
 import {TableProvider} from "../../contexts/TableProvider";
+import RentalListPage from "../rental/RentalListPage";
+import RentalAddUpdatePage from "../rental/RentalAddUpdatePage";
 
 /**
  * Component for handling the application routing.
@@ -86,6 +88,26 @@ const Routing = () => {
                            element={
                                <RoutePrivate>
                                    <TenantAddUpdatePage/>
+                               </RoutePrivate>
+                           }/>
+                    <Route path={PATHS.RENTALS}
+                           element={
+                               <RoutePrivate>
+                                   <TableProvider>
+                                       <RentalListPage/>
+                                   </TableProvider>
+                               </RoutePrivate>
+                           }/>
+                    <Route path={PATHS.RENTALS_CREATION}
+                           element={
+                               <RoutePrivate>
+                                   <RentalAddUpdatePage/>
+                               </RoutePrivate>
+                           }/>
+                    <Route path={PATHS.RENTALS_EDITION}
+                           element={
+                               <RoutePrivate>
+                                   <RentalAddUpdatePage/>
                                </RoutePrivate>
                            }/>
                     <Route path={PATHS.ACCOUNT}
