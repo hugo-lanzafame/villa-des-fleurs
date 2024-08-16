@@ -53,28 +53,45 @@ function RentalAddUpdateForm({rental}) {
         switch (key) {
             case 'name':
                 setName(value);
+                setNameError('')
                 break;
             case 'property':
                 setPropertyId(value);
+                setPropertyIdError('');
                 break;
             case 'tenants':
                 setTenantsId(value);
+                setTenantsIdError('');
                 break;
             case 'startDate':
                 setStartDate(value);
+                setStartDateError('');
                 break;
             case 'endDate':
                 setEndDate(value);
+                setEndDateError('');
                 break;
             case 'rentPrice':
                 setRentPrice(value);
+                setRentPriceError('');
                 break;
             case 'chargesPrice':
                 setChargesPrice(value);
+                setChargesPriceError('');
                 break;
             default:
                 break;
         }
+    };
+
+    /**
+     * Check if date is valid using simple regex for dd/MM/yyyy
+     *
+     * @param date - Date to verify
+     * @returns {boolean} True if format valide, false otherwise.
+     */
+    const isDateFormatValide = (date) => {
+        return /^\d{2}\/\d{2}\/\d{4}$/.test(date);
     };
 
     /**
@@ -103,7 +120,6 @@ function RentalAddUpdateForm({rental}) {
                     key: "NOTIFICATION_EDIT"
                 }) + (rental.name !== "" ? " (" + rental.name + ")" : ""))
             }
-
 
             navigate(PATHS.RENTALS_EDITION + "?id=" + rental.id);
         } else {
@@ -147,6 +163,24 @@ function RentalAddUpdateForm({rental}) {
 
         if (startDate === '') {
             setStartDateError(translate({section: "RENTAL_ADD_UPDATE_PAGE", key: "ERROR_REQUIRED_FIELD"}))
+            isError = true;
+        } else if (!isDateFormatValide(startDate)) {
+            setStartDateError(translate({section: "RENTAL_ADD_UPDATE_PAGE", key: "ERROR_DATE_FORMAT"}))
+            isError = true;
+        }
+
+        if (endDate !== '' && !isDateFormatValide(endDate)) {
+            setEndDateError(translate({section: "RENTAL_ADD_UPDATE_PAGE", key: "ERROR_DATE_FORMAT"}))
+            isError = true;
+        }
+
+        if (rentPrice === '') {
+            setRentPriceError(translate({section: "RENTAL_ADD_UPDATE_PAGE", key: "ERROR_REQUIRED_FIELD"}))
+            isError = true;
+        }
+
+        if (chargesPrice === '') {
+            setChargesPriceError(translate({section: "RENTAL_ADD_UPDATE_PAGE", key: "ERROR_REQUIRED_FIELD"}))
             isError = true;
         }
 
@@ -236,13 +270,13 @@ function RentalAddUpdateForm({rental}) {
                 <Box className="form__field-container-line">
                     <TextField
                         className="field"
-                        label={translate({section: "RENTAL_ADD_UPDATE_PAGE", key: "START_DATE_LABEL"})}
+                        label={translate({ section: "RENTAL_ADD_UPDATE_PAGE", key: "START_DATE_LABEL" })}
                         size="small"
                         value={startDate}
                         helperText={startDateError}
                         error={startDateError !== ''}
-                        type="date"
-                        InputLabelProps={{shrink: true}}
+                        type="text"
+                        placeholder="dd/mm/yyyy"
                         onChange={(e) => handleChange('startDate', e.target.value)}/>
                     <TextField
                         className="field"
@@ -251,8 +285,8 @@ function RentalAddUpdateForm({rental}) {
                         value={endDate}
                         helperText={endDateError}
                         error={endDateError !== ''}
-                        type="date"
-                        InputLabelProps={{shrink: true}}
+                        type="text"
+                        placeholder="dd/mm/yyyy"
                         onChange={(e) => handleChange('endDate', e.target.value)}/>
                 </Box>
             </Box>
@@ -265,20 +299,18 @@ function RentalAddUpdateForm({rental}) {
                         className="field"
                         label={translate({section: "RENTAL_ADD_UPDATE_PAGE", key: "RENT_PRICE_LABEL"})}
                         size="small"
-                        value={startDate}
-                        helperText={startDateError}
-                        error={startDateError !== ''}
-                        InputLabelProps={{shrink: true}}
-                        onChange={(e) => handleChange('startDate', e.target.value)}/>
+                        value={rentPrice}
+                        helperText={rentPriceError}
+                        error={rentPriceError !== ''}
+                        onChange={(e) => handleChange('rentPrice', e.target.value)}/>
                     <TextField
                         className="field"
                         label={translate({section: "RENTAL_ADD_UPDATE_PAGE", key: "CHARGES_PRICE_LABEL"})}
                         size="small"
-                        value={endDate}
-                        helperText={endDateError}
-                        error={endDateError !== ''}
-                        InputLabelProps={{shrink: true}}
-                        onChange={(e) => handleChange('endDate', e.target.value)}/>
+                        value={chargesPrice}
+                        helperText={chargesPriceError}
+                        error={chargesPriceError !== ''}
+                        onChange={(e) => handleChange('chargesPrice', e.target.value)}/>
                 </Box>
             </Box>
             <Box className="form__button-container">
@@ -297,10 +329,13 @@ function RentalAddUpdateForm({rental}) {
 
 RentalAddUpdateForm.propTypes = {
     rental: PropTypes.shape({
-        id: PropTypes.string,
-        name: PropTypes.string,
+        id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        startDate: PropTypes.string.isRequired,
+        endDate: PropTypes.string,
+        property: PropTypes.string.isRequired,
+        tenants: PropTypes.arrayOf(PropTypes.string).isRequired,
     }),
 };
-
 
 export default RentalAddUpdateForm;

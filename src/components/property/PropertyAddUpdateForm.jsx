@@ -33,10 +33,17 @@ function PropertyAddUpdateForm({property}) {
      * @param {string} value - The new value of the input field.
      */
     const handleChange = (key, value) => {
-        if (key === 'name') {
-            setName(value);
-        } else if (key === 'type') {
-            setType(value);
+        switch (key) {
+            case 'name':
+                setName(value);
+                setNameError('');
+                break;
+            case 'type':
+                setType(value);
+                setTypeError('');
+                break;
+            default:
+                break;
         }
     };
 
@@ -168,6 +175,5 @@ PropertyAddUpdateForm.propTypes = {
         type: PropTypes.string,
     }),
 };
-
 
 export default PropertyAddUpdateForm;

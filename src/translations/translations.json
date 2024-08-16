@@ -352,11 +352,11 @@
     },
     "COLUMN_PROPERTY": {
       "en": "Property",
-      "fr": "Property"
+      "fr": "Propriété"
     },
-    "COLUMN_PHONE": {
-      "en": "Tenants",
-      "fr": "Locataires"
+    "COLUMN_TENANTS": {
+      "en": "Tenant(s)",
+      "fr": "Locataire(s)"
     },
     "POPUP_DELETE_TITLE": {
       "en": "Are you sure you want to delete this rental?",
@@ -408,6 +408,18 @@
       "en": "End date",
       "fr": "Date de fin"
     },
+    "PRICE_SECTION": {
+      "en": "Pricing (per month)",
+      "fr": "Tarification (par mois)"
+    },
+    "RENT_PRICE_LABEL": {
+      "en": "Rental price",
+      "fr": "Prix de la location"
+    },
+    "CHARGES_PRICE_LABEL": {
+      "en": "Charge prices",
+      "fr": "Prix des charges"
+    },
     "NOTIFICATION_CREATE": {
       "en": "The rental was successfully created.",
       "fr": "Le locataire a été créé avec succès."
@@ -423,6 +435,10 @@
     "ERROR_REQUIRED_FIELD": {
       "en": "This field is required.",
       "fr": "Ce champ est obligatoire."
+    },
+    "ERROR_DATE_FORMAT": {
+      "en": "This date format is not valid.",
+      "fr": "Ce format de date est invalide."
     }
   },
   "BREADCRUMB": {

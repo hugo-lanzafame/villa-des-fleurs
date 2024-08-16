@@ -38,15 +38,18 @@ function TenantAddUpdateForm({tenant}) {
         switch (key) {
             case 'name':
                 setName(value);
+                setNameError('');
                 break;
             case 'email':
                 setEmail(value);
+                setEmailError('');
                 break;
             case 'phone':
                 setPhone(value);
+                setPhoneError('');
                 break;
             default:
-                throw new Error("")
+                break;
         }
     };
 
@@ -194,6 +197,5 @@ TenantAddUpdateForm.propTypes = {
         name: PropTypes.string,
     }),
 };
-
 
 export default TenantAddUpdateForm;

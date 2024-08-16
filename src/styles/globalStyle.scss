@@ -27,7 +27,12 @@
     }
 
     .field {
-        width: 14rem;
+        min-width: 14rem;
+        width: fit-content;
+
+        .MuiOutlinedInput-input {
+            color: $white-color;
+        }
 
         .MuiOutlinedInput-notchedOutline {
             color: $grey-color;
