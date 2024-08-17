@@ -22,12 +22,11 @@ function TenantAddUpdateForm({tenant}) {
     const {addNotification} = useNotification();
     const {translate} = useLanguage();
 
-    tenant = tenant ?? {};
-    const [name, setName] = useState(tenant.name || '');
+    const [name, setName] = useState('');
     const [nameError, setNameError] = useState('');
-    const [email, setEmail] = useState(tenant.email || '');
+    const [email, setEmail] = useState('');
     const [emailError, setEmailError] = useState('');
-    const [phone, setPhone] = useState(tenant.phone || '');
+    const [phone, setPhone] = useState('');
     const [phoneError, setPhoneError] = useState('');
 
     /**
@@ -59,6 +58,7 @@ function TenantAddUpdateForm({tenant}) {
      * Handles the form submission.
      */
     const handleSubmit = async () => {
+        tenant = tenant ?? {};
         tenant.name = name;
         tenant.email = email;
         tenant.phone = phone;
@@ -136,9 +136,10 @@ function TenantAddUpdateForm({tenant}) {
 
     useEffect(() => {
         const fetchData = async () => {
-            setName(tenant.name ?? '');
-            setEmail(tenant.email ?? '');
-            setPhone(tenant.phone ?? '');
+            const currentTenant = tenant ?? {};
+            setName(currentTenant.name ?? '');
+            setEmail(currentTenant.email ?? '');
+            setPhone(currentTenant.phone ?? '');
         }
 
         fetchData();
@@ -185,7 +186,7 @@ function TenantAddUpdateForm({tenant}) {
                 </Button>
                 <Button className="green-button" onClick={handleSubmit}>
                     {
-                        tenant.id ? <EditIcon/> : <AddIcon/>
+                        tenant && tenant.id ? <EditIcon/> : <AddIcon/>
                     }
                 </Button>
             </Box>
@@ -197,8 +198,8 @@ TenantAddUpdateForm.propTypes = {
     tenant: PropTypes.shape({
         id: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
-        email: PropTypes.string.isRequired,
-        phone: PropTypes.string.isRequired,
+        email: PropTypes.string,
+        phone: PropTypes.string,
     }),
 };
 

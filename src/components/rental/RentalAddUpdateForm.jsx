@@ -28,20 +28,19 @@ function RentalAddUpdateForm({rental}) {
     const [allProperties, setAllProperties] = useState([]);
     const [allTenants, setAllTenants] = useState([]);
 
-    rental = rental ?? {};
-    const [name, setName] = useState(rental.name || '');
+    const [name, setName] = useState('');
     const [nameError, setNameError] = useState('');
-    const [propertyId, setPropertyId] = useState(rental.propertyId || '');
+    const [propertyId, setPropertyId] = useState('');
     const [propertyIdError, setPropertyIdError] = useState('');
-    const [tenantIds, setTenantIds] = useState(rental.tenantIds || []);
+    const [tenantIds, setTenantIds] = useState([]);
     const [tenantIdsError, setTenantIdsError] = useState('');
-    const [startDate, setStartDate] = useState(rental.startDate || '');
+    const [startDate, setStartDate] = useState('');
     const [startDateError, setStartDateError] = useState('');
-    const [endDate, setEndDate] = useState(rental.endDate || '');
+    const [endDate, setEndDate] = useState('');
     const [endDateError, setEndDateError] = useState('');
-    const [rentPrice, setRentPrice] = useState(rental.rentPrice || '');
+    const [rentPrice, setRentPrice] = useState('');
     const [rentPriceError, setRentPriceError] = useState('');
-    const [chargesPrice, setChargesPrice] = useState(rental.chargesPrice || '');
+    const [chargesPrice, setChargesPrice] = useState('');
     const [chargesPriceError, setChargesPriceError] = useState('');
 
     /**
@@ -112,6 +111,7 @@ function RentalAddUpdateForm({rental}) {
      * Handles the form submission.
      */
     const handleSubmit = async () => {
+        rental = rental ?? {};
         rental.name = name;
         rental.propertyId = propertyId;
         rental.tenantIds = tenantIds;
@@ -230,13 +230,14 @@ function RentalAddUpdateForm({rental}) {
 
     useEffect(() => {
         const fetchData = async () => {
-            setName(rental.name ?? '');
-            setStartDate(rental.startDate ?? '');
-            setEndDate(rental.endDate ?? '');
-            setRentPrice(rental.rentPrice ?? '');
-            setChargesPrice(rental.chargesPrice ?? '');
-            setPropertyId(rental.propertyId ?? '')
-            setTenantIds(rental.tenantIds ?? [])
+            const currentRental = rental ?? {};
+            setName(currentRental.name ?? '');
+            setStartDate(currentRental.startDate ?? '');
+            setEndDate(currentRental.endDate ?? '');
+            setRentPrice(currentRental.rentPrice ?? '');
+            setChargesPrice(currentRental.chargesPrice ?? '');
+            setPropertyId(currentRental.propertyId ?? '')
+            setTenantIds(currentRental.tenantIds ?? [])
 
             setAllProperties(await getAllProperties());
             setAllTenants(await getAllTenants());
@@ -297,7 +298,7 @@ function RentalAddUpdateForm({rental}) {
                         }
                     </TextField>
                 </Box>
-                {rental.id ?
+                {rental && rental.id ?
                     <Box className="form__field-container-line">
                         <TextField
                             className="field"
@@ -367,7 +368,7 @@ function RentalAddUpdateForm({rental}) {
                     <KeyboardReturnIcon/>
                 </Button>
                 <Button className="green-button" onClick={handleSubmit}>
-                    {rental.id ?
+                    {rental && rental.id ?
                         <EditIcon/> : <AddIcon/>
                     }
                 </Button>

@@ -22,10 +22,9 @@ function PropertyAddUpdateForm({property}) {
     const {addNotification} = useNotification();
     const {translate} = useLanguage();
 
-    property = property ?? {};
-    const [name, setName] = useState(property.name || '');
+    const [name, setName] = useState('');
     const [nameError, setNameError] = useState('');
-    const [type, setType] = useState(property.type || '');
+    const [type, setType] = useState('');
     const [typeError, setTypeError] = useState('');
 
     /**
@@ -53,6 +52,7 @@ function PropertyAddUpdateForm({property}) {
      * Handles the form submission.
      */
     const handleSubmit = async () => {
+        property = property ?? {};
         property.name = name;
         property.type = type;
 
@@ -116,8 +116,9 @@ function PropertyAddUpdateForm({property}) {
 
     useEffect(() => {
         const fetchData = async () => {
-            setName(property.name ?? '');
-            setType(property.type ?? '');
+            const currentProperty = property ?? {};
+            setName(currentProperty.name ?? '');
+            setType(currentProperty.type ?? '');
         }
 
         fetchData();
@@ -162,7 +163,7 @@ function PropertyAddUpdateForm({property}) {
                 </Button>
                 <Button className="green-button" onClick={handleSubmit}>
                     {
-                        property.id ? <EditIcon/> : <AddIcon/>
+                        property && property.id ? <EditIcon/> : <AddIcon/>
                     }
                 </Button>
             </Box>
