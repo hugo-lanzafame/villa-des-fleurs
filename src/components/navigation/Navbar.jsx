@@ -1,6 +1,9 @@
 import React from "react";
-import {NavLink, Outlet} from "react-router-dom";
-import {PATHS} from '../../constants';
+import {IconButton, Stack} from "@mui/material";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import {useNavigate} from "react-router-dom";
+import {PATHS} from "../../constants/routing";
+import "../../styles/navigationStyle.scss";
 
 /**
  * Component for the navigation bar.
@@ -8,17 +11,20 @@ import {PATHS} from '../../constants';
  * @returns {JSX.Element} The Navbar component.
  */
 const Navbar = () => {
+    const navigate = useNavigate();
+
     return (
-        <>
-            <nav>
-                <NavLink to={PATHS.HOME} activeclassname="active">Acceuil</NavLink>
-                <NavLink to={PATHS.MANAGEMENT} activeclassname="active">Management</NavLink>
-                <NavLink to={PATHS.PROPERTIES_GESTION} activeclassname="active">Creation de propriétés</NavLink>
-                <NavLink to={PATHS.PROPERTIES} activeclassname="active">Liste de propriétés</NavLink>
-                <NavLink to={PATHS.ACCOUNT} activeclassname="active">Compte utilisateur</NavLink>
-            </nav>
-            <Outlet/>
-        </>
+        <Stack className="navbar">
+            <IconButton onClick={() => navigate(PATHS.HOME)}>
+                <img className='logo'
+                    src={require('../../assets/logo-lavilladesfleurs-Carré.png')}
+                    alt='VillaDesFleurs logo'
+                />
+            </IconButton>
+            <IconButton onClick={() => navigate(PATHS.ACCOUNT)}>
+                <AccountCircleIcon className="navbar__account-icon"/>
+            </IconButton>
+        </Stack>
     );
 };
 

@@ -1,25 +1,29 @@
 {
   "name": "villadesfleurs",
   "version": "0.1.0",
+  "description": "Discover Villa des Fleurs, a robust rental management platform developed with Firebase, React, and SCSS. Designed for efficiency, the platform offers practical features to simplify property, tenant, and rental management.",
+  "main": "index.js",
+  "author": "hugo lanzafame",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.13.6",
+    "axios": "^1.6.5",
     "firebase": "^9.23.0",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router": "^6.14.1",
     "react-router-dom": "^6.14.1",
+    "sass": "^1.77.8",
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "node-sass": "^7.0.3",
     "react-scripts": "^5.0.1"
   },
   "scripts": {

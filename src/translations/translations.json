@@ -117,10 +117,40 @@
       "fr": "Si l'e-mail correspond à un compte existant, un e-mail a été envoyé à l'adresse que vous avez fournie. Veuillez vérifier votre boîte de réception pour les instructions de réinitialisation du mot de passe."
     }
   },
+  "SIDEBAR": {
+    "MENU_HOME": {
+      "en": "Home",
+      "fr": "Acceuil"
+    },
+    "MENU_MANAGEMENT": {
+      "en": "Management",
+      "fr": "Gestionnaire"
+    },
+    "MENU_PROPERTIES": {
+      "en": "Properties",
+      "fr": "Propriétés"
+    },
+    "MENU_TENANTS": {
+      "en": "Tenants",
+      "fr": "Locataires"
+    },
+    "MENU_RENTALS": {
+      "en": "Rentals",
+      "fr": "Locations"
+    },
+    "MENU_TOOLS": {
+      "en": "Tools",
+      "fr": "Outils"
+    },
+    "MENU_QUITTANCES": {
+      "en": "Quittances",
+      "fr": "Quittances"
+    }
+  },
   "ACCOUNT_PAGE": {
     "TITLE_ACCOUNT": {
       "en": "Account settings",
-      "fr": "Paramètres de profil"
+      "fr": "Paramètres du compte"
     },
     "TRAD_FRENCH": {
       "en": "Francais",
@@ -135,20 +165,314 @@
       "fr": "Déconnexion"
     }
   },
-  "PROPERTY_GESTION_PAGE": {
+  "PROPERTY_LIST_PAGE": {
+    "PAGE_TITLE": {
+      "en": "Properties list",
+      "fr": "Liste des propriétés"
+    },
+    "SEARCH_NAME": {
+      "en": "Property's name",
+      "fr": "Nom de la propriété"
+    },
+    "SEARCH_TYPE": {
+      "en": "Property's type",
+      "fr": "Type de la propriété"
+    },
     "PROPERTY_TYPE_APARTMENT": {
       "en": "Apartment",
       "fr": "Appartement"
     },
-    "PROPERTY_TYPE_BUILDING": {
-      "en": "Building",
-      "fr": "Immeuble"
+    "COLUMN_NAME": {
+      "en": "Name",
+      "fr": "Nom"
+    },
+    "COLUMN_TYPE": {
+      "en": "Type",
+      "fr": "Type"
+    },
+    "POPUP_DELETE_TITLE": {
+      "en": "Are you sure you want to delete this property?",
+      "fr": "Êtes-vous sur de vouloir supprimer cette propriété ?"
+    },
+    "POPUP_DELETE_CONTENT": {
+      "en": "This action will result in permanent deletion of the property and all associated elements. You will not be able to recover this data.",
+      "fr": "Cet action entrainera une suppression définitive de la propriété et de tous les éléments associés. Vous ne pourrez pas récupérer ces données. "
+    },
+    "NOTIFICATION_DELETE": {
+      "en": "The property was successfully deleted.",
+      "fr": "La propriété a été supprimée avec succès."
     }
   },
-  "GLOBAL": {
-    "INPUT_ARIA_LABEL": {
-      "en": "text field",
-      "fr": "champ de text"
+  "PROPERTY_ADD_UPDATE_PAGE": {
+    "PAGE_TITLE_CREATION": {
+      "en": "Property creation",
+      "fr": "Création d'une propriété"
+    },
+    "PAGE_TITLE_EDITION": {
+      "en": "Property edition",
+      "fr": "Édition d'une propriété"
+    },
+    "GENERAL_INFORMATION": {
+      "en": "General information",
+      "fr": "Informations générales"
+    },
+    "NAME_LABEL": {
+      "en": "Name",
+      "fr": "Nom"
+    },
+    "TYPE_LABEL": {
+      "en": "Type",
+      "fr": "Type"
+    },
+    "TYPE_APARTMENT": {
+      "en": "Apartment",
+      "fr": "Appartement"
+    },
+    "NOTIFICATION_CREATE": {
+      "en": "The property was successfully created.",
+      "fr": "La propriété a été créée avec succès."
+    },
+    "NOTIFICATION_EDIT": {
+      "en": "The property was successfully edited.",
+      "fr": "La propriété a été éditée avec succès."
+    },
+    "NOTIFICATION_ERROR": {
+      "en": "Please correct the errors in the form.",
+      "fr": "Veuillez corriger les erreurs dans le formulaire."
+    },
+    "ERROR_REQUIRED_FIELD": {
+      "en": "This field is required.",
+      "fr": "Ce champ est obligatoire."
+    }
+  },
+  "TENANT_LIST_PAGE": {
+    "PAGE_TITLE": {
+      "en": "Tenants list",
+      "fr": "Liste des locataires"
+    },
+    "SEARCH_NAME": {
+      "en": "Tenant's name",
+      "fr": "Nom du locataire"
+    },
+    "COLUMN_NAME": {
+      "en": "Name",
+      "fr": "Nom"
+    },
+    "COLUMN_TYPE": {
+      "en": "Email",
+      "fr": "Email"
+    },
+    "COLUMN_PHONE": {
+      "en": "Phone number",
+      "fr": "Numéro de téléphone"
+    },
+    "POPUP_DELETE_TITLE": {
+      "en": "Are you sure you want to delete this tenant?",
+      "fr": "Êtes-vous sur de vouloir supprimer ce locataire ?"
+    },
+    "POPUP_DELETE_CONTENT": {
+      "en": "This action will result in permanent deletion of the tenant and all associated elements. You will not be able to recover this data.",
+      "fr": "Cet action entrainera une suppression définitive du locataire et de tous les éléments associés. Vous ne pourrez pas récupérer ces données. "
+    },
+    "NOTIFICATION_DELETE": {
+      "en": "The tenant was successfully deleted.",
+      "fr": "Le locataire a été supprimée avec succès."
+    }
+  },
+  "TENANT_ADD_UPDATE_PAGE": {
+    "PAGE_TITLE_CREATION": {
+      "en": "Tenant creation",
+      "fr": "Création d'un locataire"
+    },
+    "PAGE_TITLE_EDITION": {
+      "en": "Tenant edition",
+      "fr": "Édition d'un locataire"
+    },
+    "GENERAL_INFORMATION": {
+      "en": "General information",
+      "fr": "Informations générales"
+    },
+    "NAME_LABEL": {
+      "en": "Name",
+      "fr": "Nom"
+    },
+    "EMAIL_LABEL": {
+      "en": "Email",
+      "fr": "Email"
+    },
+    "PHONE_LABEL": {
+      "en": "Phone number",
+      "fr": "Numéro de téléphone"
+    },
+    "NOTIFICATION_CREATE": {
+      "en": "The tenant was successfully created.",
+      "fr": "Le locataire a été créé avec succès."
+    },
+    "NOTIFICATION_EDIT": {
+      "en": "The tenant was successfully edited.",
+      "fr": "Le locataire a été édité avec succès."
+    },
+    "NOTIFICATION_ERROR": {
+      "en": "Please correct the errors in the form.",
+      "fr": "Veuillez corriger les erreurs dans le formulaire."
+    },
+    "ERROR_REQUIRED_FIELD": {
+      "en": "This field is required.",
+      "fr": "Ce champ est obligatoire."
+    },
+    "ERROR_EMAIL_FIELD": {
+      "en": "This field does not contain a valid email.",
+      "fr": "Ce champ ne contient pas d'email valide."
+    },
+    "ERROR_PHONE_FIELD": {
+      "en": "This field does not contain a valid number.",
+      "fr": "Ce champ ne contient pas de numéro valide."
+    }
+  },
+  "RENTAL_LIST_PAGE": {
+    "PAGE_TITLE": {
+      "en": "Rentals list",
+      "fr": "Liste des locations"
+    },
+    "SEARCH_NAME": {
+      "en": "Rental's name",
+      "fr": "Nom de la location"
+    },
+    "COLUMN_NAME": {
+      "en": "Name",
+      "fr": "Nom"
+    },
+    "POPUP_DELETE_TITLE": {
+      "en": "Are you sure you want to delete this rental?",
+      "fr": "Êtes-vous sur de vouloir supprimer cette location ?"
+    },
+    "POPUP_DELETE_CONTENT": {
+      "en": "This action will result in permanent deletion of the rental and all associated elements. You will not be able to recover this data.",
+      "fr": "Cet action entrainera une suppression définitive de la location et de tous les éléments associés. Vous ne pourrez pas récupérer ces données. "
+    },
+    "NOTIFICATION_DELETE": {
+      "en": "The rental was successfully deleted.",
+      "fr": "La location a été supprimée avec succès."
+    }
+  },
+  "RENTAL_ADD_UPDATE_PAGE": {
+    "PAGE_TITLE_CREATION": {
+      "en": "Rental creation",
+      "fr": "Création d'une location"
+    },
+    "PAGE_TITLE_EDITION": {
+      "en": "Rental edition",
+      "fr": "Édition d'une location"
+    },
+    "GENERAL_INFORMATION_SECTION": {
+      "en": "General information",
+      "fr": "Informations générales"
+    },
+    "PROPERTY_LABEL": {
+      "en": "Related property",
+      "fr": "Propriété associée"
+    },
+    "TENANTS_LABEL": {
+      "en": "Related tenants",
+      "fr": "Locataires associés"
+    },
+    "NAME_LABEL": {
+      "en": "Name",
+      "fr": "Nom"
+    },
+    "PERIOD_SECTION": {
+      "en": "Period",
+      "fr": "Période"
+    },
+    "START_DATE_LABEL": {
+      "en": "Start date",
+      "fr": "Date de début"
+    },
+    "END_DATE_LABEL": {
+      "en": "End date",
+      "fr": "Date de fin"
+    },
+    "PRICE_SECTION": {
+      "en": "Pricing (per month)",
+      "fr": "Tarification (par mois)"
+    },
+    "RENT_PRICE_LABEL": {
+      "en": "Rental price",
+      "fr": "Prix de la location"
+    },
+    "CHARGES_PRICE_LABEL": {
+      "en": "Charge prices",
+      "fr": "Prix des charges"
+    },
+    "NOTIFICATION_CREATE": {
+      "en": "The rental was successfully created.",
+      "fr": "Le locataire a été créé avec succès."
+    },
+    "NOTIFICATION_EDIT": {
+      "en": "The rental was successfully edited.",
+      "fr": "Le locataire a été édité avec succès."
+    },
+    "NOTIFICATION_ERROR": {
+      "en": "Please correct the errors in the form.",
+      "fr": "Veuillez corriger les erreurs dans le formulaire."
+    },
+    "ERROR_REQUIRED_FIELD": {
+      "en": "This field is required.",
+      "fr": "Ce champ est obligatoire."
+    },
+    "ERROR_DATE_FORMAT": {
+      "en": "This date format is not valid.",
+      "fr": "Ce format de date est invalide."
+    },
+    "ERROR_NUMBER_FORMAT": {
+      "en": "This field must be a number.",
+      "fr": "Ce champ doit être un nombre."
+    }
+  },
+  "BREADCRUMB": {
+    "HOME": {
+      "en": "Home",
+      "fr": "Accueil"
+    },
+    "ACCOUNT": {
+      "en": "Account",
+      "fr": "Compte"
+    },
+    "MANAGEMENT": {
+      "en": "Management",
+      "fr": "Gestionnaire"
+    },
+    "PROPERTIES": {
+      "en": "Properties",
+      "fr": "Propriétés"
+    },
+    "TENANTS": {
+      "en": "Tenants",
+      "fr": "Locataires"
+    },
+    "RENTALS": {
+      "en": "Rentals",
+      "fr": "Locations"
+    },
+    "CREATION": {
+      "en": "Creation",
+      "fr": "Création"
+    },
+    "EDITION": {
+      "en": "Edition",
+      "fr": "Édition"
+    }
+  },
+  "CUSTOM_TABLE": {
+    "COLUMN_ACTIONS": {
+      "en": "Actions",
+      "fr": "Actions"
+    }
+  },
+  "CUSTOM_TABLE_EMPTY": {
+    "NO_ENTRY": {
+      "en": "No entry available.",
+      "fr": "Aucune entrée disponible."
     }
   }
 }

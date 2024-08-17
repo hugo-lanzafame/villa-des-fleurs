@@ -1,51 +1,93 @@
-// Déclaration de variable
-$black-color: #000000;
-$white-color: #ffffff;
-$success-color: green;
-$fail-color: red;
+@import "colorPanel";
 
 #root {
-    .custom-log {
-        // Styles pour le composant CustomLog
-        position: absolute;
-        text-align: center;
-        border-radius: 20px;
+    color: $white-color;
+
+    .form {
         padding: 1rem;
 
-        &__error {
-            background-color: $fail-color;
-            color: white;
-        }
-
-        &__success {
-            background-color: $success-color;
-            color: white;
-        }
-    }
-
-    .custom-form {
-        // Styles pour le composant CustomForm
-        padding: 2rem;
-        text-align: center;
-
-        &__title {
-            margin-bottom: 2rem;
-        }
-
         &__field-container {
+            margin: 1rem 0;
+            gap: 1rem;
+        }
+
+        &__field-container-line {
+            margin: 1rem 0;
             display: flex;
-            flex-direction: column;
+            gap: 1rem;
         }
 
-        &__input {
-            width: 100%;
-            padding-bottom: 1rem;
-        }
-
-        &__button {
-            margin-top: 1rem;
-            width: 100%;
-            background-color: $black-color;
+        &__button-container {
+            margin-top: 2rem;
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
         }
     }
+
+    .field {
+        min-width: 14rem;
+        width: fit-content;
+
+        .MuiOutlinedInput-input {
+            color: $white-color;
+        }
+
+        .MuiOutlinedInput-notchedOutline {
+            color: $grey-color;
+        }
+
+        .Mui-focused fieldset.MuiOutlinedInput-notchedOutline {
+            border-color: $purple-light-color;
+            -webkit-transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,
+            transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms, max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+        }
+
+        .MuiInputLabel-root {
+            color: $grey-color;
+        }
+
+        .Mui-focused.MuiInputLabel-root {
+            color: $purple-light-color;
+            -webkit-transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,
+            transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms, max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+        }
+
+        input,
+        select {
+            color: $white-color;
+        }
+
+        select option {
+            color: $black-color;
+        }
+    }
+
+    .white-button {
+        color: $white-color;
+        border: 1px solid $white-color;
+    }
+
+    .green-button {
+        color: $green-light-color;
+        border: 1px solid $green-light-color;
+    }
+
+    .red-button {
+        color: $red-light-color;
+        border: 1px solid $red-light-color;
+    }
+}
+
+.dark-light-box {
+    background-color: $dark-light-color;
+    border: 1px solid $black-color;
+    border-collapse: separate;
+    border-radius: 10px;
+}
+
+::selection {
+    color: $black-color;
+    background: $green-light-color;
 }
