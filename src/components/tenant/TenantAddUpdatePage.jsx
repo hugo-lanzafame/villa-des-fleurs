@@ -16,7 +16,7 @@ function TenantAddUpdatePage() {
     const {translate} = useLanguage();
     const searchParams = new URLSearchParams(window.location.search);
     const tenantId = searchParams.get('id');
-    const [tenant, setTenant] = useState({});
+    const [tenant, setTenant] = useState(null);
 
     /**
      * @type {BreadcrumbLink[]}
@@ -47,7 +47,7 @@ function TenantAddUpdatePage() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const tenant = await getTenantById(tenantId) ?? {};
+                const tenant = await getTenantById(tenantId) ?? null;
                 setTenant(tenant);
             } catch (error) {
                 console.error(error);

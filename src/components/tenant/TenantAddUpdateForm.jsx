@@ -21,6 +21,8 @@ function TenantAddUpdateForm({tenant}) {
     const navigate = useNavigate();
     const {addNotification} = useNotification();
     const {translate} = useLanguage();
+
+    tenant = tenant ?? {};
     const [name, setName] = useState(tenant.name || '');
     const [nameError, setNameError] = useState('');
     const [email, setEmail] = useState(tenant.email || '');
@@ -193,8 +195,10 @@ function TenantAddUpdateForm({tenant}) {
 
 TenantAddUpdateForm.propTypes = {
     tenant: PropTypes.shape({
-        id: PropTypes.string,
-        name: PropTypes.string,
+        id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        email: PropTypes.string.isRequired,
+        phone: PropTypes.string.isRequired,
     }),
 };
 

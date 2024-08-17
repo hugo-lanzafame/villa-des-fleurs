@@ -21,6 +21,8 @@ function PropertyAddUpdateForm({property}) {
     const navigate = useNavigate();
     const {addNotification} = useNotification();
     const {translate} = useLanguage();
+
+    property = property ?? {};
     const [name, setName] = useState(property.name || '');
     const [nameError, setNameError] = useState('');
     const [type, setType] = useState(property.type || '');
@@ -170,9 +172,9 @@ function PropertyAddUpdateForm({property}) {
 
 PropertyAddUpdateForm.propTypes = {
     property: PropTypes.shape({
-        id: PropTypes.string,
-        name: PropTypes.string,
-        type: PropTypes.string,
+        id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        type: PropTypes.string.isRequired,
     }),
 };
 

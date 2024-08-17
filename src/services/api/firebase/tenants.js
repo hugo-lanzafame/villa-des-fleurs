@@ -1,4 +1,4 @@
-import app from './config';
+import app, {convertTableToEntity} from './config';
 import {get, getDatabase, push, ref, remove, set} from 'firebase/database';
 import PropTypes from 'prop-types';
 import {getCurrentUser} from "./auth";
@@ -76,7 +76,7 @@ const getTenantById = async (tenantId) => {
 
             return {
                 id: snapshot.key,
-                ...tenantData,
+                ...convertTableToEntity(tenantData),
             };
         } else {
             new Error(`Tenant with ID ${tenantId} not found`);
@@ -105,7 +105,7 @@ const getAllTenants = async () => {
         snapshot.forEach((childSnapshot) => {
             tenants.push({
                 id: childSnapshot.key,
-                ...childSnapshot.val(),
+                ...convertTableToEntity(childSnapshot.val()),
             });
         });
         tenants.sort((a, b) => (a.name < b.name ? -1 : 1));
