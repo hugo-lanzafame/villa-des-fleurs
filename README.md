@@ -42,7 +42,7 @@ These combined technologies provide a robust foundation for creating a scalable 
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/votre-utilisateur/villa-des-fleurs.git
+   git clone https://github.com/hugolanzafameynov/villa-des-fleurs.git
    ```
 2. Navigate to the project directory:
    ```bash
