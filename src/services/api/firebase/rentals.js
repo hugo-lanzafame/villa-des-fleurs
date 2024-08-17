@@ -1,4 +1,4 @@
-import app from './config';
+import app, {convertTableToEntity} from './config';
 import {get, getDatabase, push, ref, remove, set} from 'firebase/database';
 import PropTypes from 'prop-types';
 import {getCurrentUser} from "./auth";
@@ -22,8 +22,10 @@ const addRental = async (rental) => {
             [DATABASE.RENTALS.COLUMN_NAME]: rental.name,
             [DATABASE.RENTALS.COLUMN_START_DATE]: rental.startDate,
             [DATABASE.RENTALS.COLUMN_END_DATE]: rental.endDate ?? null,
-            [DATABASE.RENTALS.COLUMN_PROPERTY_ID]: rental.property,
-            [DATABASE.RENTALS.COLUMN_TENANT_IDS]: rental.tenants,
+            [DATABASE.RENTALS.COLUMN_RENT_PRICE]: rental.rentPrice,
+            [DATABASE.RENTALS.COLUMN_CHARGES_PRICE]: rental.chargesPrice,
+            [DATABASE.RENTALS.COLUMN_PROPERTY_ID]: rental.propertyId,
+            [DATABASE.RENTALS.COLUMN_TENANT_IDS]: rental.tenantIds,
         })
 
         return rentalThenableRef.key;
@@ -50,9 +52,11 @@ const updateRental = async (rental) => {
         await set(rentalRef, {
             [DATABASE.RENTALS.COLUMN_NAME]: rental.name,
             [DATABASE.RENTALS.COLUMN_START_DATE]: rental.startDate,
-            [DATABASE.RENTALS.COLUMN_END_DATE]: rental.endDate,
-            [DATABASE.RENTALS.COLUMN_PROPERTY_IDS]: rental.properties,
-            [DATABASE.RENTALS.COLUMN_TENANT_IDS]: rental.tenants,
+            [DATABASE.RENTALS.COLUMN_END_DATE]: rental.endDate ?? null,
+            [DATABASE.RENTALS.COLUMN_RENT_PRICE]: rental.rentPrice,
+            [DATABASE.RENTALS.COLUMN_CHARGES_PRICE]: rental.chargesPrice,
+            [DATABASE.RENTALS.COLUMN_PROPERTY_ID]: rental.propertyId,
+            [DATABASE.RENTALS.COLUMN_TENANT_IDS]: rental.tenantIds,
         })
     } catch (error) {
         throw error;
@@ -80,7 +84,7 @@ const getRentalById = async (rentalId) => {
 
             return {
                 id: snapshot.key,
-                ...rentalData,
+                ...convertTableToEntity(rentalData),
             };
         } else {
             new Error(`Rental with ID ${rentalId} not found`);
@@ -109,7 +113,7 @@ const getAllRentals = async () => {
         snapshot.forEach((childSnapshot) => {
             rentals.push({
                 id: childSnapshot.key,
-                ...childSnapshot.val(),
+                ...convertTableToEntity(childSnapshot.val()),
             });
         });
         rentals.sort((a, b) => (a.name < b.name ? -1 : 1));

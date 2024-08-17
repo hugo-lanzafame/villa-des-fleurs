@@ -25,7 +25,6 @@
  * @property {string} id - The unique identifier of the property.
  * @property {string} name - The name of the property.
  * @property {string} type - The type of the property (e.g., "apartment").
- * @property {string[]} [rentals] - An array of rentals IDs associated with the property.
  */
 
 /**
@@ -54,7 +53,6 @@
  * @property {string} name - The name of the tenant.
  * @property {string} email - The email of the tenant.
  * @property {string} phone - The phone number of the tenant.
- * @property {string[]} [rentals] - An array of rentals IDs associated with the tenant.
  */
 
 /**
@@ -72,6 +70,8 @@
  * @property {string} TABLE - The name of the 'rentals' table.
  * @property {string} COLUMN_START_DATE - The column name for rental start dates.
  * @property {string} COLUMN_END_DATE - The column name for rental end dates.
+ * @property {string} COLUMN_RENT_PRICE - The column name for rental rent price.
+ * @property {string} COLUMN_CHARGES_PRICE - The column name for rental charges price.
  * @property {string} COLUMN_TENANT_IDS - The column name for tenant IDs in rentals.
  * @property {string} COLUMN_PROPERTY_ID - The column name for property ID in rentals.
  */
@@ -84,8 +84,10 @@
  * @property {string} name - The name of the rental.
  * @property {string} startDate - The email of the rental.
  * @property {string} [endDate] - The phone number of the rental.
- * @property {string} property - The property ID associated with the rental.
- * @property {string[]} tenants - An array of tenants ID associated with the rental.
+ * @property {number} rentPrice - The price of the rent.
+ * @property {number} chargesPrice - The price of the charges.
+ * @property {string} propertyId - The property ID associated with the rental.
+ * @property {string[]} tenantIds - An array of tenants ID associated with the rental.
  */
 
 /**
@@ -93,8 +95,6 @@
  *
  * @typedef {Object} RentalFilterValues
  * @property {string} filterByName - The rental name to use for sorting.
- * @property {string} filterByProperty - The property to use for sorting.
- * @property {string} filterByTenant - The tenant to use for sorting.
  */
 
 // ROUTING

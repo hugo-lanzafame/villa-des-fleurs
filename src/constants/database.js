@@ -95,6 +95,18 @@ const DATABASE = {
         COLUMN_END_DATE: 'end_date',
 
         /**
+         * The column 'rent_price' of the 'rentals' database.
+         * @type {string}
+         */
+        COLUMN_RENT_PRICE: 'rent_price',
+
+        /**
+         * The column 'charge_price' of the 'rentals' database.
+         * @type {string}
+         */
+        COLUMN_CHARGES_PRICE: 'charges_price',
+
+        /**
          * The column 'tenant_ids' of the 'rentals' database.
          * @type {string}
          */

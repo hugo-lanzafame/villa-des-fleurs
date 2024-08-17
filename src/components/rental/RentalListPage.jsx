@@ -49,14 +49,6 @@ function RentalListPage() {
             key: 'filterByName',
             label: translate({section: "RENTAL_LIST_PAGE", key: "SEARCH_NAME"})
         },
-        {
-            key: 'filterByProperty',
-            label: translate({section: "RENTAL_LIST_PAGE", key: "SEARCH_PROPERTY"})
-        },
-        {
-            key: 'filterByTenant',
-            label: translate({section: "RENTAL_LIST_PAGE", key: "SEARCH_TENANT"})
-        },
     ];
 
     /**
@@ -64,8 +56,6 @@ function RentalListPage() {
      */
     const columns = [
         {key: 'name', label: translate({section: "RENTAL_LIST_PAGE", key: "COLUMN_NAME"})},
-        {key: 'property', label: translate({section: "RENTAL_LIST_PAGE", key: "COLUMN_PROPERTY"})},
-        {key: 'tenants', label: translate({section: "RENTAL_LIST_PAGE", key: "COLUMN_TENANTS"})},
     ];
 
     /**
@@ -90,8 +80,6 @@ function RentalListPage() {
      */
     const filterRentals = (rentals, rentalFilterValues) => {
         const filterByName = rentalFilterValues.filterByName;
-        const filterByProperty = rentalFilterValues.filterByProperty;
-        const filterByTenant = rentalFilterValues.filterByTenant;
 
         if (!rentalFilterValues) {
             return rentals;
@@ -100,18 +88,6 @@ function RentalListPage() {
         if (filterByName && filterByName !== '') {
             rentals = rentals.filter(rental =>
                 rental.name.toLowerCase().includes(filterByName.toLowerCase())
-            );
-        }
-
-        if (filterByProperty && filterByProperty !== '') {
-            rentals = rentals.filter(rental =>
-                rental.property.toLowerCase().includes(filterByProperty.toLowerCase())
-            );
-        }
-
-        if (filterByTenant && filterByTenant !== '') {
-            rentals = rentals.filter(rental =>
-                rental.tenants.toLowerCase().includes(filterByTenant.toLowerCase())
             );
         }
 

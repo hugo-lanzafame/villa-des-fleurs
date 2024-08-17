@@ -8,8 +8,8 @@ import {useNavigate} from "react-router-dom";
 import {useLanguage} from "../../contexts/LanguageProvider";
 import {useNotification} from "../../contexts/NotificationProvider";
 import {addRental, updateRental} from "../../services/api/firebase/rentals";
-import {getAllTenants} from "../../services/api/firebase/tenants";
-import {getAllProperties} from "../../services/api/firebase/properties";
+import {getAllTenants, getTenantById} from "../../services/api/firebase/tenants";
+import {getAllProperties, getPropertyById} from "../../services/api/firebase/properties";
 import {NOTIFICATION_TYPES} from "../../constants/notification";
 import {PATHS} from "../../constants/routing";
 import MenuItem from "@mui/material/MenuItem";
@@ -28,12 +28,13 @@ function RentalAddUpdateForm({rental}) {
     const [allProperties, setAllProperties] = useState([]);
     const [allTenants, setAllTenants] = useState([]);
 
+    rental = rental ?? {};
     const [name, setName] = useState(rental.name || '');
     const [nameError, setNameError] = useState('');
-    const [propertyId, setPropertyId] = useState(rental.property || '');
+    const [propertyId, setPropertyId] = useState(rental.propertyId || '');
     const [propertyIdError, setPropertyIdError] = useState('');
-    const [tenantsId, setTenantsId] = useState(rental.tenants || []);
-    const [tenantsIdError, setTenantsIdError] = useState('');
+    const [tenantIds, setTenantIds] = useState(rental.tenantIds || []);
+    const [tenantIdsError, setTenantIdsError] = useState('');
     const [startDate, setStartDate] = useState(rental.startDate || '');
     const [startDateError, setStartDateError] = useState('');
     const [endDate, setEndDate] = useState(rental.endDate || '');
@@ -60,8 +61,8 @@ function RentalAddUpdateForm({rental}) {
                 setPropertyIdError('');
                 break;
             case 'tenants':
-                setTenantsId(value);
-                setTenantsIdError('');
+                setTenantIds(value);
+                setTenantIdsError('');
                 break;
             case 'startDate':
                 setStartDate(value);
@@ -85,13 +86,26 @@ function RentalAddUpdateForm({rental}) {
     };
 
     /**
-     * Check if date is valid using simple regex for dd/MM/yyyy
+     * Checks if a string is a valid date using simple regex for dd/mm/yyyy.
      *
      * @param date - Date to verify
-     * @returns {boolean} True if format valide, false otherwise.
+     * @returns {boolean} Returns true if the string is a valide date, otherwise false.
      */
-    const isDateFormatValide = (date) => {
+    const isDateFormatValid = (date) => {
         return /^\d{2}\/\d{2}\/\d{4}$/.test(date);
+    };
+
+    /**
+     * Converts a string with commas to a number and checks if it is a valid number.
+     *
+     * @param {string} number - The string to check.
+     * @returns {boolean} - Returns true if the string is a valid number, otherwise false.
+     */
+    const isNumberFormatValid = (number) => {
+        const normalizedValue = number.replace(',', '.');
+        const numberValue = Number(normalizedValue);
+
+        return Number.isFinite(numberValue);
     };
 
     /**
@@ -99,15 +113,28 @@ function RentalAddUpdateForm({rental}) {
      */
     const handleSubmit = async () => {
         rental.name = name;
-        rental.property = propertyId;
-        rental.tenants = tenantsId;
+        rental.propertyId = propertyId;
+        rental.tenantIds = tenantIds;
         rental.startDate = startDate;
         rental.endDate = endDate;
+        rental.rentPrice = rentPrice;
+        rental.chargesPrice = chargesPrice;
 
         const isError = handleFormErrors();
 
         if (!isError) {
             if (!rental.id) {
+                // Autogenerate rental name
+                const property = await getPropertyById(rental.propertyId);
+                const propertyName = property.name;
+                const tenantNames = (await Promise.all(
+                    rental.tenantIds.map(async tenantId => {
+                        const tenant = await getTenantById(tenantId);
+                        return tenant.name;
+                    })
+                )).join(", ");
+                rental.name = `${propertyName} - ${tenantNames}`;
+
                 rental.id = await addRental(rental);
                 addNotification(NOTIFICATION_TYPES.SUCCESS, translate({
                     section: "RENTAL_ADD_UPDATE_PAGE",
@@ -139,14 +166,15 @@ function RentalAddUpdateForm({rental}) {
     const handleFormErrors = (): boolean => {
         setNameError('');
         setPropertyIdError('');
-        setTenantsIdError('');
+        setTenantIdsError('');
         setStartDateError('');
         setEndDateError('');
         setRentPriceError('');
         setChargesPriceError('');
+
         let isError = false;
 
-        if (name === "") {
+        if (rental.id && name === "") {
             setNameError(translate({section: "RENTAL_ADD_UPDATE_PAGE", key: "ERROR_REQUIRED_FIELD"}))
             isError = true;
         }
@@ -156,20 +184,20 @@ function RentalAddUpdateForm({rental}) {
             isError = true;
         }
 
-        if (tenantsId.length === 0) {
-            setTenantsIdError(translate({section: "RENTAL_ADD_UPDATE_PAGE", key: "ERROR_REQUIRED_FIELD"}))
+        if (tenantIds.length === 0) {
+            setTenantIdsError(translate({section: "RENTAL_ADD_UPDATE_PAGE", key: "ERROR_REQUIRED_FIELD"}))
             isError = true;
         }
 
         if (startDate === '') {
             setStartDateError(translate({section: "RENTAL_ADD_UPDATE_PAGE", key: "ERROR_REQUIRED_FIELD"}))
             isError = true;
-        } else if (!isDateFormatValide(startDate)) {
+        } else if (!isDateFormatValid(startDate)) {
             setStartDateError(translate({section: "RENTAL_ADD_UPDATE_PAGE", key: "ERROR_DATE_FORMAT"}))
             isError = true;
         }
 
-        if (endDate !== '' && !isDateFormatValide(endDate)) {
+        if (endDate !== '' && !isDateFormatValid(endDate)) {
             setEndDateError(translate({section: "RENTAL_ADD_UPDATE_PAGE", key: "ERROR_DATE_FORMAT"}))
             isError = true;
         }
@@ -177,10 +205,16 @@ function RentalAddUpdateForm({rental}) {
         if (rentPrice === '') {
             setRentPriceError(translate({section: "RENTAL_ADD_UPDATE_PAGE", key: "ERROR_REQUIRED_FIELD"}))
             isError = true;
+        } else if (!isNumberFormatValid(rentPrice)) {
+            setRentPriceError(translate({section: "RENTAL_ADD_UPDATE_PAGE", key: "ERROR_NUMBER_FORMAT"}))
+            isError = true;
         }
 
         if (chargesPrice === '') {
             setChargesPriceError(translate({section: "RENTAL_ADD_UPDATE_PAGE", key: "ERROR_REQUIRED_FIELD"}))
+            isError = true;
+        } else if (!isNumberFormatValid(chargesPrice)) {
+            setRentPriceError(translate({section: "RENTAL_ADD_UPDATE_PAGE", key: "ERROR_NUMBER_FORMAT"}))
             isError = true;
         }
 
@@ -197,8 +231,12 @@ function RentalAddUpdateForm({rental}) {
     useEffect(() => {
         const fetchData = async () => {
             setName(rental.name ?? '');
-            setPropertyId(rental.property ?? '')
-            setTenantsId(rental.tenants ?? [])
+            setStartDate(rental.startDate ?? '');
+            setEndDate(rental.endDate ?? '');
+            setRentPrice(rental.rentPrice ?? '');
+            setChargesPrice(rental.chargesPrice ?? '');
+            setPropertyId(rental.propertyId ?? '')
+            setTenantIds(rental.tenantIds ?? [])
 
             setAllProperties(await getAllProperties());
             setAllTenants(await getAllTenants());
@@ -236,32 +274,41 @@ function RentalAddUpdateForm({rental}) {
                     <TextField
                         className="field"
                         select
-                        SelectProps={{multiple: true, renderValue: (selected) => selected.join(', ')}}
+                        SelectProps={{
+                            multiple: true,
+                            renderValue: (selected) =>
+                                selected
+                                    .map(id => allTenants.find(tenant => tenant.id === id)?.name || '')
+                                    .filter(name => name)
+                                    .join(', ')
+                        }}
                         label={translate({section: "RENTAL_ADD_UPDATE_PAGE", key: "TENANTS_LABEL"})}
                         size="small"
-                        value={tenantsId}
-                        helperText={tenantsIdError}
-                        error={tenantsIdError !== ''}
+                        value={tenantIds}
+                        helperText={tenantIdsError}
+                        error={tenantIdsError !== ''}
                         onChange={(e) => handleChange('tenants', e.target.value)}>
                         {allTenants.length !== 0 ?
                             allTenants.map((tenant) => (
-                                <MenuItem key={tenant.id} value={tenant.name}>
+                                <MenuItem key={tenant.id} value={tenant.id}>
                                     {tenant.name}
                                 </MenuItem>
                             )) : <MenuItem value=''>none</MenuItem>
                         }
                     </TextField>
                 </Box>
-                <Box className="form__field-container-line">
-                    <TextField
-                        className="field"
-                        label={translate({section: "RENTAL_ADD_UPDATE_PAGE", key: "NAME_LABEL"})}
-                        size="small"
-                        value={name}
-                        helperText={nameError}
-                        error={nameError !== ''}
-                        onChange={(e) => handleChange('name', e.target.value)}/>
-                </Box>
+                {rental.id ?
+                    <Box className="form__field-container-line">
+                        <TextField
+                            className="field"
+                            label={translate({section: "RENTAL_ADD_UPDATE_PAGE", key: "NAME_LABEL"})}
+                            size="small"
+                            value={name}
+                            helperText={nameError}
+                            error={nameError !== ''}
+                            onChange={(e) => handleChange('name', e.target.value)}/>
+                    </Box> : ''
+                }
             </Box>
             <Box className="form__field-container">
                 <Typography>
@@ -270,7 +317,7 @@ function RentalAddUpdateForm({rental}) {
                 <Box className="form__field-container-line">
                     <TextField
                         className="field"
-                        label={translate({ section: "RENTAL_ADD_UPDATE_PAGE", key: "START_DATE_LABEL" })}
+                        label={translate({section: "RENTAL_ADD_UPDATE_PAGE", key: "START_DATE_LABEL"})}
                         size="small"
                         value={startDate}
                         helperText={startDateError}
@@ -302,6 +349,7 @@ function RentalAddUpdateForm({rental}) {
                         value={rentPrice}
                         helperText={rentPriceError}
                         error={rentPriceError !== ''}
+                        type="text"
                         onChange={(e) => handleChange('rentPrice', e.target.value)}/>
                     <TextField
                         className="field"
@@ -310,6 +358,7 @@ function RentalAddUpdateForm({rental}) {
                         value={chargesPrice}
                         helperText={chargesPriceError}
                         error={chargesPriceError !== ''}
+                        type="text"
                         onChange={(e) => handleChange('chargesPrice', e.target.value)}/>
                 </Box>
             </Box>
@@ -333,8 +382,10 @@ RentalAddUpdateForm.propTypes = {
         name: PropTypes.string.isRequired,
         startDate: PropTypes.string.isRequired,
         endDate: PropTypes.string,
-        property: PropTypes.string.isRequired,
-        tenants: PropTypes.arrayOf(PropTypes.string).isRequired,
+        rentPrice: PropTypes.number.isRequired,
+        chargesPrice: PropTypes.number.isRequired,
+        propertyId: PropTypes.string.isRequired,
+        tenantIds: PropTypes.arrayOf(PropTypes.string).isRequired,
     }),
 };
 
