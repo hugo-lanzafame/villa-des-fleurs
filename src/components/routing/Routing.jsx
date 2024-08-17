@@ -110,6 +110,12 @@ const Routing = () => {
                                    <RentalAddUpdatePage/>
                                </RoutePrivate>
                            }/>
+                    <Route path={PATHS.RECEIPTS}
+                           element={
+                               <RoutePrivate>
+                                   <RentalAddUpdatePage/>
+                               </RoutePrivate>
+                           }/>
                     <Route path={PATHS.ACCOUNT}
                            element={
                                <RoutePrivate>

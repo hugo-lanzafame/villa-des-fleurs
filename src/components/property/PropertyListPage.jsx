@@ -82,6 +82,14 @@ function PropertyListPage() {
     const deleteNotification = translate({section: "PROPERTY_LIST_PAGE", key: "NOTIFICATION_DELETE"})
 
     /**
+     * A filter objects that contain property filters.
+     *
+     * @typedef {Object} PropertyFilterValues
+     * @property {string} filterByName - The property name to use for sorting.
+     * @property {string} filterByType - The property type to use for sorting.
+     */
+
+    /**
      * Get properties and filter them.
      *
      * @param {Property[]} properties - The properties to filter.

@@ -32,6 +32,24 @@ export const TableProvider = ({children}) => {
     const [deleteNotification, setDeleteNotification] = useState({});
 
     /**
+     * Filter objects for custom table filtering.
+     *
+     * @typedef {Object} TableFilter
+     * @property {string} key - The unique key for the filter.
+     * @property {string} label - The translation key for the filter label.
+     * @property {boolean} [select] - Indicates if the filter is a select dropdown.
+     * @property {TableFilterOption[]} [options] - The options for a select dropdown.
+     */
+
+    /**
+     * Option objects to customize the table filter component.
+     *
+     * @typedef {Object} TableFilterOption
+     * @property {string} value - The value of the option.
+     * @property {string} label - The label of the option.
+     */
+
+    /**
      * Change the table filters.
      *
      * @param {TableFilter[]} newFilters - The new filters to set.
@@ -42,6 +60,14 @@ export const TableProvider = ({children}) => {
     changeFilters.propTypes = {
         newFilters: PropTypes.array,
     };
+
+    /**
+     * Column object for custom table.
+     *
+     * @typedef {Object} TableColumn
+     * @property {string} key - The unique key for the column.
+     * @property {string} label - The translation key for the column label.
+     */
 
     /**
      * Change the table columns.
@@ -103,6 +129,14 @@ export const TableProvider = ({children}) => {
     changeCreationLink.propTypes = {
         newLink: PropTypes.string.isRequired,
     };
+
+    /**
+     * Popup content object.
+     *
+     * @typedef {Object} PopupContent
+     * @property {string} title - The title of the popup.
+     * @property {string} content - The content for the popup.
+     */
 
     /**
      * Change the table popup delete content.

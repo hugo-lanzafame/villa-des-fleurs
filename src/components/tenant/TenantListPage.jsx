@@ -72,6 +72,13 @@ function TenantListPage() {
     const deleteNotification = translate({section: "TENANT_LIST_PAGE", key: "NOTIFICATION_DELETE"})
 
     /**
+     * A filter objects that contain tenant filters.
+     *
+     * @typedef {Object} TenantFilterValues
+     * @property {string} filterByName - The tenant name to use for sorting.
+     */
+
+    /**
      * Get tenants and filter them.
      *
      * @param {Tenant[]} tenants - The tenants to filter.

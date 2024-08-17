@@ -13,7 +13,7 @@ function CustomNotifications() {
     const {getNotifications, clearNotification, clearNotifications} = useNotification();
 
     /**
-     * @type {NotificationP[]}
+     * @type {CustomNotification[]}
      */
     const notifications = getNotifications();
 
