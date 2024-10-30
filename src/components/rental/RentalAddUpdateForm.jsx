@@ -248,119 +248,121 @@ function RentalAddUpdateForm({rental}) {
     }, [rental]);
 
     return (
-        <Box className="rental-add-update-form form dark-light-box">
-            <Typography>
-                {translate({section: "RENTAL_ADD_UPDATE_PAGE", key: "GENERAL_INFORMATION_SECTION"})}
-            </Typography>
-            <Box className="form__field-container">
-                <Box className="form__field-container-line">
-                    <TextField
-                        className="field"
-                        select
-                        label={translate({section: "RENTAL_ADD_UPDATE_PAGE", key: "PROPERTY_LABEL"})}
-                        size="small"
-                        value={propertyId}
-                        helperText={propertyIdError}
-                        error={propertyIdError !== ''}
-                        onChange={(e) => handleChange('property', e.target.value)}>
-                        <MenuItem value=''>none</MenuItem>
-                        {allProperties.length !== 0 &&
-                            allProperties.map((property) => (
-                                <MenuItem key={property.id} value={property.id}>
-                                    {property.name}
-                                </MenuItem>
-                            ))
-                        }
-                    </TextField>
-                    <TextField
-                        className="field"
-                        select
-                        SelectProps={{
-                            multiple: true,
-                            renderValue: (selected) =>
-                                selected
-                                    .map(id => allTenants.find(tenant => tenant.id === id)?.name || '')
-                                    .filter(name => name)
-                                    .join(', ')
-                        }}
-                        label={translate({section: "RENTAL_ADD_UPDATE_PAGE", key: "TENANTS_LABEL"})}
-                        size="small"
-                        value={tenantIds}
-                        helperText={tenantIdsError}
-                        error={tenantIdsError !== ''}
-                        onChange={(e) => handleChange('tenants', e.target.value)}>
-                        {allTenants.length !== 0 ?
-                            allTenants.map((tenant) => (
-                                <MenuItem key={tenant.id} value={tenant.id}>
-                                    {tenant.name}
-                                </MenuItem>
-                            )) : <MenuItem value=''>none</MenuItem>
-                        }
-                    </TextField>
-                </Box>
-                {rental && rental.id ?
+        <Box className="rental-add-update-form form">
+            <Box className="dark-light-box">
+                <Typography>
+                    {translate({section: "RENTAL_ADD_UPDATE_PAGE", key: "GENERAL_INFORMATION_SECTION"})}
+                </Typography>
+                <Box className="form__field-container">
                     <Box className="form__field-container-line">
                         <TextField
                             className="field"
-                            label={translate({section: "RENTAL_ADD_UPDATE_PAGE", key: "NAME_LABEL"})}
+                            select
+                            label={translate({section: "RENTAL_ADD_UPDATE_PAGE", key: "PROPERTY_LABEL"})}
                             size="small"
-                            value={name}
-                            helperText={nameError}
-                            error={nameError !== ''}
-                            onChange={(e) => handleChange('name', e.target.value)}/>
-                    </Box> : ''
-                }
-            </Box>
-            <Box className="form__field-container">
-                <Typography>
-                    {translate({section: "RENTAL_ADD_UPDATE_PAGE", key: "PERIOD_SECTION"})}
-                </Typography>
-                <Box className="form__field-container-line">
-                    <TextField
-                        className="field"
-                        label={translate({section: "RENTAL_ADD_UPDATE_PAGE", key: "START_DATE_LABEL"})}
-                        size="small"
-                        value={startDate}
-                        helperText={startDateError}
-                        error={startDateError !== ''}
-                        type="text"
-                        placeholder="dd/mm/yyyy"
-                        onChange={(e) => handleChange('startDate', e.target.value)}/>
-                    <TextField
-                        className="field"
-                        label={translate({section: "RENTAL_ADD_UPDATE_PAGE", key: "END_DATE_LABEL"})}
-                        size="small"
-                        value={endDate}
-                        helperText={endDateError}
-                        error={endDateError !== ''}
-                        type="text"
-                        placeholder="dd/mm/yyyy"
-                        onChange={(e) => handleChange('endDate', e.target.value)}/>
+                            value={propertyId}
+                            helperText={propertyIdError}
+                            error={propertyIdError !== ''}
+                            onChange={(e) => handleChange('property', e.target.value)}>
+                            <MenuItem value=''>none</MenuItem>
+                            {allProperties.length !== 0 &&
+                                allProperties.map((property) => (
+                                    <MenuItem key={property.id} value={property.id}>
+                                        {property.name}
+                                    </MenuItem>
+                                ))
+                            }
+                        </TextField>
+                        <TextField
+                            className="field"
+                            select
+                            SelectProps={{
+                                multiple: true,
+                                renderValue: (selected) =>
+                                    selected
+                                        .map(id => allTenants.find(tenant => tenant.id === id)?.name || '')
+                                        .filter(name => name)
+                                        .join(', ')
+                            }}
+                            label={translate({section: "RENTAL_ADD_UPDATE_PAGE", key: "TENANTS_LABEL"})}
+                            size="small"
+                            value={tenantIds}
+                            helperText={tenantIdsError}
+                            error={tenantIdsError !== ''}
+                            onChange={(e) => handleChange('tenants', e.target.value)}>
+                            {allTenants.length !== 0 ?
+                                allTenants.map((tenant) => (
+                                    <MenuItem key={tenant.id} value={tenant.id}>
+                                        {tenant.name}
+                                    </MenuItem>
+                                )) : <MenuItem value=''>none</MenuItem>
+                            }
+                        </TextField>
+                    </Box>
+                    {rental && rental.id ?
+                        <Box className="form__field-container-line">
+                            <TextField
+                                className="field"
+                                label={translate({section: "RENTAL_ADD_UPDATE_PAGE", key: "NAME_LABEL"})}
+                                size="small"
+                                value={name}
+                                helperText={nameError}
+                                error={nameError !== ''}
+                                onChange={(e) => handleChange('name', e.target.value)}/>
+                        </Box> : ''
+                    }
                 </Box>
-            </Box>
-            <Box className="form__field-container">
-                <Typography>
-                    {translate({section: "RENTAL_ADD_UPDATE_PAGE", key: "PRICE_SECTION"})}
-                </Typography>
-                <Box className="form__field-container-line">
-                    <TextField
-                        className="field"
-                        label={translate({section: "RENTAL_ADD_UPDATE_PAGE", key: "RENT_PRICE_LABEL"})}
-                        size="small"
-                        value={rentPrice}
-                        helperText={rentPriceError}
-                        error={rentPriceError !== ''}
-                        type="text"
-                        onChange={(e) => handleChange('rentPrice', e.target.value)}/>
-                    <TextField
-                        className="field"
-                        label={translate({section: "RENTAL_ADD_UPDATE_PAGE", key: "CHARGES_PRICE_LABEL"})}
-                        size="small"
-                        value={chargesPrice}
-                        helperText={chargesPriceError}
-                        error={chargesPriceError !== ''}
-                        type="text"
-                        onChange={(e) => handleChange('chargesPrice', e.target.value)}/>
+                <Box className="form__field-container">
+                    <Typography>
+                        {translate({section: "RENTAL_ADD_UPDATE_PAGE", key: "PERIOD_SECTION"})}
+                    </Typography>
+                    <Box className="form__field-container-line">
+                        <TextField
+                            className="field"
+                            label={translate({section: "RENTAL_ADD_UPDATE_PAGE", key: "START_DATE_LABEL"})}
+                            size="small"
+                            value={startDate}
+                            helperText={startDateError}
+                            error={startDateError !== ''}
+                            type="text"
+                            placeholder="dd/mm/yyyy"
+                            onChange={(e) => handleChange('startDate', e.target.value)}/>
+                        <TextField
+                            className="field"
+                            label={translate({section: "RENTAL_ADD_UPDATE_PAGE", key: "END_DATE_LABEL"})}
+                            size="small"
+                            value={endDate}
+                            helperText={endDateError}
+                            error={endDateError !== ''}
+                            type="text"
+                            placeholder="dd/mm/yyyy"
+                            onChange={(e) => handleChange('endDate', e.target.value)}/>
+                    </Box>
+                </Box>
+                <Box className="form__field-container">
+                    <Typography>
+                        {translate({section: "RENTAL_ADD_UPDATE_PAGE", key: "PRICE_SECTION"})}
+                    </Typography>
+                    <Box className="form__field-container-line">
+                        <TextField
+                            className="field"
+                            label={translate({section: "RENTAL_ADD_UPDATE_PAGE", key: "RENT_PRICE_LABEL"})}
+                            size="small"
+                            value={rentPrice}
+                            helperText={rentPriceError}
+                            error={rentPriceError !== ''}
+                            type="text"
+                            onChange={(e) => handleChange('rentPrice', e.target.value)}/>
+                        <TextField
+                            className="field"
+                            label={translate({section: "RENTAL_ADD_UPDATE_PAGE", key: "CHARGES_PRICE_LABEL"})}
+                            size="small"
+                            value={chargesPrice}
+                            helperText={chargesPriceError}
+                            error={chargesPriceError !== ''}
+                            type="text"
+                            onChange={(e) => handleChange('chargesPrice', e.target.value)}/>
+                    </Box>
                 </Box>
             </Box>
             <Box className="form__button-container">
@@ -368,9 +370,7 @@ function RentalAddUpdateForm({rental}) {
                     <KeyboardReturnIcon/>
                 </Button>
                 <Button className="green-button" onClick={handleSubmit}>
-                    {rental && rental.id ?
-                        <EditIcon/> : <AddIcon/>
-                    }
+                    {rental && rental.id ? <EditIcon/> : <AddIcon/>}
                 </Button>
             </Box>
         </Box>
@@ -383,8 +383,8 @@ RentalAddUpdateForm.propTypes = {
         name: PropTypes.string.isRequired,
         startDate: PropTypes.string.isRequired,
         endDate: PropTypes.string,
-        rentPrice: PropTypes.number.isRequired,
-        chargesPrice: PropTypes.number.isRequired,
+        rentPrice: PropTypes.string.isRequired,
+        chargesPrice: PropTypes.string.isRequired,
         propertyId: PropTypes.string.isRequired,
         tenantIds: PropTypes.arrayOf(PropTypes.string).isRequired,
     }),

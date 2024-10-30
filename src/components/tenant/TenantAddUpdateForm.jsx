@@ -147,47 +147,49 @@ function TenantAddUpdateForm({tenant}) {
     }, [tenant]);
 
     return (
-        <Box className="tenant-add-update-form form dark-light-box">
-            <Typography>
-                {translate({section: "TENANT_ADD_UPDATE_PAGE", key: "GENERAL_INFORMATION"})}
-            </Typography>
-            <Box className="form__field-container">
-                <TextField
-                    key="name"
-                    className="field"
-                    label={translate({section: "TENANT_ADD_UPDATE_PAGE", key: "NAME_LABEL"})}
-                    size="small"
-                    value={name}
-                    helperText={nameError}
-                    error={nameError !== ''}
-                    onChange={(e) => handleChange('name', e.target.value)}/>
-                <TextField
-                    key="email"
-                    className="field"
-                    label={translate({section: "TENANT_ADD_UPDATE_PAGE", key: "EMAIL_LABEL"})}
-                    size="small"
-                    value={email}
-                    helperText={emailError}
-                    error={emailError !== ''}
-                    onChange={(e) => handleChange('email', e.target.value)}/>
-                <TextField
-                    key="phone"
-                    className="field"
-                    label={translate({section: "TENANT_ADD_UPDATE_PAGE", key: "PHONE_LABEL"})}
-                    size="small"
-                    value={phone}
-                    helperText={phoneError}
-                    error={phoneError !== ''}
-                    onChange={(e) => handleChange('phone', e.target.value)}/>
+        <Box className="tenant-add-update-form form">
+            <Box className="dark-light-box">
+                <Typography>
+                    {translate({section: "TENANT_ADD_UPDATE_PAGE", key: "GENERAL_INFORMATION"})}
+                </Typography>
+                <Box className="form__field-container">
+                    <Box className="form__field-container-line">
+                        <TextField
+                            key="name"
+                            className="field"
+                            label={translate({section: "TENANT_ADD_UPDATE_PAGE", key: "NAME_LABEL"})}
+                            size="small"
+                            value={name}
+                            helperText={nameError}
+                            error={nameError !== ''}
+                            onChange={(e) => handleChange('name', e.target.value)}/>
+                        <TextField
+                            key="email"
+                            className="field"
+                            label={translate({section: "TENANT_ADD_UPDATE_PAGE", key: "EMAIL_LABEL"})}
+                            size="small"
+                            value={email}
+                            helperText={emailError}
+                            error={emailError !== ''}
+                            onChange={(e) => handleChange('email', e.target.value)}/>
+                        <TextField
+                            key="phone"
+                            className="field"
+                            label={translate({section: "TENANT_ADD_UPDATE_PAGE", key: "PHONE_LABEL"})}
+                            size="small"
+                            value={phone}
+                            helperText={phoneError}
+                            error={phoneError !== ''}
+                            onChange={(e) => handleChange('phone', e.target.value)}/>
+                    </Box>
+                </Box>
             </Box>
             <Box className="form__button-container">
                 <Button className="white-button" onClick={handleCancel}>
                     <KeyboardReturnIcon/>
                 </Button>
                 <Button className="green-button" onClick={handleSubmit}>
-                    {
-                        tenant && tenant.id ? <EditIcon/> : <AddIcon/>
-                    }
+                    {tenant && tenant.id ? <EditIcon/> : <AddIcon/>}
                 </Button>
             </Box>
         </Box>

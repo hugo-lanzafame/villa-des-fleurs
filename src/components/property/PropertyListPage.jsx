@@ -54,7 +54,6 @@ function PropertyListPage() {
             label: translate({section: "PROPERTY_LIST_PAGE", key: "SEARCH_TYPE"}),
             select: true,
             options: [
-                {value: '', label: ''},
                 {value: 'apartment', label: translate({section: "PROPERTY_LIST_PAGE", key: "PROPERTY_TYPE_APARTMENT"})},
             ]
         },
