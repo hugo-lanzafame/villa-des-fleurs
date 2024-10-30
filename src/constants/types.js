@@ -31,3 +31,19 @@
  * @property {string} propertyId - The property ID associated with the rental.
  * @property {string[]} tenantIds - An array of tenant IDs associated with the rental.
  */
+
+/**
+ * Represents a receipt entity.
+ *
+ * @typedef {Object} Receipt
+ * @property {string} id - The unique identifier of the receipt.
+ * @property {string} rentalId - The rental ID associated with the receipt.
+ * @property {string} month - The month of the receipt.
+ * @property {string} rent - The rent price of the receipt.
+ * @property {number} charges - The charge price of the receipt.
+ * @property {number} miscellaneousFees - The miscellaneous fees of the receipt.
+ * @property {number} payment - The payment amount of the receipt.
+ * @property {number} date - The payment date of the receipt.
+ * @property {number} balance - The balance of the receipt after the payment.
+ * @property {number} commentary - The commentary of the receipt.
+ */

@@ -236,7 +236,6 @@ const DATABASE = {
          * @type {string}
          */
         COLUMN_COMMENTARY: 'commentary',
-
     },
 };
 
