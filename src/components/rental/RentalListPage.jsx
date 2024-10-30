@@ -72,6 +72,13 @@ function RentalListPage() {
     const deleteNotification = translate({section: "RENTAL_LIST_PAGE", key: "NOTIFICATION_DELETE"})
 
     /**
+     * A filter objects that contain rental filters.
+     *
+     * @typedef {Object} RentalFilterValues
+     * @property {string} filterByName - The rental name to use for sorting.
+     */
+
+    /**
      * Get rentals and filter them.
      *
      * @param {Rental[]} rentals - The rentals to filter.

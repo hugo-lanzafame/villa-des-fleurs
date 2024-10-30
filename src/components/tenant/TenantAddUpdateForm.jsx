@@ -22,12 +22,11 @@ function TenantAddUpdateForm({tenant}) {
     const {addNotification} = useNotification();
     const {translate} = useLanguage();
 
-    tenant = tenant ?? {};
-    const [name, setName] = useState(tenant.name || '');
+    const [name, setName] = useState('');
     const [nameError, setNameError] = useState('');
-    const [email, setEmail] = useState(tenant.email || '');
+    const [email, setEmail] = useState('');
     const [emailError, setEmailError] = useState('');
-    const [phone, setPhone] = useState(tenant.phone || '');
+    const [phone, setPhone] = useState('');
     const [phoneError, setPhoneError] = useState('');
 
     /**
@@ -59,6 +58,7 @@ function TenantAddUpdateForm({tenant}) {
      * Handles the form submission.
      */
     const handleSubmit = async () => {
+        tenant = tenant ?? {};
         tenant.name = name;
         tenant.email = email;
         tenant.phone = phone;
@@ -136,9 +136,10 @@ function TenantAddUpdateForm({tenant}) {
 
     useEffect(() => {
         const fetchData = async () => {
-            setName(tenant.name ?? '');
-            setEmail(tenant.email ?? '');
-            setPhone(tenant.phone ?? '');
+            const currentTenant = tenant ?? {};
+            setName(currentTenant.name ?? '');
+            setEmail(currentTenant.email ?? '');
+            setPhone(currentTenant.phone ?? '');
         }
 
         fetchData();
@@ -146,47 +147,49 @@ function TenantAddUpdateForm({tenant}) {
     }, [tenant]);
 
     return (
-        <Box className="tenant-add-update-form form dark-light-box">
-            <Typography>
-                {translate({section: "TENANT_ADD_UPDATE_PAGE", key: "GENERAL_INFORMATION"})}
-            </Typography>
-            <Box className="form__field-container">
-                <TextField
-                    key="name"
-                    className="field"
-                    label={translate({section: "TENANT_ADD_UPDATE_PAGE", key: "NAME_LABEL"})}
-                    size="small"
-                    value={name}
-                    helperText={nameError}
-                    error={nameError !== ''}
-                    onChange={(e) => handleChange('name', e.target.value)}/>
-                <TextField
-                    key="email"
-                    className="field"
-                    label={translate({section: "TENANT_ADD_UPDATE_PAGE", key: "EMAIL_LABEL"})}
-                    size="small"
-                    value={email}
-                    helperText={emailError}
-                    error={emailError !== ''}
-                    onChange={(e) => handleChange('email', e.target.value)}/>
-                <TextField
-                    key="phone"
-                    className="field"
-                    label={translate({section: "TENANT_ADD_UPDATE_PAGE", key: "PHONE_LABEL"})}
-                    size="small"
-                    value={phone}
-                    helperText={phoneError}
-                    error={phoneError !== ''}
-                    onChange={(e) => handleChange('phone', e.target.value)}/>
+        <Box className="tenant-add-update-form form">
+            <Box className="dark-light-box">
+                <Typography>
+                    {translate({section: "TENANT_ADD_UPDATE_PAGE", key: "GENERAL_INFORMATION"})}
+                </Typography>
+                <Box className="form__field-container">
+                    <Box className="form__field-container-line">
+                        <TextField
+                            key="name"
+                            className="field"
+                            label={translate({section: "TENANT_ADD_UPDATE_PAGE", key: "NAME_LABEL"})}
+                            size="small"
+                            value={name}
+                            helperText={nameError}
+                            error={nameError !== ''}
+                            onChange={(e) => handleChange('name', e.target.value)}/>
+                        <TextField
+                            key="email"
+                            className="field"
+                            label={translate({section: "TENANT_ADD_UPDATE_PAGE", key: "EMAIL_LABEL"})}
+                            size="small"
+                            value={email}
+                            helperText={emailError}
+                            error={emailError !== ''}
+                            onChange={(e) => handleChange('email', e.target.value)}/>
+                        <TextField
+                            key="phone"
+                            className="field"
+                            label={translate({section: "TENANT_ADD_UPDATE_PAGE", key: "PHONE_LABEL"})}
+                            size="small"
+                            value={phone}
+                            helperText={phoneError}
+                            error={phoneError !== ''}
+                            onChange={(e) => handleChange('phone', e.target.value)}/>
+                    </Box>
+                </Box>
             </Box>
             <Box className="form__button-container">
                 <Button className="white-button" onClick={handleCancel}>
                     <KeyboardReturnIcon/>
                 </Button>
                 <Button className="green-button" onClick={handleSubmit}>
-                    {
-                        tenant.id ? <EditIcon/> : <AddIcon/>
-                    }
+                    {tenant && tenant.id ? <EditIcon/> : <AddIcon/>}
                 </Button>
             </Box>
         </Box>
@@ -197,8 +200,8 @@ TenantAddUpdateForm.propTypes = {
     tenant: PropTypes.shape({
         id: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
-        email: PropTypes.string.isRequired,
-        phone: PropTypes.string.isRequired,
+        email: PropTypes.string,
+        phone: PropTypes.string,
     }),
 };
 
