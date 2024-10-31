@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Box, Button, TextField, Typography} from '@mui/material';
+import {Box, Button, MenuItem, TextField, Typography} from '@mui/material';
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from '@mui/icons-material/Edit';
 import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn";
@@ -12,7 +12,6 @@ import {getAllTenants, getTenantById} from "../../services/api/firebase/tenants"
 import {getAllProperties, getPropertyById} from "../../services/api/firebase/properties";
 import {NOTIFICATION_TYPES} from "../../constants/notification";
 import {PATHS} from "../../constants/routing";
-import MenuItem from "@mui/material/MenuItem";
 
 /**
  * Component for the Rental Add/Update form.

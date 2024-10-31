@@ -474,5 +474,99 @@
       "en": "This field must be a number.",
       "fr": "Ce champ doit être un nombre."
     }
+  },
+  "RECEIPT_ADD_UPDATE_PAGE": {
+    "MONTH_JANUARY": {
+      "en": "January",
+      "fr": "Janvier"
+    },
+    "MONTH_FEBRUARY": {
+      "en": "February",
+      "fr": "Février"
+    },
+    "MONTH_MARCH": {
+      "en": "March",
+      "fr": "Mars"
+    },
+    "MONTH_APRIL": {
+      "en": "April",
+      "fr": "Avril"
+    },
+    "MONTH_MAY": {
+      "en": "May",
+      "fr": "Mai"
+    },
+    "MONTH_JUNE": {
+      "en": "June",
+      "fr": "Juin"
+    },
+    "MONTH_JULY": {
+      "en": "July",
+      "fr": "Juillet"
+    },
+    "MONTH_AUGUST": {
+      "en": "August",
+      "fr": "Août"
+    },
+    "MONTH_SEPTEMBER": {
+      "en": "September",
+      "fr": "Septembre"
+    },
+    "MONTH_OCTOBER": {
+      "en": "October",
+      "fr": "Octobre"
+    },
+    "MONTH_NOVEMBER": {
+      "en": "November",
+      "fr": "Novembre"
+    },
+    "MONTH_DECEMBER": {
+      "en": "December",
+      "fr": "Décembre"
+    },
+    "COLUMN_MONTH": {
+      "en": "Month",
+      "fr": "Mois"
+    },
+    "COLUMN_RENT": {
+      "en": "Rent HC",
+      "fr": "Loyer HC"
+    },
+    "COLUMN_CHARGES": {
+      "en": "Charges",
+      "fr": "Charges"
+    },
+    "COLUMN_MISCELLANEOUS_FEES": {
+      "en": "Miscellaneous",
+      "fr": "Divers"
+    },
+    "COLUMN_PREVIOUS_BALANCE": {
+      "en": "Previous Balance",
+      "fr": "Solde Ant."
+    },
+    "COLUMN_TOTAL": {
+      "en": "Total",
+      "fr": "Total"
+    },
+    "COLUMN_PAYMENT": {
+      "en": "Payment",
+      "fr": "Paiement"
+    },
+    "COLUMN_DATE": {
+      "en": "Date",
+      "fr": "Date"
+    },
+    "COLUMN_BALANCE": {
+      "en": "Balance",
+      "fr": "Solde"
+    },
+    "COLUMN_COMMENTARY": {
+      "en": "Comment",
+      "fr": "Commentaire"
+    },
+    "COLUMN_ACTION": {
+      "en": "Action",
+      "fr": "Action"
+    }
   }
 }

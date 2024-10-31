@@ -1,12 +1,11 @@
 import React, {useState} from 'react';
-import {Box, Button, TextField} from '@mui/material';
+import {Box, Button, MenuItem, TextField} from '@mui/material';
 import CachedIcon from '@mui/icons-material/Cached';
 import ClearIcon from '@mui/icons-material/Clear';
 import SearchIcon from '@mui/icons-material/Search';
 import PropTypes from 'prop-types';
 import {useTable} from "../../contexts/TableProvider";
 import "../../styles/customStyle.scss";
-import MenuItem from "@mui/material/MenuItem";
 
 /**
  * Component for the table filter.
