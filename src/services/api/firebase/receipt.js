@@ -1,8 +1,9 @@
-import app, {convertTableToEntity} from './config';
+import app from './config';
 import {get, getDatabase, push, ref, remove, set} from 'firebase/database';
 import PropTypes from 'prop-types';
 import {getCurrentUser} from "./auth";
 import {DATABASE} from "../../../constants/database";
+import {convertTableToEntity} from "../../../functions/global";
 
 const database = getDatabase(app);
 
@@ -84,11 +85,9 @@ const getReceiptById = async (receiptId) => {
         const snapshot = await get(receiptRef);
 
         if (snapshot.exists()) {
-            const receiptData = snapshot.val();
-
             return {
                 id: snapshot.key,
-                ...convertTableToEntity(receiptData),
+                ...convertTableToEntity(snapshot.val()),
             };
         } else {
             new Error(`Receipt with ID ${receiptId} not found`);
@@ -148,6 +147,7 @@ const getReceiptsByTenantIdAndMonth = async (tenantId, month) => {
 
         currentMonthSnapshot.forEach((childSnapshot) => {
             const receiptData = childSnapshot.val();
+
             if (receiptData[DATABASE.RECEIPTS.COLUMN_MONTH] === currentMonth) {
                 receipts.push({
                     id: childSnapshot.key,
@@ -158,6 +158,7 @@ const getReceiptsByTenantIdAndMonth = async (tenantId, month) => {
 
         previousMonthSnapshot.forEach((childSnapshot) => {
             const receiptData = childSnapshot.val();
+
             if (receiptData[DATABASE.RECEIPTS.COLUMN_MONTH] === previousMonth) {
                 receipts.push({
                     id: childSnapshot.key,

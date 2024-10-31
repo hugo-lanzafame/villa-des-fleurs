@@ -1,20 +1,23 @@
 import {LanguageProvider} from "../contexts/LanguageProvider"
 
 /**
- * Convert keys in an object to camelCase format.
+ * Converts the column of a table from snake_case to entity with camelCase.
  *
- * @param {Object} obj - The object to convert.
- * @returns {Object} The object with keys converted to camelCase.
+ * @param {Object} table - The table with snake_case column.
+ * @returns {Object} - The entity with camelCase.
  */
-const changeToCamelCase = (obj) => {
-    const newObj = {};
-    for (const key in obj) {
-        if (Object.hasOwnProperty.call(obj, key)) {
-            const camelCaseKey = key.replace(/_([a-z])/g, (match, letter) => letter.toUpperCase());
-            newObj[camelCaseKey] = obj[key];
-        }
+const convertTableToEntity = (table) => {
+    const result = {};
+
+    for (const [key, value] of Object.entries(table)) {
+        const camelKey = key.toLowerCase()
+            .replace(/(_\w)/g, (matches) => matches[1].toUpperCase());
+        result[camelKey] = value && typeof value === 'object' && !Array.isArray(value)
+            ? convertTableToEntity(value) // Recursively handle nested objects
+            : value;
     }
-    return newObj;
+
+    return result;
 };
 
 const handleRequiredField = (value, setError) => {
@@ -27,4 +30,4 @@ const handleRequiredField = (value, setError) => {
     return false;
 }
 
-export {changeToCamelCase, handleRequiredField}
+export {convertTableToEntity, handleRequiredField}

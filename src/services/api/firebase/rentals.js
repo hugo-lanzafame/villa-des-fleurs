@@ -1,9 +1,9 @@
-import app, {convertTableToEntity} from './config';
+import app from './config';
 import {get, getDatabase, push, ref, remove, set} from 'firebase/database';
 import PropTypes from 'prop-types';
 import {getCurrentUser} from "./auth";
-import {changeToCamelCase} from "../../../functions/global";
 import {DATABASE} from "../../../constants/database";
+import {convertTableToEntity} from "../../../functions/global";
 
 const database = getDatabase(app);
 
@@ -81,11 +81,9 @@ const getRentalById = async (rentalId) => {
         const snapshot = await get(rentalRef);
 
         if (snapshot.exists()) {
-            const rentalData = changeToCamelCase(snapshot.val());
-
             return {
                 id: snapshot.key,
-                ...convertTableToEntity(rentalData),
+                ...convertTableToEntity(snapshot.val()),
             };
         } else {
             new Error(`Rental with ID ${rentalId} not found`);
@@ -112,11 +110,9 @@ const getAllRentals = async () => {
 
         const snapshot = await get(rentalRef);
         snapshot.forEach((childSnapshot) => {
-            const rentalData = changeToCamelCase(childSnapshot.val());
-
             rentals.push({
                 id: childSnapshot.key,
-                ...convertTableToEntity(rentalData),
+                ...convertTableToEntity(childSnapshot.val()),
             });
         });
         rentals.sort((a, b) => (a.name < b.name ? -1 : 1));
