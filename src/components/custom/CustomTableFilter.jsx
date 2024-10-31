@@ -6,6 +6,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import PropTypes from 'prop-types';
 import {useTable} from "../../contexts/TableProvider";
 import "../../styles/customStyle.scss";
+import MenuItem from "@mui/material/MenuItem";
 
 /**
  * Component for the table filter.
@@ -85,12 +86,12 @@ function CustomTableFilter({reloadEntries, filterEntries}) {
                         onChange={(e) => handleFilterChange(filter.key, e.target.value)}
                         {...(filter.select ? {
                             select: true,
-                            SelectProps: {native: true},
                         } : {})}>
+                        <MenuItem value="">none</MenuItem>
                         {filter.options && filter.options.map((option) => (
-                            <option key={option.value} value={option.value}>
+                            <MenuItem key={option.value} value={option.value}>
                                 {option.label}
-                            </option>
+                            </MenuItem>
                         ))}
                     </TextField>
                 ))}

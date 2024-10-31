@@ -10,6 +10,7 @@ import {useNotification} from "../../contexts/NotificationProvider";
 import {addProperty, updateProperty} from "../../services/api/firebase/properties";
 import {NOTIFICATION_TYPES} from "../../constants/notification";
 import {PATHS} from "../../constants/routing";
+import MenuItem from "@mui/material/MenuItem";
 
 /**
  * Component for the Property Add/Update form.
@@ -21,9 +22,10 @@ function PropertyAddUpdateForm({property}) {
     const navigate = useNavigate();
     const {addNotification} = useNotification();
     const {translate} = useLanguage();
-    const [name, setName] = useState(property.name || '');
+
+    const [name, setName] = useState('');
     const [nameError, setNameError] = useState('');
-    const [type, setType] = useState(property.type || '');
+    const [type, setType] = useState('');
     const [typeError, setTypeError] = useState('');
 
     /**
@@ -33,10 +35,17 @@ function PropertyAddUpdateForm({property}) {
      * @param {string} value - The new value of the input field.
      */
     const handleChange = (key, value) => {
-        if (key === 'name') {
-            setName(value);
-        } else if (key === 'type') {
-            setType(value);
+        switch (key) {
+            case 'name':
+                setName(value);
+                setNameError('');
+                break;
+            case 'type':
+                setType(value);
+                setTypeError('');
+                break;
+            default:
+                break;
         }
     };
 
@@ -44,6 +53,7 @@ function PropertyAddUpdateForm({property}) {
      * Handles the form submission.
      */
     const handleSubmit = async () => {
+        property = property ?? {};
         property.name = name;
         property.type = type;
 
@@ -107,8 +117,9 @@ function PropertyAddUpdateForm({property}) {
 
     useEffect(() => {
         const fetchData = async () => {
-            setName(property.name ?? '');
-            setType(property.type ?? '');
+            const currentProperty = property ?? {};
+            setName(currentProperty.name ?? '');
+            setType(currentProperty.type ?? '');
         }
 
         fetchData();
@@ -116,45 +127,46 @@ function PropertyAddUpdateForm({property}) {
     }, [property]);
 
     return (
-        <Box className="property-add-update-form form dark-light-box">
-            <Typography>
-                {translate({section: "PROPERTY_ADD_UPDATE_PAGE", key: "GENERAL_INFORMATION"})}
-            </Typography>
-            <Box className="form__field-container">
-                <TextField
-                    key="name"
-                    className="field"
-                    label={translate({section: "PROPERTY_ADD_UPDATE_PAGE", key: "NAME_LABEL"})}
-                    size="small"
-                    value={name}
-                    helperText={nameError}
-                    error={nameError !== ''}
-                    onChange={(e) => handleChange('name', e.target.value)}/>
-                <TextField
-                    key="type"
-                    className="field"
-                    label={translate({section: "PROPERTY_ADD_UPDATE_PAGE", key: "TYPE_LABEL"})}
-                    size="small"
-                    value={type}
-                    helperText={typeError}
-                    error={typeError !== ''}
-                    onChange={(e) => handleChange('type', e.target.value)}
-                    select
-                    SelectProps={{native: true}}>
-                    <option key="" value=""></option>
-                    <option key="apartment" value="apartment">
-                        {translate({section: "PROPERTY_ADD_UPDATE_PAGE", key: "TYPE_APARTMENT"})}
-                    </option>
-                </TextField>
+        <Box className="property-add-update-form form">
+            <Box className="dark-light-box">
+                <Typography>
+                    {translate({section: "PROPERTY_ADD_UPDATE_PAGE", key: "GENERAL_INFORMATION"})}
+                </Typography>
+                <Box className="form__field-container">
+                    <Box className="form__field-container-line">
+                        <TextField
+                            key="name"
+                            className="field"
+                            label={translate({section: "PROPERTY_ADD_UPDATE_PAGE", key: "NAME_LABEL"})}
+                            size="small"
+                            value={name}
+                            helperText={nameError}
+                            error={nameError !== ''}
+                            onChange={(e) => handleChange('name', e.target.value)}/>
+                        <TextField
+                            key="type"
+                            select
+                            className="field"
+                            label={translate({section: "PROPERTY_ADD_UPDATE_PAGE", key: "TYPE_LABEL"})}
+                            size="small"
+                            value={type}
+                            helperText={typeError}
+                            error={typeError !== ''}
+                            onChange={(e) => handleChange('type', e.target.value)}>
+                            <MenuItem value="">none</MenuItem>
+                            <MenuItem key="apartment" value="apartment">
+                                {translate({section: "PROPERTY_ADD_UPDATE_PAGE", key: "TYPE_APARTMENT"})}
+                            </MenuItem>
+                        </TextField>
+                    </Box>
+                </Box>
             </Box>
             <Box className="form__button-container">
                 <Button className="white-button" onClick={handleCancel}>
                     <KeyboardReturnIcon/>
                 </Button>
                 <Button className="green-button" onClick={handleSubmit}>
-                    {
-                        property.id ? <EditIcon/> : <AddIcon/>
-                    }
+                    {property && property.id ? <EditIcon/> : <AddIcon/>}
                 </Button>
             </Box>
         </Box>
@@ -163,11 +175,10 @@ function PropertyAddUpdateForm({property}) {
 
 PropertyAddUpdateForm.propTypes = {
     property: PropTypes.shape({
-        id: PropTypes.string,
-        name: PropTypes.string,
-        type: PropTypes.string,
+        id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        type: PropTypes.string.isRequired,
     }),
 };
-
 
 export default PropertyAddUpdateForm;

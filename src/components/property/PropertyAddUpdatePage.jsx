@@ -16,7 +16,7 @@ function PropertyAddUpdatePage() {
     const {translate} = useLanguage();
     const searchParams = new URLSearchParams(window.location.search);
     const propertyId = searchParams.get('id');
-    const [property, setProperty] = useState({});
+    const [property, setProperty] = useState(null);
 
     /**
      * @type {BreadcrumbLink[]}
@@ -47,7 +47,7 @@ function PropertyAddUpdatePage() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const property = await getPropertyById(propertyId) ?? {};
+                const property = await getPropertyById(propertyId) ?? null;
                 setProperty(property);
             } catch (error) {
                 console.error(error);

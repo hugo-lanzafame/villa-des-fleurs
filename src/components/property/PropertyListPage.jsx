@@ -54,7 +54,6 @@ function PropertyListPage() {
             label: translate({section: "PROPERTY_LIST_PAGE", key: "SEARCH_TYPE"}),
             select: true,
             options: [
-                {value: '', label: ''},
                 {value: 'apartment', label: translate({section: "PROPERTY_LIST_PAGE", key: "PROPERTY_TYPE_APARTMENT"})},
             ]
         },
@@ -80,6 +79,14 @@ function PropertyListPage() {
      * @type {string}
      */
     const deleteNotification = translate({section: "PROPERTY_LIST_PAGE", key: "NOTIFICATION_DELETE"})
+
+    /**
+     * A filter objects that contain property filters.
+     *
+     * @typedef {Object} PropertyFilterValues
+     * @property {string} filterByName - The property name to use for sorting.
+     * @property {string} filterByType - The property type to use for sorting.
+     */
 
     /**
      * Get properties and filter them.

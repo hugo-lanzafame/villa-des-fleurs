@@ -35,23 +35,28 @@ These combined technologies provide a robust foundation for creating a scalable 
 - [nvm](https://github.com/nvm-sh/nvm)
 - [npm](https://github.com/npm/cli)
 - [Node.js](https://github.com/nodejs)
+- python3
 - [node-gyp](https://github.com/nodejs/node-gyp)
 
 ## Installation
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/votre-utilisateur/villa-des-fleurs.git
+   git clone https://github.com/hugolanzafameynov/villa-des-fleurs.git
    ```
 2. Navigate to the project directory:
    ```bash
    cd villa-des-fleurs
    ```
-3. Install dependencies:
+3. Install gyp for SCSS:
+   ```bash
+   node-gyp install
+   ```
+4. Install dependencies:
    ```bash
    npm install
    ```
-4. Run the application:
+5. Run the application:
    ```bash
    npm start
    ```

@@ -48,9 +48,17 @@ export const NotificationProvider = ({children}) => {
     };
 
     /**
+     * Notification object.
+     *
+     * @typedef {Object} CustomNotification
+     * @property {string} type - Notification type.
+     * @property {string} message - Notification message.
+     */
+
+    /**
      * Shows all notifications.
      *
-     * @return {NotificationP[]}
+     * @return {CustomNotification[]}
      */
     const getNotifications = () => {
         return notifications;

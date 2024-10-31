@@ -63,6 +63,36 @@
       "fr": "Aucune entrée disponible."
     }
   },
+  "SIDEBAR": {
+    "MENU_HOME": {
+      "en": "Home",
+      "fr": "Acceuil"
+    },
+    "MENU_MANAGEMENT": {
+      "en": "Management",
+      "fr": "Gestionnaire"
+    },
+    "MENU_PROPERTIES": {
+      "en": "Properties",
+      "fr": "Propriétés"
+    },
+    "MENU_TENANTS": {
+      "en": "Tenants",
+      "fr": "Locataires"
+    },
+    "MENU_RENTALS": {
+      "en": "Rentals",
+      "fr": "Locations"
+    },
+    "MENU_TOOLS": {
+      "en": "Tools",
+      "fr": "Outils"
+    },
+    "MENU_QUITTANCES": {
+      "en": "Quittances",
+      "fr": "Quittances"
+    }
+  },
   "LOGIN_PAGE": {
     "RIGHT_SIDE_TITLE": {
       "en": "WELCOME TO THE VILLA DES FLEURS",
@@ -261,36 +291,6 @@
       "fr": "Ce champ est obligatoire."
     }
   },
-  "SIDEBAR": {
-    "MENU_HOME": {
-      "en": "Home",
-      "fr": "Acceuil"
-    },
-    "MENU_MANAGEMENT": {
-      "en": "Management",
-      "fr": "Gestionnaire"
-    },
-    "MENU_PROPERTIES": {
-      "en": "Properties",
-      "fr": "Propriétés"
-    },
-    "MENU_TENANTS": {
-      "en": "Tenants",
-      "fr": "Locataires"
-    },
-    "MENU_RENTALS": {
-      "en": "Rentals",
-      "fr": "Locations"
-    },
-    "MENU_TOOLS": {
-      "en": "Tools",
-      "fr": "Outils"
-    },
-    "MENU_QUITTANCES": {
-      "en": "Quittances",
-      "fr": "Quittances"
-    }
-  },
   "TENANT_LIST_PAGE": {
     "PAGE_TITLE": {
       "en": "Tenants list",
@@ -384,25 +384,9 @@
       "en": "Rental's name",
       "fr": "Nom de la location"
     },
-    "SEARCH_PROPERTY": {
-      "en": "Property's name",
-      "fr": "Nom de la propriété"
-    },
-    "SEARCH_TENANT": {
-      "en": "Tenant's name",
-      "fr": "Nom du locataire"
-    },
     "COLUMN_NAME": {
       "en": "Name",
       "fr": "Nom"
-    },
-    "COLUMN_PROPERTY": {
-      "en": "Property",
-      "fr": "Property"
-    },
-    "COLUMN_PHONE": {
-      "en": "Tenants",
-      "fr": "Locataires"
     },
     "POPUP_DELETE_TITLE": {
       "en": "Are you sure you want to delete this rental?",
@@ -455,15 +439,15 @@
       "fr": "Date de fin"
     },
     "PRICE_SECTION": {
-      "en": "Price",
-      "fr": "Prix"
+      "en": "Pricing (per month)",
+      "fr": "Tarification (par mois)"
     },
     "RENT_PRICE_LABEL": {
-      "en": "Rent price",
+      "en": "Rental price",
       "fr": "Prix de la location"
     },
     "CHARGES_PRICE_LABEL": {
-      "en": "Charges price",
+      "en": "Charge prices",
       "fr": "Prix des charges"
     },
     "NOTIFICATION_CREATE": {
@@ -481,6 +465,14 @@
     "ERROR_REQUIRED_FIELD": {
       "en": "This field is required.",
       "fr": "Ce champ est obligatoire."
+    },
+    "ERROR_DATE_FORMAT": {
+      "en": "This date format is not valid.",
+      "fr": "Ce format de date est invalide."
+    },
+    "ERROR_NUMBER_FORMAT": {
+      "en": "This field must be a number.",
+      "fr": "Ce champ doit être un nombre."
     }
   }
 }
