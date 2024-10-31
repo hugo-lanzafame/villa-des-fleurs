@@ -2,6 +2,7 @@ import app, {convertTableToEntity} from './config';
 import {get, getDatabase, push, ref, remove, set} from 'firebase/database';
 import PropTypes from 'prop-types';
 import {getCurrentUser} from "./auth";
+import {changeToCamelCase} from "../../../functions/global";
 import {DATABASE} from "../../../constants/database";
 
 const database = getDatabase(app);
@@ -80,7 +81,7 @@ const getRentalById = async (rentalId) => {
         const snapshot = await get(rentalRef);
 
         if (snapshot.exists()) {
-            const rentalData = snapshot.val();
+            const rentalData = changeToCamelCase(snapshot.val());
 
             return {
                 id: snapshot.key,
@@ -111,9 +112,11 @@ const getAllRentals = async () => {
 
         const snapshot = await get(rentalRef);
         snapshot.forEach((childSnapshot) => {
+            const rentalData = changeToCamelCase(childSnapshot.val());
+
             rentals.push({
                 id: childSnapshot.key,
-                ...convertTableToEntity(childSnapshot.val()),
+                ...convertTableToEntity(rentalData),
             });
         });
         rentals.sort((a, b) => (a.name < b.name ? -1 : 1));
