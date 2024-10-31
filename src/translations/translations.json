@@ -1,4 +1,98 @@
 {
+  "ACCOUNT_PAGE": {
+    "TITLE_ACCOUNT": {
+      "en": "Account settings",
+      "fr": "Paramètres du compte"
+    },
+    "TRAD_FRENCH": {
+      "en": "Francais",
+      "fr": "Francais"
+    },
+    "TRAD_ENGLISH": {
+      "en": "English",
+      "fr": "English"
+    },
+    "BUTTON_LOGOUT": {
+      "en": "Logout",
+      "fr": "Déconnexion"
+    }
+  },
+  "BREADCRUMB": {
+    "HOME": {
+      "en": "Home",
+      "fr": "Accueil"
+    },
+    "ACCOUNT": {
+      "en": "Account",
+      "fr": "Compte"
+    },
+    "MANAGEMENT": {
+      "en": "Management",
+      "fr": "Gestionnaire"
+    },
+    "PROPERTIES": {
+      "en": "Properties",
+      "fr": "Propriétés"
+    },
+    "TENANTS": {
+      "en": "Tenants",
+      "fr": "Locataires"
+    },
+    "RENTALS": {
+      "en": "Rentals",
+      "fr": "Locations"
+    },
+    "CREATION": {
+      "en": "Creation",
+      "fr": "Création"
+    },
+    "EDITION": {
+      "en": "Edition",
+      "fr": "Édition"
+    }
+  },
+  "CUSTOM_TABLE": {
+    "COLUMN_ACTIONS": {
+      "en": "Actions",
+      "fr": "Actions"
+    }
+  },
+  "CUSTOM_TABLE_EMPTY": {
+    "NO_ENTRY": {
+      "en": "No entry available.",
+      "fr": "Aucune entrée disponible."
+    }
+  },
+  "SIDEBAR": {
+    "MENU_HOME": {
+      "en": "Home",
+      "fr": "Acceuil"
+    },
+    "MENU_MANAGEMENT": {
+      "en": "Management",
+      "fr": "Gestionnaire"
+    },
+    "MENU_PROPERTIES": {
+      "en": "Properties",
+      "fr": "Propriétés"
+    },
+    "MENU_TENANTS": {
+      "en": "Tenants",
+      "fr": "Locataires"
+    },
+    "MENU_RENTALS": {
+      "en": "Rentals",
+      "fr": "Locations"
+    },
+    "MENU_TOOLS": {
+      "en": "Tools",
+      "fr": "Outils"
+    },
+    "MENU_QUITTANCES": {
+      "en": "Quittances",
+      "fr": "Quittances"
+    }
+  },
   "LOGIN_PAGE": {
     "RIGHT_SIDE_TITLE": {
       "en": "WELCOME TO THE VILLA DES FLEURS",
@@ -115,54 +209,6 @@
     "FORGOT_FORM_SUCCESS": {
       "en": "If the email matches an existing account, an email has been sent to the address you provided. Please check your inbox for password reset instructions.",
       "fr": "Si l'e-mail correspond à un compte existant, un e-mail a été envoyé à l'adresse que vous avez fournie. Veuillez vérifier votre boîte de réception pour les instructions de réinitialisation du mot de passe."
-    }
-  },
-  "SIDEBAR": {
-    "MENU_HOME": {
-      "en": "Home",
-      "fr": "Acceuil"
-    },
-    "MENU_MANAGEMENT": {
-      "en": "Management",
-      "fr": "Gestionnaire"
-    },
-    "MENU_PROPERTIES": {
-      "en": "Properties",
-      "fr": "Propriétés"
-    },
-    "MENU_TENANTS": {
-      "en": "Tenants",
-      "fr": "Locataires"
-    },
-    "MENU_RENTALS": {
-      "en": "Rentals",
-      "fr": "Locations"
-    },
-    "MENU_TOOLS": {
-      "en": "Tools",
-      "fr": "Outils"
-    },
-    "MENU_QUITTANCES": {
-      "en": "Quittances",
-      "fr": "Quittances"
-    }
-  },
-  "ACCOUNT_PAGE": {
-    "TITLE_ACCOUNT": {
-      "en": "Account settings",
-      "fr": "Paramètres du compte"
-    },
-    "TRAD_FRENCH": {
-      "en": "Francais",
-      "fr": "Francais"
-    },
-    "TRAD_ENGLISH": {
-      "en": "English",
-      "fr": "English"
-    },
-    "BUTTON_LOGOUT": {
-      "en": "Logout",
-      "fr": "Déconnexion"
     }
   },
   "PROPERTY_LIST_PAGE": {
@@ -427,52 +473,6 @@
     "ERROR_NUMBER_FORMAT": {
       "en": "This field must be a number.",
       "fr": "Ce champ doit être un nombre."
-    }
-  },
-  "BREADCRUMB": {
-    "HOME": {
-      "en": "Home",
-      "fr": "Accueil"
-    },
-    "ACCOUNT": {
-      "en": "Account",
-      "fr": "Compte"
-    },
-    "MANAGEMENT": {
-      "en": "Management",
-      "fr": "Gestionnaire"
-    },
-    "PROPERTIES": {
-      "en": "Properties",
-      "fr": "Propriétés"
-    },
-    "TENANTS": {
-      "en": "Tenants",
-      "fr": "Locataires"
-    },
-    "RENTALS": {
-      "en": "Rentals",
-      "fr": "Locations"
-    },
-    "CREATION": {
-      "en": "Creation",
-      "fr": "Création"
-    },
-    "EDITION": {
-      "en": "Edition",
-      "fr": "Édition"
-    }
-  },
-  "CUSTOM_TABLE": {
-    "COLUMN_ACTIONS": {
-      "en": "Actions",
-      "fr": "Actions"
-    }
-  },
-  "CUSTOM_TABLE_EMPTY": {
-    "NO_ENTRY": {
-      "en": "No entry available.",
-      "fr": "Aucune entrée disponible."
     }
   }
 }
