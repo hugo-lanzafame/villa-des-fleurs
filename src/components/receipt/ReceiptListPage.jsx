@@ -3,7 +3,7 @@ import {Box} from '@mui/material';
 import PropTypes from "prop-types";
 import {useLanguage} from "../../contexts/LanguageProvider";
 import {useTable} from "../../contexts/TableProvider";
-import {getAllReceipts} from '../../services/api/firebase/receipt';
+import {getAllRentals} from '../../services/api/firebase/rentals';
 import {PATHS} from "../../constants/routing";
 import CustomTableLayout from "../custom/CustomTableLayout";
 import CustomPageTop from "../custom/CustomPageTop";
@@ -79,11 +79,11 @@ function ReceiptListPage() {
             return receipts;
         }
 
-        // if (filterByName && filterByName !== '') {
-        //     receipts = receipts.filter(receipt =>
-        //         receipt.name.toLowerCase().includes(filterByName.toLowerCase())
-        //     );
-        // }
+        if (filterByName && filterByName !== '') {
+            receipts = receipts.filter(receipt =>
+                receipt.name.toLowerCase().includes(filterByName.toLowerCase())
+            );
+        }
 
         return receipts;
     };
@@ -96,7 +96,7 @@ function ReceiptListPage() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const rentals = await getAllReceipts();
+                const rentals = await getAllRentals();
 
                 changeFilters(filters);
                 changeColumns(columns);
@@ -119,7 +119,7 @@ function ReceiptListPage() {
         <Box className="rental-list-page">
             <CustomPageTop breadcrumbLinks={breadcrumbLinks} title={title}/>
             <CustomNotifications/>
-            <CustomTableLayout reloadEntries={getAllReceipts} filterEntries={filterReceipts}
+            <CustomTableLayout reloadEntries={getAllRentals} filterEntries={filterReceipts}
                                deleteEntryById={null}/>
         </Box>
     );

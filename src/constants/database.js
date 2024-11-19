@@ -161,14 +161,12 @@ const DATABASE = {
      *
      * @typedef {Object} ReceiptConstants
      * @property {string} TABLE - The name of the 'receipts' table.
-     * @property {string} COLUMN_RENTAL_ID - The column name for receipt rental ID.
      * @property {string} COLUMN_MONTH - The column name for receipt month.
      * @property {string} COLUMN_RENT - The column name for receipt rent.
      * @property {string} COLUMN_CHARGES - The column name for receipt charges.
      * @property {string} COLUMN_MISCELLANEOUS_FEES - The column name for receipt miscellaneous fees.
      * @property {string} COLUMN_PAYMENT - The column name for receipt payment.
      * @property {string} COLUMN_DATE - The column name for receipt date of payment.
-     * @property {string} COLUMN_BALANCE - The column name for receipt balance.
      * @property {string} COLUMN_COMMENTARY - The column name for receipt commentary.
      */
 
@@ -182,12 +180,6 @@ const DATABASE = {
          * @type {string}
          */
         TABLE: 'receipts',
-
-        /**
-         * The column 'rental_id' of the 'receipts' database.
-         * @type {string}
-         */
-        COLUMN_RENTAL_ID: 'rental_id',
 
         /**
          * The column 'month' of the 'receipts' database.
@@ -224,12 +216,6 @@ const DATABASE = {
          * @type {string}
          */
         COLUMN_DATE: 'date',
-
-        /**
-         * The column 'balance' of the 'receipts' database.
-         * @type {string}
-         */
-        COLUMN_BALANCE: 'balance',
 
         /**
          * The column 'commentary' of the 'receipts' database.

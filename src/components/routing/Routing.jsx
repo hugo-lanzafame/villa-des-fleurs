@@ -17,6 +17,7 @@ import TenantListPage from "../tenant/TenantListPage";
 import RentalListPage from "../rental/RentalListPage";
 import RentalAddUpdatePage from "../rental/RentalAddUpdatePage";
 import ReceiptListPage from "../receipt/ReceiptListPage";
+import ReceiptListAddUpdatePage from "../receipt/ReceiptListAddUpdatePage";
 
 /**
  * Component for handling the application routing.
@@ -116,6 +117,14 @@ const Routing = () => {
                                <RoutePrivate>
                                    <TableProvider>
                                     <ReceiptListPage/>
+                                   </TableProvider>
+                               </RoutePrivate>
+                           }/>
+                    <Route path={PATHS.RECEIPTS_EDITION}
+                           element={
+                               <RoutePrivate>
+                                   <TableProvider>
+                                       <ReceiptListAddUpdatePage/>
                                    </TableProvider>
                                </RoutePrivate>
                            }/>

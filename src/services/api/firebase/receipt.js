@@ -6,28 +6,29 @@ import {DATABASE} from "../../../constants/database";
 import {convertTableToEntity} from "../../../functions/global";
 
 const database = getDatabase(app);
+const getTablePath = (rentalId) => "users/" + getCurrentUser().uid + "/" +
+    DATABASE.RENTALS.TABLE +"/" + rentalId + "/" + DATABASE.RECEIPTS.TABLE;
 
 /**
- * Add a new receipt.
+ * Add a new receipt for a specific rental.
  *
+ * @param {string} rentalId - The rental ID of the receipt.
  * @param {Receipt} receipt - The receipt object to create.
  * @returns {Promise<string>} A promise indicating the key of the receipt.
  * @throws {Error} If there is an error during the creation process.
  */
-const addReceipt = async (receipt) => {
+const addReceipt = async (rentalId, receipt) => {
     try {
-        const tablePath = "users/" + getCurrentUser().uid + "/" + DATABASE.RECEIPTS.TABLE;
+        const tablePath = getTablePath(rentalId);
         const receiptThenableRef = push(ref(database, tablePath));
 
         await set(receiptThenableRef, {
-            [DATABASE.RECEIPTS.COLUMN_RENTAL_ID]: receipt.rentalId,
             [DATABASE.RECEIPTS.COLUMN_MONTH]: receipt.month,
             [DATABASE.RECEIPTS.COLUMN_RENT]: receipt.rent,
             [DATABASE.RECEIPTS.COLUMN_CHARGES]: receipt.charges,
             [DATABASE.RECEIPTS.COLUMN_MISCELLANEOUS_FEES]: receipt.miscellaneousFees,
             [DATABASE.RECEIPTS.COLUMN_PAYMENT]: receipt.payment,
             [DATABASE.RECEIPTS.COLUMN_DATE]: receipt.date,
-            [DATABASE.RECEIPTS.COLUMN_BALANCE]: receipt.balance,
             [DATABASE.RECEIPTS.COLUMN_COMMENTARY]: receipt.commentary ?? null,
         })
 
@@ -37,30 +38,38 @@ const addReceipt = async (receipt) => {
     }
 }
 addReceipt.propTypes = {
-    receipt: PropTypes.object.isRequired,
+    rentalId: PropTypes.string.isRequired,
+    receipt: PropTypes.shape({
+        month: PropTypes.string.isRequired,
+        rent: PropTypes.number.isRequired,
+        charges: PropTypes.number.isRequired,
+        miscellaneousFees: PropTypes.number.isRequired,
+        payment: PropTypes.number.isRequired,
+        date: PropTypes.string.isRequired,
+        commentary: PropTypes.string,
+    }).isRequired,
 };
 
 /**
- * Update a receipt.
+ * Update a receipt for a specific rental.
  *
+ * @param {string} rentalId - The rental ID of the receipt.
  * @param {Receipt} receipt - The updated receipt object (with ID).
  * @returns {Promise<void>} A promise that resolves when the update is complete.
  * @throws {Error} If there is an error during the update process.
  */
-const updateReceipt = async (receipt) => {
+const updateReceipt = async (rentalId, receipt) => {
     try {
-        const tablePath = "users/" + getCurrentUser().uid + "/" + DATABASE.RECEIPTS.TABLE;
+        const tablePath = getTablePath(rentalId);
         const receiptRef = ref(database, tablePath + "/" + receipt.id);
 
         await set(receiptRef, {
-            [DATABASE.RECEIPTS.COLUMN_RENTAL_ID]: receipt.rentalId,
             [DATABASE.RECEIPTS.COLUMN_MONTH]: receipt.month,
             [DATABASE.RECEIPTS.COLUMN_RENT]: receipt.rent,
             [DATABASE.RECEIPTS.COLUMN_CHARGES]: receipt.charges,
             [DATABASE.RECEIPTS.COLUMN_MISCELLANEOUS_FEES]: receipt.miscellaneousFees,
             [DATABASE.RECEIPTS.COLUMN_PAYMENT]: receipt.payment,
             [DATABASE.RECEIPTS.COLUMN_DATE]: receipt.date,
-            [DATABASE.RECEIPTS.COLUMN_BALANCE]: receipt.balance,
             [DATABASE.RECEIPTS.COLUMN_COMMENTARY]: receipt.commentary ?? null,
         })
     } catch (error) {
@@ -68,36 +77,16 @@ const updateReceipt = async (receipt) => {
     }
 };
 updateReceipt.propTypes = {
-    receipt: PropTypes.object.isRequired,
-};
-
-/**
- * Get a receipt by ID.
- *
- * @param {string} receiptId - The ID of the receipt to retrieve.
- * @returns {Promise<Receipt>} A promise that resolves to the receipt.
- * @throws {Error} If there is an error during the getting process.
- */
-const getReceiptById = async (receiptId) => {
-    try {
-        const tablePath = "users/" + getCurrentUser().uid + "/" + DATABASE.RECEIPTS.TABLE;
-        const receiptRef = ref(database, tablePath + "/" + receiptId);
-        const snapshot = await get(receiptRef);
-
-        if (snapshot.exists()) {
-            return {
-                id: snapshot.key,
-                ...convertTableToEntity(snapshot.val()),
-            };
-        } else {
-            new Error(`Receipt with ID ${receiptId} not found`);
-        }
-    } catch (error) {
-        throw error;
-    }
-};
-getReceiptById.propTypes = {
-    receiptId: PropTypes.string.isRequired,
+    rentalId: PropTypes.string.isRequired,
+    receipt: PropTypes.shape({
+        month: PropTypes.string.isRequired,
+        rent: PropTypes.number.isRequired,
+        charges: PropTypes.number.isRequired,
+        miscellaneousFees: PropTypes.number.isRequired,
+        payment: PropTypes.number.isRequired,
+        date: PropTypes.string.isRequired,
+        commentary: PropTypes.string,
+    }).isRequired,
 };
 
 /**
@@ -118,48 +107,34 @@ const getPreviousMonth = (date) => {
 
     return '01-' + prevMonth.toString().padStart(2, '0') + '-' + prevYear;
 }
+getPreviousMonth.propTypes = {
+    date: PropTypes.string.isRequired,
+};
 
 /**
- * Get receipts for a specific tenant for a given month and the previous month.
+ * Get receipts for a specific rental for a given month and the previous month.
  *
- * @param {string} tenantId - The ID of the tenant.
+ * @param {string} rentalId - The rental ID of the receipts.
  * @param {string} month - The current month in 'dd-mm-yyyy' format.
  * @returns {Promise<Receipt[]>} A promise that resolves to an array of receipts for the current and previous months.
  * @throws {Error} If there is an error during the retrieval process.
  */
-const getReceiptsByTenantIdAndMonth = async (tenantId, month) => {
+const getReceiptsByTenantIdAndMonth = async (rentalId, month) => {
     try {
-        const tablePath = "users/" + getCurrentUser().uid + "/" + DATABASE.RECEIPTS.TABLE;
-        const currentMonth = month;
+        const tablePath = getTablePath(rentalId);
+        const receiptsRef = ref(database, tablePath);
+
+        const snapshot = await get(receiptsRef);
         const previousMonth = getPreviousMonth(month);
+        const receipts = [];
 
-        const currentMonthRef = ref(database, tablePath
-            + `?orderByChild=${DATABASE.RECEIPTS.COLUMN_RENTAL_ID}&equalTo=${tenantId}`);
-        const previousMonthRef = ref(database, tablePath
-            + `?orderByChild=${DATABASE.RECEIPTS.COLUMN_MONTH}&equalTo=${previousMonth}`);
-
-        const [currentMonthSnapshot, previousMonthSnapshot] = await Promise.all([
-            get(currentMonthRef),
-            get(previousMonthRef)
-        ]);
-
-        let receipts = [];
-
-        currentMonthSnapshot.forEach((childSnapshot) => {
+        snapshot.forEach((childSnapshot) => {
             const receiptData = childSnapshot.val();
 
-            if (receiptData[DATABASE.RECEIPTS.COLUMN_MONTH] === currentMonth) {
-                receipts.push({
-                    id: childSnapshot.key,
-                    ...convertTableToEntity(receiptData),
-                });
-            }
-        });
-
-        previousMonthSnapshot.forEach((childSnapshot) => {
-            const receiptData = childSnapshot.val();
-
-            if (receiptData[DATABASE.RECEIPTS.COLUMN_MONTH] === previousMonth) {
+            if (
+                receiptData[DATABASE.RECEIPTS.COLUMN_MONTH] === month ||
+                receiptData[DATABASE.RECEIPTS.COLUMN_MONTH] === previousMonth
+            ) {
                 receipts.push({
                     id: childSnapshot.key,
                     ...convertTableToEntity(receiptData),
@@ -173,48 +148,22 @@ const getReceiptsByTenantIdAndMonth = async (tenantId, month) => {
     }
 };
 getReceiptsByTenantIdAndMonth.propTypes = {
-    tenantId: PropTypes.string.isRequired,
+    rentalId: PropTypes.string.isRequired,
     month: PropTypes.string.isRequired,
 };
 
-/**
- * Get all receipts.
- *
- * @returns {Promise<Receipt[]>} A promise that resolves to an array of receipts.
- * @throws {Error} If there is an error during the getting process.
- */
-const getAllReceipts = async () => {
-    try {
-        const tablePath = "users/" + getCurrentUser().uid + "/" + DATABASE.RECEIPTS.TABLE;
-        const receiptRef = ref(database, tablePath);
-        let receipts = [];
-
-        const snapshot = await get(receiptRef);
-        snapshot.forEach((childSnapshot) => {
-            receipts.push({
-                id: childSnapshot.key,
-                ...convertTableToEntity(childSnapshot.val()),
-            });
-        });
-        receipts.sort((a, b) => (a.date < b.date ? -1 : 1));
-
-        return receipts;
-    } catch (error) {
-        throw error;
-    }
-};
-
 
 /**
- * Delete a receipt by its ID.
+ * Delete a receipt by its ID for a specific rental.
  *
+ * @param {string} rentalId - The rental ID of the receipt.
  * @param {string} receiptId - The ID of the receipt to be deleted.
  * @returns {Promise<void>} A promise indicating the success or failure of the deletion.
  * @throws {Error} If there is an error during the deletion process.
  */
-const deleteReceiptById = async (receiptId) => {
+const deleteReceiptById = async (rentalId, receiptId) => {
     try {
-        const tablePath = "users/" + getCurrentUser().uid + "/" + DATABASE.RECEIPTS.TABLE;
+        const tablePath = getTablePath(rentalId);
         const receiptRef = ref(database, tablePath + "/" + receiptId);
 
         await remove(receiptRef);
@@ -223,7 +172,8 @@ const deleteReceiptById = async (receiptId) => {
     }
 };
 deleteReceiptById.propTypes = {
+    rentalId: PropTypes.string.isRequired,
     receiptId: PropTypes.string.isRequired,
 };
 
-export {addReceipt, updateReceipt, getReceiptById, getAllReceipts, deleteReceiptById}
+export {addReceipt, updateReceipt, getReceiptsByTenantIdAndMonth, deleteReceiptById}
