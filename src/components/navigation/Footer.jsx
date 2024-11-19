@@ -33,7 +33,7 @@ const Footer = () => {
             </Grid>
             <Grid item container className="footer__bottom">
                 <Typography>© 2023-2024 <b>LaVillaDesFleurs</b>. All rights reserved.</Typography>
-                <Typography>Created by hugoLanzafame</Typography>
+                <Typography>Created by <b>Hugo Lanzafame</b></Typography>
             </Grid>
         </Grid>
     );

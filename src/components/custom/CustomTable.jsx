@@ -14,15 +14,23 @@ import CustomPopupDelete from "./CustomPopupDelete";
 /**
  * Component representing a custom table.
  *
- * @param {function} deleteEntryById  - A function to delete an entry.
  * @param {function} reloadEntries - A function to fetch entries.
+ * @param {function|null} deleteEntryById  - A function to delete an entry.
  * @returns {JSX.Element} The CustomTable component.
  */
-const CustomTable = ({deleteEntryById, reloadEntries}) => {
+const CustomTable = ({reloadEntries, deleteEntryById}) => {
     const navigate = useNavigate();
     const {addNotification} = useNotification();
     const {translate} = useLanguage();
-    const {columns, entries, changeEntries, changeAllEntries, popupDeleteContent, editionLink, deleteNotification} = useTable();
+    const {
+        columns,
+        entries,
+        changeEntries,
+        changeAllEntries,
+        popupDeleteContent,
+        editionLink,
+        deleteNotification
+    } = useTable();
     const [selectedEntry, setSelectedEntry] = useState(null);
     const [openDialog, setOpenDialog] = useState(false);
 
@@ -86,22 +94,27 @@ const CustomTable = ({deleteEntryById, reloadEntries}) => {
                                     onClick={() => navigate(editionLink + "?id=" + entry.id)}>
                                 <EditIcon/>
                             </Button>
-                            <Button className="table__button red-button"
-                                    onClick={() => handleDeleteClick(entry)}>
-                                <DeleteIcon/>
-                            </Button>
+                            {deleteEntryById && (
+                                <Button className="table__button red-button"
+                                        onClick={() => handleDeleteClick(entry)}>
+                                    <DeleteIcon/>
+                                </Button>
+                            )}
                         </TableCell>
                     </TableRow>
                 ))}
             </TableBody>
-            <CustomPopupDelete open={openDialog} popupContent={popupDeleteContent}
-                               onConfirm={handlePopupDeleteConfirm} onClose={handlePopupDeleteClose}/>
+            {deleteEntryById && (
+                <CustomPopupDelete open={openDialog} popupContent={popupDeleteContent}
+                                   onConfirm={handlePopupDeleteConfirm} onClose={handlePopupDeleteClose}/>
+            )}
         </Table>
     )
 }
 
 CustomTable.propTypes = {
-    deleteEntryById: PropTypes.func.isRequired,
+    reloadEntries: PropTypes.func.isRequired,
+    deleteEntryById: PropTypes.func,
 };
 
 

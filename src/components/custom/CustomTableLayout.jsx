@@ -14,7 +14,7 @@ import CustomTableEmpty from "./CustomTableEmpty";
  *
  * @param {function} reloadEntries - A function to fetch entries.
  * @param {function} filterEntries - A function to filter entries.
- * @param {function} deleteEntryById - A function to delete an entry.
+ * @param {function|null} deleteEntryById - A function to delete an entry.
  * @returns {JSX.Element} The CustomTableLayout component.
  */
 function CustomTableLayout({reloadEntries, filterEntries, deleteEntryById}) {
@@ -25,13 +25,15 @@ function CustomTableLayout({reloadEntries, filterEntries, deleteEntryById}) {
         <Box className="table-manager">
             <Box className="table-manager__top-bar">
                 <CustomTableFilter reloadEntries={reloadEntries} filterEntries={filterEntries}/>
-                <Button className="table-manager__create-button green-button"
-                        onClick={() => navigate(creationLink)}>
-                    <AddIcon/>
-                </Button>
+                {creationLink && (
+                    <Button className="table-manager__create-button green-button"
+                            onClick={() => navigate(creationLink)}>
+                        <AddIcon/>
+                    </Button>
+                )}
             </Box>
             {entries && entries.length !== 0 ? (
-                <CustomTable deleteEntryById={deleteEntryById} reloadEntries={reloadEntries}/>
+                <CustomTable reloadEntries={reloadEntries} deleteEntryById={deleteEntryById}/>
             ) : (
                 <CustomTableEmpty/>
             )}
@@ -42,7 +44,7 @@ function CustomTableLayout({reloadEntries, filterEntries, deleteEntryById}) {
 CustomTableLayout.propTypes = {
     reloadEntries: PropTypes.func.isRequired,
     filterEntries: PropTypes.func.isRequired,
-    deleteEntryById: PropTypes.func.isRequired,
+    deleteEntryById: PropTypes.func,
 };
 
 export default CustomTableLayout;

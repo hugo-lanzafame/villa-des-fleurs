@@ -114,7 +114,9 @@ const Routing = () => {
                     <Route path={PATHS.RECEIPTS}
                            element={
                                <RoutePrivate>
-                                   <ReceiptListPage/>
+                                   <TableProvider>
+                                    <ReceiptListPage/>
+                                   </TableProvider>
                                </RoutePrivate>
                            }/>
                     <Route path={PATHS.ACCOUNT}

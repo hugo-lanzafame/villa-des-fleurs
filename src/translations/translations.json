@@ -42,6 +42,14 @@
       "en": "Rentals",
       "fr": "Locations"
     },
+    "TOOLS": {
+      "en": "Tools",
+      "fr": "Outils"
+    },
+    "RECEIPTS": {
+      "en": "Receipts",
+      "fr": "Quittances"
+    },
     "CREATION": {
       "en": "Creation",
       "fr": "Création"
@@ -473,6 +481,20 @@
     "ERROR_NUMBER_FORMAT": {
       "en": "This field must be a number.",
       "fr": "Ce champ doit être un nombre."
+    }
+  },
+  "RECEIPT_LIST_PAGE": {
+    "PAGE_TITLE": {
+      "en": "Receipts list",
+      "fr": "Liste des quittances"
+    },
+    "SEARCH_NAME": {
+      "en": "Rental's name",
+      "fr": "Nom de la location"
+    },
+    "COLUMN_NAME": {
+      "en": "Name",
+      "fr": "Nom"
     }
   },
   "RECEIPT_ADD_UPDATE_PAGE": {
