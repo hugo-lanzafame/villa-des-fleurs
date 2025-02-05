@@ -450,6 +450,10 @@
       "en": "Rent pricing (per month)",
       "fr": "Tarification du loyer (par mois)"
     },
+    "RENT_PRICES_FIRST_DATE" : {
+      "en": "From the beginning",
+      "fr": "Depuis le début"
+    },
     "RENT_PRICES_DATE_LABEL": {
       "en": "Rent change date",
       "fr": "Date de changement du loyer"
@@ -461,6 +465,10 @@
     "CHARGES_PRICES_SECTION": {
       "en": "Charges pricing (per month)",
       "fr": "Tarification des charges (par mois)"
+    },
+    "CHARGES_PRICES_FIRST_DATE" : {
+      "en": "From the beginning",
+      "fr": "Depuis le début"
     },
     "CHARGES_PRICES_DATE_LABEL": {
       "en": "Charges change date",

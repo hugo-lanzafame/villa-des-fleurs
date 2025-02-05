@@ -25,6 +25,7 @@ function ReceiptPage() {
         }
 
         fetchRental();
+        // eslint-disable-next-line
     }, []);
 
     function initializeData(rental) {
@@ -130,16 +131,25 @@ function ReceiptPage() {
         const updatedData = [...monthsData];
         const value = field === "payment" ? parseFloat(event.target.value) || 0 : event.target.value;
 
-        if (field === "payment") {
-            if (value < 0) {
+        switch (field) {
+            case "miscellaneousFees":
+                updatedData[monthIndex][field] = value;
+                break;
+            case "payment":
+                if (value < 0) {
+                    alert("Le montant ne peut pas être négatif.");
+                    return;
+                }
+
+                updatedData[monthIndex].paymentLines[paymentIndex][field] = value;
+                break;
+            case "commentary":
+            case "date":
+                updatedData[monthIndex].paymentLines[paymentIndex][field] = value;
+                break;
+            default:
                 alert("Le montant ne peut pas être négatif.");
                 return;
-            }
-            updatedData[monthIndex].paymentLines[paymentIndex][field] = value;
-        } else if (field === "date") {
-            updatedData[monthIndex].paymentLines[paymentIndex][field] = value;
-        } else {
-            updatedData[monthIndex][field] = value;
         }
 
         recalculateValues(updatedData);
@@ -190,8 +200,8 @@ function ReceiptPage() {
                         const isFirstPayment = paymentIndex === 0;
 
                         return (
-                            <TableRow key={monthIndex} className="table__row"
-                                      style={{backgroundColor: lineData.isRentChanged ? 'red' : ''}}>
+                            <TableRow key={monthIndex}
+                                      className={`table__row ${lineData.isRentChanged ? 'table__row_rent-change' : ''}`}>
                                 <TableCell className="table__cell">
                                     {isFirstPayment ? lineData.month : ""}
                                 </TableCell>
@@ -204,7 +214,7 @@ function ReceiptPage() {
                                 <TableCell className="table__cell">
                                     {isFirstPayment
                                         ? <input type="number" value={lineData.miscellaneousFees}
-                                                 onChange={(e) => handleInputChange(e, monthIndex, "divers")}/>
+                                                 onChange={(e) => handleInputChange(e, monthIndex, "miscellaneousFees")}/>
                                         : ""}
                                 </TableCell>
                                 <TableCell className="table__cell">
@@ -220,7 +230,7 @@ function ReceiptPage() {
                                 <TableCell className="table__cell">
                                     <div key={paymentIndex} className="payment-row">
                                         <input type="number" value={paymentLine.payment || ''}
-                                               onChange={(e) => handleInputChange(e, monthIndex, "montant", paymentIndex)}/>
+                                               onChange={(e) => handleInputChange(e, monthIndex, "payment", paymentIndex)}/>
                                     </div>
                                 </TableCell>
                                 <TableCell className="table__cell">
@@ -237,7 +247,7 @@ function ReceiptPage() {
                                 <TableCell className="table__cell">
                                     <div key={paymentIndex} className="payment-row">
                                         <input type="text" value={paymentLine.commentary}
-                                               onChange={(e) => handleInputChange(e, monthIndex, "commentaire", paymentIndex)}/>
+                                               onChange={(e) => handleInputChange(e, monthIndex, "commentary", paymentIndex)}/>
                                     </div>
                                 </TableCell>
                                 <TableCell className="table__cell__action">
