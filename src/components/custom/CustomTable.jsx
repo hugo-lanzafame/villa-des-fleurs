@@ -104,7 +104,7 @@ const CustomTable = ({reloadEntries, deleteEntryById}) => {
                     </TableRow>
                 ))}
             </TableBody>
-            {deleteEntryById && (
+            {deleteEntryById && popupDeleteContent && (
                 <CustomPopupDelete open={openDialog} popupContent={popupDeleteContent}
                                    onConfirm={handlePopupDeleteConfirm} onClose={handlePopupDeleteClose}/>
             )}
