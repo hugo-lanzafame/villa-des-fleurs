@@ -446,15 +446,27 @@
       "en": "End date",
       "fr": "Date de fin"
     },
-    "PRICE_SECTION": {
-      "en": "Pricing (per month)",
-      "fr": "Tarification (par mois)"
+    "RENT_PRICES_SECTION": {
+      "en": "Rent pricing (per month)",
+      "fr": "Tarification du loyer (par mois)"
     },
-    "RENT_PRICE_LABEL": {
-      "en": "Rental price",
+    "RENT_PRICES_DATE_LABEL": {
+      "en": "Rent change date",
+      "fr": "Date de changement du loyer"
+    },
+    "RENT_PRICES_AMOUNT_LABEL": {
+      "en": "Rent price",
       "fr": "Prix de la location"
     },
-    "CHARGES_PRICE_LABEL": {
+    "CHARGES_PRICES_SECTION": {
+      "en": "Charges pricing (per month)",
+      "fr": "Tarification des charges (par mois)"
+    },
+    "CHARGES_PRICES_DATE_LABEL": {
+      "en": "Charges change date",
+      "fr": "Date de changement des charges"
+    },
+    "CHARGES_PRICES_AMOUNT_LABEL": {
       "en": "Charge prices",
       "fr": "Prix des charges"
     },

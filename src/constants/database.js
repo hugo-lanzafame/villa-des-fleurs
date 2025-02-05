@@ -132,16 +132,40 @@ const DATABASE = {
         COLUMN_END_DATE: 'end_date',
 
         /**
-         * The column 'rent_price' of the 'rentals' database.
-         * @type {string}
+         * The column 'rent_prices' of the 'rentals' database.
+         * @type {[string, number]}
          */
-        COLUMN_RENT_PRICE: 'rent_price',
+        COLUMN_RENT_PRICES: {
+            /**
+             * The date of the column 'rent_prices'.
+             * @type {string}
+             */
+            COLUMN_RENT_PRICES_DATE: 'rent_prices_date',
+
+            /**
+             * The amount of the column 'rent_prices'.
+             * @type {number}
+             */
+            COLUMN_RENT_PRICES_AMOUNT: 'rent_prices_amount',
+        },
 
         /**
-         * The column 'charges_price' of the 'rentals' database.
+         * The column 'charges_prices' of the 'rentals' database.
          * @type {string}
          */
-        COLUMN_CHARGES_PRICE: 'charges_price',
+        COLUMN_CHARGES_PRICES: {
+            /**
+             * The date of the column 'charges_prices'.
+             * @type {string}
+             */
+            COLUMN_CHARGES_PRICES_DATE: 'charges_prices_date',
+
+            /**
+             * The amount of the column 'charges_prices'.
+             * @type {number}
+             */
+            COLUMN_CHARGES_PRICES_AMOUNT: 'charges_prices_amount',
+        },
 
         /**
          * The column 'property_id' of the 'rentals' database.
