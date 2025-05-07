@@ -1,0 +1,32 @@
+# Version control
+.git
+.gitignore
+
+# IDEs
+.idea
+.vscode
+
+# Node modules (we'll install them inside the container)
+node_modules
+
+# Logs
+*.log
+
+# Env files (we’ll mount them manually if needed)
+.env
+.env.*.local
+
+# Firebase
+.firebase
+.firebaserc
+
+# Build output
+build
+dist
+
+# Docker files themselves (optional, not needed in image)
+Dockerfile
+Dockerfile.dev
+docker-compose.yml
+docker-compose.dev.yml
+.dockerignore

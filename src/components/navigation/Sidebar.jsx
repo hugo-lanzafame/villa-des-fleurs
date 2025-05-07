@@ -25,43 +25,36 @@ const Sidebar = () => {
         <Stack className="sidebar">
             <List>
                 <Box>
-                    <ListItemButton className="sidebar__menu"
-                                    onClick={() => navigate(PATHS.HOME)}>
+                    <ListItemButton className="sidebar__menu" onClick={() => navigate(PATHS.HOME)}>
                         {<HomeIcon/>}
                         <Typography>{translate({section: "SIDEBAR", key: "MENU_HOME"})}</Typography>
                     </ListItemButton>
-                    <ListItemButton className="sidebar__menu"
-                                    onClick={() => navigate(PATHS.MANAGEMENT)}>
+                    <ListItemButton className="sidebar__menu" onClick={() => navigate(PATHS.MANAGEMENT)}>
                         {<ContentPasteIcon/>}
                         <Typography>{translate({section: "SIDEBAR", key: "MENU_MANAGEMENT"})}</Typography>
                     </ListItemButton>
                     <List disablePadding>
-                        <ListItemButton className="sidebar__sub-menu"
-                                        onClick={() => navigate(PATHS.PROPERTIES)}>
+                        <ListItemButton className="sidebar__sub-menu" onClick={() => navigate(PATHS.PROPERTIES)}>
                             {<ApartmentIcon/>}
                             <Typography>{translate({section: "SIDEBAR", key: "MENU_PROPERTIES"})}</Typography>
                         </ListItemButton>
-                        <ListItemButton className="sidebar__sub-menu"
-                                        onClick={() => navigate(PATHS.TENANTS)}>
+                        <ListItemButton className="sidebar__sub-menu" onClick={() => navigate(PATHS.TENANTS)}>
                             {<PeopleAltIcon/>}
                             <Typography>{translate({section: "SIDEBAR", key: "MENU_TENANTS"})}</Typography>
                         </ListItemButton>
-                        <ListItemButton className="sidebar__sub-menu"
-                                        onClick={() => navigate(PATHS.RENTALS)}>
+                        <ListItemButton className="sidebar__sub-menu" onClick={() => navigate(PATHS.RENTALS)}>
                             {<CalendarMonthIcon/>}
                             <Typography>{translate({section: "SIDEBAR", key: "MENU_RENTALS"})}</Typography>
                         </ListItemButton>
                     </List>
                 </Box>
                 <Box>
-                    <ListItemButton className="sidebar__menu"
-                                    onClick={() => navigate(PATHS.HOME)}>
+                    <ListItemButton className="sidebar__menu" onClick={() => navigate(PATHS.HOME)}>
                         {<BuildIcon/>}
                         <Typography>{translate({section: "SIDEBAR", key: "MENU_TOOLS"})}</Typography>
                     </ListItemButton>
                     <List disablePadding>
-                        <ListItemButton className="sidebar__sub-menu"
-                                        onClick={() => navigate(PATHS.HOME)}>
+                        <ListItemButton className="sidebar__sub-menu" onClick={() => navigate(PATHS.RECEIPTS)}>
                             {<CalculateIcon/>}
                             <Typography>{translate({section: "SIDEBAR", key: "MENU_QUITTANCES"})}</Typography>
                         </ListItemButton>

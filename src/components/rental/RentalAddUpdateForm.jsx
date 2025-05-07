@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Box, Button, TextField, Typography} from '@mui/material';
+import {Box, Button, MenuItem, TextField, Typography} from '@mui/material';
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from '@mui/icons-material/Edit';
 import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn";
@@ -12,7 +12,6 @@ import {getAllTenants, getTenantById} from "../../services/api/firebase/tenants"
 import {getAllProperties, getPropertyById} from "../../services/api/firebase/properties";
 import {NOTIFICATION_TYPES} from "../../constants/notification";
 import {PATHS} from "../../constants/routing";
-import MenuItem from "@mui/material/MenuItem";
 
 /**
  * Component for the Rental Add/Update form.
@@ -38,18 +37,24 @@ function RentalAddUpdateForm({rental}) {
     const [startDateError, setStartDateError] = useState('');
     const [endDate, setEndDate] = useState('');
     const [endDateError, setEndDateError] = useState('');
-    const [rentPrice, setRentPrice] = useState('');
-    const [rentPriceError, setRentPriceError] = useState('');
-    const [chargesPrice, setChargesPrice] = useState('');
-    const [chargesPriceError, setChargesPriceError] = useState('');
+    const [rentPrices, setRentPrices] = useState([]);
+    const [rentPricesDateErrors, setRentPricesDateErrors] = useState([]);
+    const [rentPricesAmountErrors, setRentPricesAmountErrors] = useState([]);
+    const [chargesPrices, setChargesPrices] = useState([]);
+    const [chargesPricesDateErrors, setChargesPricesDateErrors] = useState([]);
+    const [chargesPricesAmountErrors, setChargesPricesAmountErrors] = useState([]);
 
     /**
      * Handles the change event for input fields.
      *
      * @param {string} key - The key of the input field.
      * @param {string} value - The new value of the input field.
+     * @param {?string} [index] - The index of the input for array object only.
      */
-    const handleChange = (key, value) => {
+    const handleChange = (key, value, index = 0) => {
+        let updatedRentPrices = [...rentPrices];
+        let updatedChangesPrices = [...chargesPrices];
+
         switch (key) {
             case 'name':
                 setName(value);
@@ -71,13 +76,25 @@ function RentalAddUpdateForm({rental}) {
                 setEndDate(value);
                 setEndDateError('');
                 break;
-            case 'rentPrice':
-                setRentPrice(value);
-                setRentPriceError('');
+            case 'rentPricesAmount':
+                updatedRentPrices[index] = {...updatedRentPrices[index], 'amount': value};
+                setRentPrices(updatedRentPrices);
+                setRentPricesAmountErrors([]);
                 break;
-            case 'chargesPrice':
-                setChargesPrice(value);
-                setChargesPriceError('');
+            case 'rentPricesDate':
+                updatedRentPrices[index] = {...updatedRentPrices[index], 'date': value};
+                setRentPrices(updatedRentPrices);
+                setRentPricesDateErrors([]);
+                break;
+            case 'chargesPricesAmount':
+                updatedChangesPrices[index] = {...updatedChangesPrices[index], 'amount': value};
+                setChargesPrices(updatedChangesPrices);
+                setChargesPricesAmountErrors([]);
+                break;
+            case 'chargesPricesDate':
+                updatedChangesPrices[index] = {...updatedChangesPrices[index], 'date': value};
+                setChargesPrices(updatedChangesPrices);
+                setChargesPricesDateErrors([]);
                 break;
             default:
                 break;
@@ -117,8 +134,8 @@ function RentalAddUpdateForm({rental}) {
         rental.tenantIds = tenantIds;
         rental.startDate = startDate;
         rental.endDate = endDate;
-        rental.rentPrice = rentPrice;
-        rental.chargesPrice = chargesPrice;
+        rental.rentPrices = rentPrices;
+        rental.chargesPrices = chargesPrices;
 
         const isError = handleFormErrors();
 
@@ -169,54 +186,135 @@ function RentalAddUpdateForm({rental}) {
         setTenantIdsError('');
         setStartDateError('');
         setEndDateError('');
-        setRentPriceError('');
-        setChargesPriceError('');
+        setRentPricesDateErrors([]);
+        setRentPricesAmountErrors([]);
+        setChargesPricesDateErrors([]);
+        setChargesPricesAmountErrors([]);
 
         let isError = false;
 
         if (rental.id && name === "") {
-            setNameError(translate({section: "RENTAL_ADD_UPDATE_PAGE", key: "ERROR_REQUIRED_FIELD"}))
+            setNameError(translate({
+                section: "RENTAL_ADD_UPDATE_PAGE",
+                key: "ERROR_REQUIRED_FIELD"
+            }));
             isError = true;
         }
 
         if (propertyId === "") {
-            setPropertyIdError(translate({section: "RENTAL_ADD_UPDATE_PAGE", key: "ERROR_REQUIRED_FIELD"}))
+            setPropertyIdError(translate({
+                section: "RENTAL_ADD_UPDATE_PAGE",
+                key: "ERROR_REQUIRED_FIELD"
+            }));
             isError = true;
         }
 
         if (tenantIds.length === 0) {
-            setTenantIdsError(translate({section: "RENTAL_ADD_UPDATE_PAGE", key: "ERROR_REQUIRED_FIELD"}))
+            setTenantIdsError(translate({
+                section: "RENTAL_ADD_UPDATE_PAGE",
+                key: "ERROR_REQUIRED_FIELD"
+            }));
             isError = true;
         }
 
         if (startDate === '') {
-            setStartDateError(translate({section: "RENTAL_ADD_UPDATE_PAGE", key: "ERROR_REQUIRED_FIELD"}))
+            setStartDateError(translate({
+                section: "RENTAL_ADD_UPDATE_PAGE",
+                key: "ERROR_REQUIRED_FIELD"
+            }));
             isError = true;
         } else if (!isDateFormatValid(startDate)) {
-            setStartDateError(translate({section: "RENTAL_ADD_UPDATE_PAGE", key: "ERROR_DATE_FORMAT"}))
+            setStartDateError(translate({
+                section: "RENTAL_ADD_UPDATE_PAGE",
+                key: "ERROR_DATE_FORMAT"
+            }));
             isError = true;
         }
 
         if (endDate !== '' && !isDateFormatValid(endDate)) {
-            setEndDateError(translate({section: "RENTAL_ADD_UPDATE_PAGE", key: "ERROR_DATE_FORMAT"}))
+            setEndDateError(translate({
+                section: "RENTAL_ADD_UPDATE_PAGE",
+                key: "ERROR_DATE_FORMAT"
+            }));
             isError = true;
         }
 
-        if (rentPrice === '') {
-            setRentPriceError(translate({section: "RENTAL_ADD_UPDATE_PAGE", key: "ERROR_REQUIRED_FIELD"}))
-            isError = true;
-        } else if (!isNumberFormatValid(rentPrice)) {
-            setRentPriceError(translate({section: "RENTAL_ADD_UPDATE_PAGE", key: "ERROR_NUMBER_FORMAT"}))
-            isError = true;
-        }
+        let rentPricesAmountErrors = [];
+        let rentPricesDateErrors = [];
 
-        if (chargesPrice === '') {
-            setChargesPriceError(translate({section: "RENTAL_ADD_UPDATE_PAGE", key: "ERROR_REQUIRED_FIELD"}))
-            isError = true;
-        } else if (!isNumberFormatValid(chargesPrice)) {
-            setRentPriceError(translate({section: "RENTAL_ADD_UPDATE_PAGE", key: "ERROR_NUMBER_FORMAT"}))
-            isError = true;
-        }
+        rentPrices.forEach((rentPrice, index) => {
+            if (rentPrice.date === '') {
+                rentPricesAmountErrors[index] = translate({
+                    section: "RENTAL_ADD_UPDATE_PAGE",
+                    key: "ERROR_REQUIRED_FIELD"
+                });
+                isError = true;
+            } else if (!isDateFormatValid(rentPrice.date)) {
+                rentPricesAmountErrors[index] = translate({
+                    section: "RENTAL_ADD_UPDATE_PAGE",
+                    key: "ERROR_DATE_FORMAT"
+                });
+                isError = true;
+            }
+
+            if (rentPrice.amount === '') {
+                rentPricesDateErrors[index] = translate({
+                    section: "RENTAL_ADD_UPDATE_PAGE",
+                    key: "ERROR_REQUIRED_FIELD"
+                });
+                isError = true;
+            } else if (!isNumberFormatValid(rentPrice.amount)) {
+                rentPricesDateErrors[index] = translate({
+                    section: "RENTAL_ADD_UPDATE_PAGE",
+                    key: "ERROR_NUMBER_FORMAT"
+                });
+                isError = true;
+            }
+        });
+
+        setRentPricesAmountErrors(...rentPricesAmountErrors);
+        setRentPricesDateErrors(...rentPricesDateErrors)
+
+        let changesPricesAmountErrors = [];
+        let changesPricesDateErrors = [];
+
+        chargesPrices.forEach((changesPrice, index) => {
+            if (changesPrice.date === '') {
+                changesPricesAmountErrors[index] = translate({
+                    section: "RENTAL_ADD_UPDATE_PAGE",
+                    key: "ERROR_REQUIRED_FIELD"
+                });
+                isError = true;
+            } else if (!isDateFormatValid(changesPrice.date)) {
+                changesPricesAmountErrors[index] = translate({
+                    section: "RENTAL_ADD_UPDATE_PAGE",
+                    key: "ERROR_DATE_FORMAT"
+                });
+                isError = true;
+            }
+
+            if (changesPrice.amount === '') {
+                changesPricesDateErrors[index] = translate({
+                    section: "RENTAL_ADD_UPDATE_PAGE",
+                    key: "ERROR_REQUIRED_FIELD"
+                });
+                isError = true;
+            } else if (!isNumberFormatValid(changesPrice.amount)) {
+                changesPricesDateErrors[index] = translate({
+                    section: "RENTAL_ADD_UPDATE_PAGE",
+                    key: "ERROR_NUMBER_FORMAT"
+                });
+                isError = true;
+            }
+        });
+
+        setChargesPricesAmountErrors(...changesPricesAmountErrors);
+        setChargesPricesDateErrors(...changesPricesDateErrors);
+
+        console.log(chargesPrices);
+        console.log(chargesPricesDateErrors, changesPricesAmountErrors);
+        console.log(rentPrices);
+        console.log(rentPricesAmountErrors, rentPricesDateErrors);
 
         return isError;
     };
@@ -234,18 +332,68 @@ function RentalAddUpdateForm({rental}) {
             setName(currentRental.name ?? '');
             setStartDate(currentRental.startDate ?? '');
             setEndDate(currentRental.endDate ?? '');
-            setRentPrice(currentRental.rentPrice ?? '');
-            setChargesPrice(currentRental.chargesPrice ?? '');
+            setRentPrices(currentRental.rentPrices ?? []);
+            setChargesPrices(currentRental.chargesPrices ?? []);
             setPropertyId(currentRental.propertyId ?? '')
             setTenantIds(currentRental.tenantIds ?? [])
 
             setAllProperties(await getAllProperties());
             setAllTenants(await getAllTenants());
+
+            // Ensures that there is always a first line
+            if (rentPrices.length === 0) {
+                setRentPrices([{date: '', amount: ''}]);
+            }
+
+            if (chargesPrices.length === 0) {
+                setChargesPrices([{date: '', amount: ''}]);
+            }
+
+            console.log(rental);
         }
 
         fetchData();
         // eslint-disable-next-line
     }, [rental]);
+
+    /**
+     * Add a line for rent or charges
+     *
+     * @param key
+     */
+    const addNewPrice = (key) => {
+        const newPrice = {date: '', amount: ''};
+
+        switch (key) {
+            case 'rentPrices':
+                setRentPrices([...rentPrices, newPrice]);
+                break;
+            case 'chargesPrices':
+                setChargesPrices([...chargesPrices, newPrice]);
+                break;
+            default:
+                break;
+        }
+    };
+
+    /**
+     * Remove a line for rent or charges
+     *
+     * @param index
+     * @param key
+     */
+    const removePrice = (index, key) => {
+        switch (key) {
+            case 'rentPrices':
+                setRentPrices(rentPrices.filter((_, i) => i !== index));
+                break;
+            case 'chargesPrices':
+                setChargesPrices(chargesPrices.filter((_, i) => i !== index));
+                break;
+            default:
+                break;
+        }
+    };
 
     return (
         <Box className="rental-add-update-form form">
@@ -341,28 +489,108 @@ function RentalAddUpdateForm({rental}) {
                 </Box>
                 <Box className="form__field-container">
                     <Typography>
-                        {translate({section: "RENTAL_ADD_UPDATE_PAGE", key: "PRICE_SECTION"})}
+                        {translate({section: "RENTAL_ADD_UPDATE_PAGE", key: "RENT_PRICES_SECTION"})}
                     </Typography>
-                    <Box className="form__field-container-line">
-                        <TextField
-                            className="field"
-                            label={translate({section: "RENTAL_ADD_UPDATE_PAGE", key: "RENT_PRICE_LABEL"})}
-                            size="small"
-                            value={rentPrice}
-                            helperText={rentPriceError}
-                            error={rentPriceError !== ''}
-                            type="text"
-                            onChange={(e) => handleChange('rentPrice', e.target.value)}/>
-                        <TextField
-                            className="field"
-                            label={translate({section: "RENTAL_ADD_UPDATE_PAGE", key: "CHARGES_PRICE_LABEL"})}
-                            size="small"
-                            value={chargesPrice}
-                            helperText={chargesPriceError}
-                            error={chargesPriceError !== ''}
-                            type="text"
-                            onChange={(e) => handleChange('chargesPrice', e.target.value)}/>
-                    </Box>
+
+                    {rentPrices.map((rentPrice, index) => (
+                        <Box key={index} className="form__field-container-line">
+                            {index > 0 ? (
+                                <TextField
+                                    className="field"
+                                    label={translate({
+                                        section: "RENTAL_ADD_UPDATE_PAGE",
+                                        key: "RENT_PRICES_DATE_LABEL"
+                                    })}
+                                    size="small"
+                                    value={rentPrice.date || ''}
+                                    helperText={rentPricesDateErrors[index] || ''}
+                                    error={Boolean(rentPricesDateErrors[index])}
+                                    type="text"
+                                    placeholder="dd/mm/yyyy"
+                                    onChange={(e) => handleChange('rentPricesDate', e.target.value, index)}
+                                />
+                            ) : (
+                                <Box className="field-false">
+                                    <Typography>
+                                        {translate({section: "RENTAL_ADD_UPDATE_PAGE", key: "RENT_PRICES_FIRST_DATE"})}
+                                    </Typography>
+                                </Box>
+                            )}
+
+                            <TextField
+                                className="field"
+                                label={translate({
+                                    section: "RENTAL_ADD_UPDATE_PAGE",
+                                    key: "RENT_PRICES_AMOUNT_LABEL"
+                                })}
+                                size="small"
+                                value={rentPrice.amount || ''}
+                                helperText={rentPricesAmountErrors[index] || ''}
+                                error={Boolean(rentPricesAmountErrors[index])}
+                                type="text"
+                                onChange={(e) => handleChange('rentPricesAmount', e.target.value, index)}
+                            />
+
+                            {index === 0 ? (
+                                <Button className="white-button"
+                                        onClick={() => addNewPrice('rentPrices')}>+</Button>
+                            ) : (
+                                <Button className="red-button"
+                                        onClick={() => removePrice(index, 'rentPrices')}>-</Button>
+                            )}
+                        </Box>
+                    ))}
+
+                    <Typography>
+                        {translate({section: "RENTAL_ADD_UPDATE_PAGE", key: "CHARGES_PRICES_SECTION"})}
+                    </Typography>
+
+                    {chargesPrices.map((chargesPrice, index) => (
+                        <Box key={index} className="form__field-container-line">
+                            {index > 0 ? (
+                                <TextField
+                                    className="field"
+                                    label={translate({
+                                        section: "RENTAL_ADD_UPDATE_PAGE",
+                                        key: "RENT_PRICES_DATE_LABEL"
+                                    })}
+                                    size="small"
+                                    value={chargesPrice.date || ''}
+                                    helperText={chargesPricesDateErrors[index] || ''}
+                                    error={Boolean(chargesPricesDateErrors[index])}
+                                    type="text"
+                                    placeholder="dd/mm/yyyy"
+                                    onChange={(e) => handleChange('chargesPricesDate', e.target.value, index)}/>
+                            ) : (
+                                <Box className="field-false">
+                                    <Typography>
+                                        {translate({section: "RENTAL_ADD_UPDATE_PAGE", key: "CHARGES_PRICES_FIRST_DATE"})}
+                                    </Typography>
+                                </Box>
+                            )}
+
+                            <TextField
+                                className="field"
+                                label={translate({
+                                    section: "RENTAL_ADD_UPDATE_PAGE",
+                                    key: "CHARGES_PRICES_AMOUNT_LABEL"
+                                })}
+                                size="small"
+                                value={chargesPrice.amount}
+                                helperText={chargesPricesAmountErrors[index] !== ''}
+                                error={Boolean(chargesPricesAmountErrors[index])}
+                                type="text"
+                                onChange={(e) => handleChange('chargesPricesAmount', e.target.value)}/>
+
+                            {index === 0 ? (
+                                <Button className="white-button"
+                                        onClick={() => addNewPrice('chargesPrices')}>+</Button>
+                            ) : (
+                                <Button className="red-button"
+                                        onClick={() => removePrice(index, 'chargesPrices')}>-</Button>
+                            )}
+                        </Box>
+                    ))}
                 </Box>
             </Box>
             <Box className="form__button-container">
@@ -383,8 +611,8 @@ RentalAddUpdateForm.propTypes = {
         name: PropTypes.string.isRequired,
         startDate: PropTypes.string.isRequired,
         endDate: PropTypes.string,
-        rentPrice: PropTypes.string.isRequired,
-        chargesPrice: PropTypes.string.isRequired,
+        rentPrices: PropTypes.string, //TODO is required
+        chargesPrices: PropTypes.string, //TODO is required
         propertyId: PropTypes.string.isRequired,
         tenantIds: PropTypes.arrayOf(PropTypes.string).isRequired,
     }),

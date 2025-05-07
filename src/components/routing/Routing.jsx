@@ -1,5 +1,6 @@
 import React from 'react'
 import {BrowserRouter, Route, Routes,} from 'react-router-dom'
+import {TableProvider} from "../../contexts/TableProvider";
 import {PATHS} from '../../constants/routing';
 import AccountPage from "../account/AccountPage";
 import HomePage from "../home/HomePage";
@@ -13,9 +14,10 @@ import RoutePrivate from "./RoutePrivate";
 import RouteLogin from "./RouteLogin";
 import TenantAddUpdatePage from '../tenant/TenantAddUpdatePage';
 import TenantListPage from "../tenant/TenantListPage";
-import {TableProvider} from "../../contexts/TableProvider";
 import RentalListPage from "../rental/RentalListPage";
 import RentalAddUpdatePage from "../rental/RentalAddUpdatePage";
+import ReceiptListPage from "../receipt/ReceiptListPage";
+import ReceiptListAddUpdatePage from "../receipt/ReceiptListAddUpdatePage";
 
 /**
  * Component for handling the application routing.
@@ -113,7 +115,17 @@ const Routing = () => {
                     <Route path={PATHS.RECEIPTS}
                            element={
                                <RoutePrivate>
-                                   <RentalAddUpdatePage/>
+                                   <TableProvider>
+                                    <ReceiptListPage/>
+                                   </TableProvider>
+                               </RoutePrivate>
+                           }/>
+                    <Route path={PATHS.RECEIPTS_EDITION}
+                           element={
+                               <RoutePrivate>
+                                   <TableProvider>
+                                       <ReceiptListAddUpdatePage/>
+                                   </TableProvider>
                                </RoutePrivate>
                            }/>
                     <Route path={PATHS.ACCOUNT}

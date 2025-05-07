@@ -1,8 +1,9 @@
-import app, {convertTableToEntity} from './config';
+import app from './config';
 import {get, getDatabase, push, ref, remove, set} from 'firebase/database';
 import PropTypes from 'prop-types';
 import {getCurrentUser} from './auth';
 import {DATABASE} from "../../../constants/database";
+import {convertTableToEntity} from "../../../functions/global";
 
 const database = getDatabase(app);
 
@@ -70,11 +71,9 @@ const getPropertyById = async (propertyId) => {
         const snapshot = await get(propertyRef);
 
         if (snapshot.exists()) {
-            const propertyData = snapshot.val();
-
             return {
                 id: snapshot.key,
-                ...convertTableToEntity(propertyData),
+                ...convertTableToEntity(snapshot.val()),
             };
         } else {
             new Error(`Property with ID ${propertyId} not found`);

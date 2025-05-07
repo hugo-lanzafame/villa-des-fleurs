@@ -1,8 +1,9 @@
-import app, {convertTableToEntity} from './config';
+import app from './config';
 import {get, getDatabase, push, ref, remove, set} from 'firebase/database';
 import PropTypes from 'prop-types';
 import {getCurrentUser} from "./auth";
 import {DATABASE} from "../../../constants/database";
+import {convertTableToEntity} from "../../../functions/global";
 
 const database = getDatabase(app);
 
@@ -72,11 +73,9 @@ const getTenantById = async (tenantId) => {
         const snapshot = await get(tenantRef);
 
         if (snapshot.exists()) {
-            const tenantData = snapshot.val();
-
             return {
                 id: snapshot.key,
-                ...convertTableToEntity(tenantData),
+                ...convertTableToEntity(snapshot.val()),
             };
         } else {
             new Error(`Tenant with ID ${tenantId} not found`);

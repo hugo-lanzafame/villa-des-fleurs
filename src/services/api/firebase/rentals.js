@@ -1,8 +1,9 @@
-import app, {convertTableToEntity} from './config';
+import app from './config';
 import {get, getDatabase, push, ref, remove, set} from 'firebase/database';
 import PropTypes from 'prop-types';
 import {getCurrentUser} from "./auth";
 import {DATABASE} from "../../../constants/database";
+import {convertTableToEntity} from "../../../functions/global";
 
 const database = getDatabase(app);
 
@@ -22,8 +23,8 @@ const addRental = async (rental) => {
             [DATABASE.RENTALS.COLUMN_NAME]: rental.name,
             [DATABASE.RENTALS.COLUMN_START_DATE]: rental.startDate,
             [DATABASE.RENTALS.COLUMN_END_DATE]: rental.endDate ?? null,
-            [DATABASE.RENTALS.COLUMN_RENT_PRICE]: rental.rentPrice,
-            [DATABASE.RENTALS.COLUMN_CHARGES_PRICE]: rental.chargesPrice,
+            [DATABASE.RENTALS.COLUMN_RENT_PRICE]: rental.rentPrices,
+            [DATABASE.RENTALS.COLUMN_CHARGES_PRICE]: rental.chargesPrices,
             [DATABASE.RENTALS.COLUMN_PROPERTY_ID]: rental.propertyId,
             [DATABASE.RENTALS.COLUMN_TENANT_IDS]: rental.tenantIds,
         })
@@ -53,8 +54,8 @@ const updateRental = async (rental) => {
             [DATABASE.RENTALS.COLUMN_NAME]: rental.name,
             [DATABASE.RENTALS.COLUMN_START_DATE]: rental.startDate,
             [DATABASE.RENTALS.COLUMN_END_DATE]: rental.endDate ?? null,
-            [DATABASE.RENTALS.COLUMN_RENT_PRICE]: rental.rentPrice,
-            [DATABASE.RENTALS.COLUMN_CHARGES_PRICE]: rental.chargesPrice,
+            [DATABASE.RENTALS.COLUMN_RENT_PRICE]: rental.rentPrices,
+            [DATABASE.RENTALS.COLUMN_CHARGES_PRICE]: rental.chargesPrices,
             [DATABASE.RENTALS.COLUMN_PROPERTY_ID]: rental.propertyId,
             [DATABASE.RENTALS.COLUMN_TENANT_IDS]: rental.tenantIds,
         })
@@ -80,11 +81,9 @@ const getRentalById = async (rentalId) => {
         const snapshot = await get(rentalRef);
 
         if (snapshot.exists()) {
-            const rentalData = snapshot.val();
-
             return {
                 id: snapshot.key,
-                ...convertTableToEntity(rentalData),
+                ...convertTableToEntity(snapshot.val()),
             };
         } else {
             new Error(`Rental with ID ${rentalId} not found`);

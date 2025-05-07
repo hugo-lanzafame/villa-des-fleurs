@@ -132,16 +132,40 @@ const DATABASE = {
         COLUMN_END_DATE: 'end_date',
 
         /**
-         * The column 'rent_price' of the 'rentals' database.
-         * @type {string}
+         * The column 'rent_prices' of the 'rentals' database.
+         * @type {[string, number]}
          */
-        COLUMN_RENT_PRICE: 'rent_price',
+        COLUMN_RENT_PRICES: {
+            /**
+             * The date of the column 'rent_prices'.
+             * @type {string}
+             */
+            COLUMN_RENT_PRICES_DATE: 'rent_prices_date',
+
+            /**
+             * The amount of the column 'rent_prices'.
+             * @type {number}
+             */
+            COLUMN_RENT_PRICES_AMOUNT: 'rent_prices_amount',
+        },
 
         /**
-         * The column 'charges_price' of the 'rentals' database.
+         * The column 'charges_prices' of the 'rentals' database.
          * @type {string}
          */
-        COLUMN_CHARGES_PRICE: 'charges_price',
+        COLUMN_CHARGES_PRICES: {
+            /**
+             * The date of the column 'charges_prices'.
+             * @type {string}
+             */
+            COLUMN_CHARGES_PRICES_DATE: 'charges_prices_date',
+
+            /**
+             * The amount of the column 'charges_prices'.
+             * @type {number}
+             */
+            COLUMN_CHARGES_PRICES_AMOUNT: 'charges_prices_amount',
+        },
 
         /**
          * The column 'property_id' of the 'rentals' database.
@@ -161,14 +185,12 @@ const DATABASE = {
      *
      * @typedef {Object} ReceiptConstants
      * @property {string} TABLE - The name of the 'receipts' table.
-     * @property {string} COLUMN_RENTAL_ID - The column name for receipt rental ID.
      * @property {string} COLUMN_MONTH - The column name for receipt month.
      * @property {string} COLUMN_RENT - The column name for receipt rent.
      * @property {string} COLUMN_CHARGES - The column name for receipt charges.
      * @property {string} COLUMN_MISCELLANEOUS_FEES - The column name for receipt miscellaneous fees.
      * @property {string} COLUMN_PAYMENT - The column name for receipt payment.
      * @property {string} COLUMN_DATE - The column name for receipt date of payment.
-     * @property {string} COLUMN_BALANCE - The column name for receipt balance.
      * @property {string} COLUMN_COMMENTARY - The column name for receipt commentary.
      */
 
@@ -182,12 +204,6 @@ const DATABASE = {
          * @type {string}
          */
         TABLE: 'receipts',
-
-        /**
-         * The column 'rental_id' of the 'receipts' database.
-         * @type {string}
-         */
-        COLUMN_RENTAL_ID: 'rental_id',
 
         /**
          * The column 'month' of the 'receipts' database.
@@ -226,17 +242,10 @@ const DATABASE = {
         COLUMN_DATE: 'date',
 
         /**
-         * The column 'balance' of the 'receipts' database.
-         * @type {string}
-         */
-        COLUMN_BALANCE: 'balance',
-
-        /**
          * The column 'commentary' of the 'receipts' database.
          * @type {string}
          */
         COLUMN_COMMENTARY: 'commentary',
-
     },
 };
 
