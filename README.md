@@ -56,7 +56,14 @@ These combined technologies provide a robust foundation for creating a scalable 
    ```bash
    npm install
    ```
-5. Run the application:
+5. Create a `.env` file from `.env.example`:
+   ```bash
+   cp .env.example .env
+   ```
+   Next, edit the `.env` file to insert your own API keys and other sensitive data.
+
+
+6. Run the application:
    ```bash
    npm start
    ```
