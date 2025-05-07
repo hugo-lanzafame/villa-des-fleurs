@@ -1,6 +1,6 @@
 ## Step 1: Build the React app
 FROM node:22 AS build
-LABEL authors="Ypsil"
+LABEL authors="Ypsi"
 
 # Set working directory inside the container
 WORKDIR /app
@@ -16,7 +16,9 @@ RUN npm install -g node-gyp
 
 # Copy only dependency files to leverage Docker cache
 COPY package*.json ./
-RUN n pm install
+COPY vite.config.js ./
+
+RUN npm install
 
 # Copy the rest of the application files
 COPY . .
@@ -31,7 +33,7 @@ FROM nginx:1.25-alpine
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Copy the build output from the previous stage
-COPY --from=build /app/build /usr/share/nginx/html
+COPY --from=build /app/dist /usr/share/nginx/html
 
 # Expose port 80 for incoming traffic
 EXPOSE 80

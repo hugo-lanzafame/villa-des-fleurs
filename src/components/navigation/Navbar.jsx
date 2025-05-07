@@ -3,6 +3,7 @@ import {IconButton, Stack} from "@mui/material";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import {useNavigate} from "react-router-dom";
 import {PATHS} from "../../constants/routing";
+import logo from '../../assets/logo-lavilladesfleurs-Carré.png';
 import "../../styles/navigationStyle.scss";
 
 /**
@@ -17,7 +18,7 @@ const Navbar = () => {
         <Stack className="navbar">
             <IconButton onClick={() => navigate(PATHS.HOME)}>
                 <img className='logo'
-                    src={require('../../assets/logo-lavilladesfleurs-Carré.png')}
+                    src={logo}
                     alt='VillaDesFleurs logo'
                 />
             </IconButton>
