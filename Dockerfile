@@ -5,7 +5,6 @@ LABEL authors="Ypsil"
 # Set working directory inside the container
 WORKDIR /app
 
-
 # Install Python and build dependencies for node-gyp
 RUN apt-get update && \
     apt-get install -y python3 python3-pip build-essential python3-venv && \
@@ -17,7 +16,7 @@ RUN npm install -g node-gyp
 
 # Copy only dependency files to leverage Docker cache
 COPY package*.json ./
-RUN npm install
+RUN n pm install
 
 # Copy the rest of the application files
 COPY . .
