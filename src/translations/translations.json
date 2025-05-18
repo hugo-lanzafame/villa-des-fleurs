@@ -498,6 +498,10 @@
       "en": "This date format is not valid.",
       "fr": "Ce format de date est invalide."
     },
+    "ERROR_DATE_ORDER": {
+      "en": "This date must be greater than the previous date.",
+      "fr": "Cette date doit être supérieure à la date précédente."
+    },
     "ERROR_NUMBER_FORMAT": {
       "en": "This field must be a number.",
       "fr": "Ce champ doit être un nombre."

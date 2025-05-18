@@ -96,8 +96,8 @@ const DATABASE = {
      * @property {string} TABLE - The name of the 'rentals' table.
      * @property {string} COLUMN_START_DATE - The column name for rental start date.
      * @property {string} COLUMN_END_DATE - The column name for rental end date.
-     * @property {string} COLUMN_RENT_PRICE - The column name for rental rent price.
-     * @property {string} COLUMN_CHARGES_PRICE - The column name for rental charges price.
+     * @property {string} COLUMN_RENT_PRICES - The column name for rental rent price.
+     * @property {string} COLUMN_CHARGES_PRICES - The column name for rental charges price.
      * @property {string} COLUMN_PROPERTY_ID - The column name for rental property ID.
      * @property {string} COLUMN_TENANT_IDS - The column name for rental tenant IDs.
      */
@@ -135,37 +135,13 @@ const DATABASE = {
          * The column 'rent_prices' of the 'rentals' database.
          * @type {[string, number]}
          */
-        COLUMN_RENT_PRICES: {
-            /**
-             * The date of the column 'rent_prices'.
-             * @type {string}
-             */
-            COLUMN_RENT_PRICES_DATE: 'rent_prices_date',
-
-            /**
-             * The amount of the column 'rent_prices'.
-             * @type {number}
-             */
-            COLUMN_RENT_PRICES_AMOUNT: 'rent_prices_amount',
-        },
+        COLUMN_RENT_PRICES: "rent_prices",
 
         /**
          * The column 'charges_prices' of the 'rentals' database.
-         * @type {string}
+         * @type {[string, number]}
          */
-        COLUMN_CHARGES_PRICES: {
-            /**
-             * The date of the column 'charges_prices'.
-             * @type {string}
-             */
-            COLUMN_CHARGES_PRICES_DATE: 'charges_prices_date',
-
-            /**
-             * The amount of the column 'charges_prices'.
-             * @type {number}
-             */
-            COLUMN_CHARGES_PRICES_AMOUNT: 'charges_prices_amount',
-        },
+        COLUMN_CHARGES_PRICES: "charges_prices",
 
         /**
          * The column 'property_id' of the 'rentals' database.

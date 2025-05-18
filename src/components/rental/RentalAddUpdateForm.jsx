@@ -53,7 +53,7 @@ function RentalAddUpdateForm({rental}) {
      */
     const handleChange = (key, value, index = 0) => {
         let updatedRentPrices = [...rentPrices];
-        let updatedChangesPrices = [...chargesPrices];
+        let updatedChargesPrices = [...chargesPrices];
 
         switch (key) {
             case 'name':
@@ -87,13 +87,13 @@ function RentalAddUpdateForm({rental}) {
                 setRentPricesDateErrors([]);
                 break;
             case 'chargesPricesAmount':
-                updatedChangesPrices[index] = {...updatedChangesPrices[index], 'amount': value};
-                setChargesPrices(updatedChangesPrices);
+                updatedChargesPrices[index] = {...updatedChargesPrices[index], 'amount': value};
+                setChargesPrices(updatedChargesPrices);
                 setChargesPricesAmountErrors([]);
                 break;
             case 'chargesPricesDate':
-                updatedChangesPrices[index] = {...updatedChangesPrices[index], 'date': value};
-                setChargesPrices(updatedChangesPrices);
+                updatedChargesPrices[index] = {...updatedChargesPrices[index], 'date': value};
+                setChargesPrices(updatedChargesPrices);
                 setChargesPricesDateErrors([]);
                 break;
             default:
@@ -134,7 +134,9 @@ function RentalAddUpdateForm({rental}) {
         rental.tenantIds = tenantIds;
         rental.startDate = startDate;
         rental.endDate = endDate;
+        rentPrices[0] = {...(rentPrices[0] || {}), date :startDate};
         rental.rentPrices = rentPrices;
+        chargesPrices[0] = {...(chargesPrices[0] || {}) , date :startDate};
         rental.chargesPrices = chargesPrices;
 
         const isError = handleFormErrors();
@@ -158,6 +160,7 @@ function RentalAddUpdateForm({rental}) {
                     key: "NOTIFICATION_CREATE"
                 }) + (rental.name !== "" ? " (" + rental.name + ")" : ""))
             } else {
+                console.log(rental)
                 await updateRental(rental);
                 addNotification(NOTIFICATION_TYPES.SUCCESS, translate({
                     section: "RENTAL_ADD_UPDATE_PAGE",
@@ -180,7 +183,7 @@ function RentalAddUpdateForm({rental}) {
      *
      * @returns {boolean} True if there are errors, false otherwise.
      */
-    const handleFormErrors = (): boolean => {
+    const handleFormErrors = () => {
         setNameError('');
         setPropertyIdError('');
         setTenantIdsError('');
@@ -241,30 +244,45 @@ function RentalAddUpdateForm({rental}) {
 
         let rentPricesAmountErrors = [];
         let rentPricesDateErrors = [];
+        let previousRentDate = null;
 
         rentPrices.forEach((rentPrice, index) => {
+            if (index === 0) {
+                return;
+            }
+
+            let currentDate = new Date(rentPrice.date.split('/').reverse().join('-'));
+
             if (rentPrice.date === '') {
-                rentPricesAmountErrors[index] = translate({
+                rentPricesDateErrors[index] = translate({
                     section: "RENTAL_ADD_UPDATE_PAGE",
                     key: "ERROR_REQUIRED_FIELD"
                 });
                 isError = true;
             } else if (!isDateFormatValid(rentPrice.date)) {
-                rentPricesAmountErrors[index] = translate({
+                rentPricesDateErrors[index] = translate({
                     section: "RENTAL_ADD_UPDATE_PAGE",
                     key: "ERROR_DATE_FORMAT"
                 });
                 isError = true;
+            } else if (previousRentDate && currentDate <= previousRentDate) {
+                rentPricesDateErrors[index] = translate({
+                    section: "RENTAL_ADD_UPDATE_PAGE",
+                    key: "ERROR_DATE_ORDER"
+                });
+                isError = true;
             }
 
+            previousRentDate = currentDate;
+
             if (rentPrice.amount === '') {
-                rentPricesDateErrors[index] = translate({
+                rentPricesAmountErrors[index] = translate({
                     section: "RENTAL_ADD_UPDATE_PAGE",
                     key: "ERROR_REQUIRED_FIELD"
                 });
                 isError = true;
             } else if (!isNumberFormatValid(rentPrice.amount)) {
-                rentPricesDateErrors[index] = translate({
+                rentPricesAmountErrors[index] = translate({
                     section: "RENTAL_ADD_UPDATE_PAGE",
                     key: "ERROR_NUMBER_FORMAT"
                 });
@@ -272,35 +290,50 @@ function RentalAddUpdateForm({rental}) {
             }
         });
 
-        setRentPricesAmountErrors(...rentPricesAmountErrors);
-        setRentPricesDateErrors(...rentPricesDateErrors)
+        setRentPricesAmountErrors(rentPricesAmountErrors);
+        setRentPricesDateErrors(rentPricesDateErrors);
 
-        let changesPricesAmountErrors = [];
-        let changesPricesDateErrors = [];
+        let chargesPricesAmountErrors = [];
+        let chargesPricesDateErrors = [];
+        let previousChargesDate = null;
 
-        chargesPrices.forEach((changesPrice, index) => {
-            if (changesPrice.date === '') {
-                changesPricesAmountErrors[index] = translate({
+        chargesPrices.forEach((chargesPrice, index) => {
+            if (index === 0) {
+                return;
+            }
+
+            let currentDate = new Date(chargesPrice.date.split('/').reverse().join('-'));
+
+            if (chargesPrice.date === '') {
+                chargesPricesDateErrors[index] = translate({
                     section: "RENTAL_ADD_UPDATE_PAGE",
                     key: "ERROR_REQUIRED_FIELD"
                 });
                 isError = true;
-            } else if (!isDateFormatValid(changesPrice.date)) {
-                changesPricesAmountErrors[index] = translate({
+            } else if (!isDateFormatValid(chargesPrice.date)) {
+                chargesPricesDateErrors[index] = translate({
                     section: "RENTAL_ADD_UPDATE_PAGE",
                     key: "ERROR_DATE_FORMAT"
                 });
                 isError = true;
+            } else if (previousChargesDate && currentDate <= previousChargesDate) {
+                chargesPricesDateErrors[index] = translate({
+                    section: "RENTAL_ADD_UPDATE_PAGE",
+                    key: "ERROR_DATE_ORDER"
+                });
+                isError = true;
             }
 
-            if (changesPrice.amount === '') {
-                changesPricesDateErrors[index] = translate({
+            previousChargesDate = currentDate;
+
+            if (chargesPrice.amount === '') {
+                chargesPricesAmountErrors[index] = translate({
                     section: "RENTAL_ADD_UPDATE_PAGE",
                     key: "ERROR_REQUIRED_FIELD"
                 });
                 isError = true;
-            } else if (!isNumberFormatValid(changesPrice.amount)) {
-                changesPricesDateErrors[index] = translate({
+            } else if (!isNumberFormatValid(chargesPrice.amount)) {
+                chargesPricesAmountErrors[index] = translate({
                     section: "RENTAL_ADD_UPDATE_PAGE",
                     key: "ERROR_NUMBER_FORMAT"
                 });
@@ -308,13 +341,8 @@ function RentalAddUpdateForm({rental}) {
             }
         });
 
-        setChargesPricesAmountErrors(...changesPricesAmountErrors);
-        setChargesPricesDateErrors(...changesPricesDateErrors);
-
-        console.log(chargesPrices);
-        console.log(chargesPricesDateErrors, changesPricesAmountErrors);
-        console.log(rentPrices);
-        console.log(rentPricesAmountErrors, rentPricesDateErrors);
+        setChargesPricesAmountErrors(chargesPricesAmountErrors);
+        setChargesPricesDateErrors(chargesPricesDateErrors);
 
         return isError;
     };
@@ -332,24 +360,29 @@ function RentalAddUpdateForm({rental}) {
             setName(currentRental.name ?? '');
             setStartDate(currentRental.startDate ?? '');
             setEndDate(currentRental.endDate ?? '');
-            setRentPrices(currentRental.rentPrices ?? []);
-            setChargesPrices(currentRental.chargesPrices ?? []);
-            setPropertyId(currentRental.propertyId ?? '')
-            setTenantIds(currentRental.tenantIds ?? [])
-
+            setPropertyId(currentRental.propertyId ?? '');
+            setTenantIds(currentRental.tenantIds ?? []);
             setAllProperties(await getAllProperties());
             setAllTenants(await getAllTenants());
 
             // Ensures that there is always a first line
-            if (rentPrices.length === 0) {
-                setRentPrices([{date: '', amount: ''}]);
+            let rents = currentRental.rentPrices ?? [];
+            if (rents.length === 0) {
+                rents = [{ date: '', amount: '' }];
             }
+            setRentPrices(rents);
 
-            if (chargesPrices.length === 0) {
-                setChargesPrices([{date: '', amount: ''}]);
+            let charges = currentRental.chargesPrices ?? [];
+            if (charges.length === 0) {
+                charges = [{ date: '', amount: '' }];
             }
+            setChargesPrices(charges);
 
-            console.log(rental);
+            // Init errors at the same time
+            setRentPricesDateErrors(rents.map(() => ''));
+            setRentPricesAmountErrors(rents.map(() => ''));
+            setChargesPricesDateErrors(charges.map(() => ''));
+            setChargesPricesAmountErrors(charges.map(() => ''));
         }
 
         fetchData();
@@ -366,10 +399,14 @@ function RentalAddUpdateForm({rental}) {
 
         switch (key) {
             case 'rentPrices':
-                setRentPrices([...rentPrices, newPrice]);
+                setRentPrices(prev => [...prev, newPrice]);
+                setRentPricesDateErrors(prev => [...prev, '']);
+                setRentPricesAmountErrors(prev => [...prev, '']);
                 break;
             case 'chargesPrices':
-                setChargesPrices([...chargesPrices, newPrice]);
+                setChargesPrices(prev => [...prev, newPrice]);
+                setChargesPricesDateErrors(prev => [...prev, '']);
+                setChargesPricesAmountErrors(prev => [...prev, '']);
                 break;
             default:
                 break;
@@ -385,10 +422,14 @@ function RentalAddUpdateForm({rental}) {
     const removePrice = (index, key) => {
         switch (key) {
             case 'rentPrices':
-                setRentPrices(rentPrices.filter((_, i) => i !== index));
+                setRentPrices(prev => prev.filter((_, i) => i !== index));
+                setRentPricesDateErrors(prev => prev.filter((_, i) => i !== index));
+                setRentPricesAmountErrors(prev => prev.filter((_, i) => i !== index));
                 break;
             case 'chargesPrices':
-                setChargesPrices(chargesPrices.filter((_, i) => i !== index));
+                setChargesPrices(prev => prev.filter((_, i) => i !== index));
+                setChargesPricesDateErrors(prev => prev.filter((_, i) => i !== index));
+                setChargesPricesAmountErrors(prev => prev.filter((_, i) => i !== index));
                 break;
             default:
                 break;
@@ -577,10 +618,10 @@ function RentalAddUpdateForm({rental}) {
                                 })}
                                 size="small"
                                 value={chargesPrice.amount}
-                                helperText={chargesPricesAmountErrors[index] !== ''}
+                                helperText={chargesPricesAmountErrors[index] || ''}
                                 error={Boolean(chargesPricesAmountErrors[index])}
                                 type="text"
-                                onChange={(e) => handleChange('chargesPricesAmount', e.target.value)}/>
+                                onChange={(e) => handleChange('chargesPricesAmount', e.target.value, index)}/>
 
                             {index === 0 ? (
                                 <Button className="white-button"
@@ -611,8 +652,8 @@ RentalAddUpdateForm.propTypes = {
         name: PropTypes.string.isRequired,
         startDate: PropTypes.string.isRequired,
         endDate: PropTypes.string,
-        rentPrices: PropTypes.string, //TODO is required
-        chargesPrices: PropTypes.string, //TODO is required
+        rentPrices: PropTypes.arrayOf(PropTypes.string).isRequired,
+        chargesPrices: PropTypes.arrayOf(PropTypes.string).isRequired,
         propertyId: PropTypes.string.isRequired,
         tenantIds: PropTypes.arrayOf(PropTypes.string).isRequired,
     }),
