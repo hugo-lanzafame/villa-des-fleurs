@@ -13,12 +13,13 @@ function ReceiptPage() {
     const [monthsData, setMonthsData] = useState([]);
 
     // TODO: Get rental ID from Page URL
-    const rentalId = "-O4T6ZrjjA8aSOA5gWXt";
+    const rentalId = "-O4eeDR-wC4GMslzUvMn";
 
     useEffect(() => {
         async function fetchRental() {
             try {
-                initializeData(await getRentalById(rentalId));
+                let rental = await getRentalById(rentalId)
+                initializeData(rental);
             } catch (error) {
                 console.error("Error fetching rental:", error);
             }
@@ -44,26 +45,25 @@ function ReceiptPage() {
             translate({section: "RECEIPT_ADD_UPDATE_PAGE", key: "MONTH_DECEMBER"})
         ];
 
-        const startDate = new Date(rental.startDate);
-        const startMonth = startDate.getMonth();
-        const startYear = startDate.getFullYear();
+        const [startDay, startMonth, startYear] = rental.startDate.split('/');
 
         const initData = months.map((month, index) => {
-            const isRentChanged = index === startMonth;
-            const isAfterRentPeriod = (index > startMonth - 1 && new Date().getFullYear() === startYear) || (new Date().getFullYear() > startYear);
-            const rent = isAfterRentPeriod ? 0 : parseFloat(rental.rentPrice) || 0;
-            const charges = isAfterRentPeriod ? 0 : parseFloat(rental.chargesPrice) || 0;
-            const miscellaneousFees = isAfterRentPeriod ? 0 : parseFloat(rental.miscellaneousFees) || 0;
-            const total = parseFloat(rent + charges + miscellaneousFees);
-
+            const currentMonth = index + 1;
+            const isRentChanged = index === parseInt(startMonth);
+            const isAfterRentPeriod = index > parseInt(startMonth);
+            const rent = getApplicablePrice(rental.rentPrices, currentMonth, startYear);
+            const charges = getApplicablePrice(rental.chargesPrices, currentMonth, startYear);
+            const miscellaneousFees = 0;
+            const total = rent + charges + miscellaneousFees;
+            console.log(rent, charges);
             return {
                 month: month,
                 isRentChanged: isRentChanged,
                 isAfterRentPeriod: isAfterRentPeriod,
                 rent: rent,
                 charges: charges,
-                miscellaneousFees: miscellaneousFees,
                 paymentLines: [{
+                    miscellaneousFees: 0,
                     previousBalance: 0,
                     total: total,
                     payment: null,
@@ -76,6 +76,10 @@ function ReceiptPage() {
         recalculateValues(initData);
 
         return initData;
+    }
+
+    function getApplicablePrice(priceArray, currentMonth, currentYear) {
+
     }
 
     const addPaymentLine = (monthIndex) => {
@@ -198,7 +202,7 @@ function ReceiptPage() {
                 {monthsData.map((lineData, monthIndex) => (
                     lineData.paymentLines.map((paymentLine, paymentIndex) => {
                         const isFirstPayment = paymentIndex === 0;
-
+                        console.log(lineData);
                         return (
                             <TableRow key={monthIndex}
                                       className={`table__row ${lineData.isRentChanged ? 'table__row_rent-change' : ''}`}>
@@ -206,10 +210,10 @@ function ReceiptPage() {
                                     {isFirstPayment ? lineData.month : ""}
                                 </TableCell>
                                 <TableCell className="table__cell">
-                                    {isFirstPayment ? (lineData.isAfterRentPeriod ? "0" : lineData.rent.toFixed(2)) : ""}
+                                    {isFirstPayment ? (lineData.isAfterRentPeriod ? "0.00" : lineData.rent) : ""}
                                 </TableCell>
                                 <TableCell className="table__cell">
-                                    {isFirstPayment ? (lineData.isAfterRentPeriod ? "0" : lineData.charges.toFixed(2)) : ""}
+                                    {isFirstPayment ? (lineData.isAfterRentPeriod ? "0.00" : lineData.charges) : ""}
                                 </TableCell>
                                 <TableCell className="table__cell">
                                     {isFirstPayment

@@ -112,6 +112,17 @@ function RentalAddUpdateForm({rental}) {
     };
 
     /**
+     * Checks if a string is a valid date using simple regex for dd/mm/yyyy.
+     *
+     * @param date - Date to verify
+     * @returns {boolean} Returns true if the string is a valide date, otherwise false.
+     */
+    const isDateMonthFormatValid = (date) => {
+        return /^(0[1-9]|1[0-2])\/\d{4}$/.test(date);
+    };
+
+
+    /**
      * Converts a string with commas to a number and checks if it is a valid number.
      *
      * @param {string} number - The string to check.
@@ -128,15 +139,20 @@ function RentalAddUpdateForm({rental}) {
      * Handles the form submission.
      */
     const handleSubmit = async () => {
+        const formatToMonthYear = (dateStr) => {
+            const [day, month, year] = dateStr.split('/');
+            return `${month}/${year}`;
+        };
+
         rental = rental ?? {};
         rental.name = name;
         rental.propertyId = propertyId;
         rental.tenantIds = tenantIds;
         rental.startDate = startDate;
         rental.endDate = endDate;
-        rentPrices[0] = {...(rentPrices[0] || {}), date :startDate};
+        rentPrices[0] = {...(rentPrices[0] || {}), date: formatToMonthYear(startDate)};
         rental.rentPrices = rentPrices;
-        chargesPrices[0] = {...(chargesPrices[0] || {}) , date :startDate};
+        chargesPrices[0] = {...(chargesPrices[0] || {}) , date: formatToMonthYear(startDate)};
         rental.chargesPrices = chargesPrices;
 
         const isError = handleFormErrors();
@@ -259,7 +275,7 @@ function RentalAddUpdateForm({rental}) {
                     key: "ERROR_REQUIRED_FIELD"
                 });
                 isError = true;
-            } else if (!isDateFormatValid(rentPrice.date)) {
+            } else if (!isDateMonthFormatValid(rentPrice.date)) {
                 rentPricesDateErrors[index] = translate({
                     section: "RENTAL_ADD_UPDATE_PAGE",
                     key: "ERROR_DATE_FORMAT"
@@ -310,7 +326,7 @@ function RentalAddUpdateForm({rental}) {
                     key: "ERROR_REQUIRED_FIELD"
                 });
                 isError = true;
-            } else if (!isDateFormatValid(chargesPrice.date)) {
+            } else if (!isDateMonthFormatValid(chargesPrice.date)) {
                 chargesPricesDateErrors[index] = translate({
                     section: "RENTAL_ADD_UPDATE_PAGE",
                     key: "ERROR_DATE_FORMAT"
@@ -547,7 +563,7 @@ function RentalAddUpdateForm({rental}) {
                                     helperText={rentPricesDateErrors[index] || ''}
                                     error={Boolean(rentPricesDateErrors[index])}
                                     type="text"
-                                    placeholder="dd/mm/yyyy"
+                                    placeholder="mm/yyyy"
                                     onChange={(e) => handleChange('rentPricesDate', e.target.value, index)}
                                 />
                             ) : (
@@ -600,7 +616,7 @@ function RentalAddUpdateForm({rental}) {
                                     helperText={chargesPricesDateErrors[index] || ''}
                                     error={Boolean(chargesPricesDateErrors[index])}
                                     type="text"
-                                    placeholder="dd/mm/yyyy"
+                                    placeholder="mm/yyyy"
                                     onChange={(e) => handleChange('chargesPricesDate', e.target.value, index)}/>
                             ) : (
                                 <Box className="field-false">

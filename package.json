@@ -6,8 +6,8 @@
   "author": "hugo lanzafame",
   "private": true,
   "dependencies": {
-    "@emotion/react": "^11.10.6",
-    "@emotion/styled": "^11.10.6",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
     "@mui/icons-material": "^7.1.0",
     "@mui/material": "^7.1.0",
     "axios": "^1.6.5",
@@ -31,11 +31,8 @@
     "start": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "dev": "docker-compose -f docker-compose.dev.yml up",
     "prod": "docker-compose -f docker-compose.yml up",
-    "dev-build": "docker-compose -f docker-compose.dev.yml up --build",
-    "prod-build": "docker-compose -f docker-compose.yml up --build",
-    "dev-down": "docker-compose -f docker-compose.dev.yml down",
+    "prod-build": "docker-compose -f docker-compose.yml build",
     "prod-down": "docker-compose -f docker-compose.yml down"
   },
   "eslintConfig": {
