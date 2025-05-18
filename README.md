@@ -32,11 +32,16 @@ These combined technologies provide a robust foundation for creating a scalable 
 
 ## Prerequisites
 
+For projet dependencies:
 - [nvm](https://github.com/nvm-sh/nvm)
 - [npm](https://github.com/npm/cli)
 - [Node.js](https://github.com/nodejs)
 - python3
 - [node-gyp](https://github.com/nodejs/node-gyp)
+
+For config in `.env`:
+- [Firebase projet](https://firebase.google.com/)
+- [Insee BDM API access URL](https://portail-api.insee.fr/catalog/api/eebab65a-9aef-4da5-bab6-5a9aefeda552)
 
 ## Installation
 
@@ -48,22 +53,18 @@ These combined technologies provide a robust foundation for creating a scalable 
    ```bash
    cd villa-des-fleurs
    ```
-3. Install gyp for SCSS:
-   ```bash
-   node-gyp install
-   ```
-4. Install dependencies:
+3. Install dependencies:
    ```bash
    npm install
    ```
-5. Create a `.env` file from `.env.example`:
+4. Create a `.env` file from `.env.example`:
    ```bash
    cp .env.example .env
    ```
    Next, edit the `.env` file to insert your own API keys and other sensitive data.
 
 
-6. Run the application:
+5. Run the application:
    ```bash
    npm start
    ```

@@ -1,6 +1,5 @@
-// https://api.insee.fr/catalogue/site/themes/wso2/subthemes/insee/pages/item-info.jag?name=BDM&version=V1&provider=insee#/
+// https://portail-api.insee.fr/catalog/api/eebab65a-9aef-4da5-bab6-5a9aefeda552
 const config = {
-    apiKey: import.meta.env.VITE_BDM_API_KEY,
     baseURL: import.meta.env.VITE_BDM_BASE_URL,
 };
 
