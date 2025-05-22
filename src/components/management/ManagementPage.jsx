@@ -1,7 +1,7 @@
 import React from 'react'
 import {useLanguage} from "../../contexts/LanguageProvider";
 import {PATHS} from "../../constants/routing";
-import CustomBreadcrumb from "../custom/CustomBreadcrumb";
+import CustomBreadcrumb from "../common/CustomBreadcrumb";
 
 /**
  * Component for the management page.
