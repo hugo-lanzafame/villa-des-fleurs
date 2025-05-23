@@ -5,9 +5,9 @@ import {useLanguage} from "../../contexts/LanguageProvider";
 import {useTable} from "../../contexts/TableProvider";
 import {getAllRentals} from '../../services/api/firebase/rentals';
 import {PATHS} from "../../constants/routing";
-import CustomTableLayout from "../custom/CustomTableLayout";
-import CustomPageTop from "../custom/CustomPageTop";
-import CustomNotifications from "../custom/CustomNotifications";
+import CustomTableLayout from "../common/CustomTableLayout";
+import CustomPageTop from "../common/CustomPageTop";
+import CustomNotifications from "../common/CustomNotifications";
 
 /**
  * Component for displaying a list of receipts.

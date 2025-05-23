@@ -30,7 +30,7 @@ RUN npm run build
 FROM nginx:1.25-alpine
 
 # Replace default Nginx config with a custom one
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY config/nginx.conf /etc/nginx/conf.d/default.conf
 
 # Copy the build output from the previous stage
 COPY --from=build /app/dist /usr/share/nginx/html

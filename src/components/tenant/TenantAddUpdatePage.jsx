@@ -3,9 +3,9 @@ import {Box} from '@mui/material';
 import {useLanguage} from '../../contexts/LanguageProvider';
 import {getTenantById} from "../../services/api/firebase/tenants";
 import {PATHS} from '../../constants/routing';
-import CustomPageTop from "../custom/CustomPageTop";
+import CustomPageTop from "../common/CustomPageTop";
 import TenantAddUpdateForm from "./TenantAddUpdateForm";
-import CustomNotifications from "../custom/CustomNotifications";
+import CustomNotifications from "../common/CustomNotifications";
 
 /**
  * Component for the Tenant Creation/Edition page.
