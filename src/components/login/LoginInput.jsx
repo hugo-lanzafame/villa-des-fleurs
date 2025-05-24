@@ -22,7 +22,7 @@ import '../../styles/customStyle.scss';
 const LoginInput = ({label, type, name, value, helper, error, isRequired, onChange}) => {
     const {translate} = useLanguage();
     return (
-        <Grid item>
+        <Grid>
             <TextField
                 className="login-form__field login-form__input"
                 label={label}

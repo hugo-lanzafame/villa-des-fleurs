@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {Button, Grid, Link, Typography} from "@mui/material";
-import PropTypes from "prop-types";
 import {useNavigate} from "react-router-dom"
 import {useLanguage} from "../../contexts/LanguageProvider";
 import {resetPassword, signInUser} from '../../services/api/firebase/auth';
@@ -29,9 +28,6 @@ const LoginForm = () => {
         setForm(targetForm);
         setEmail({...email, helper: '', error: false})
         setPassword({value: "", helper: '', error: false})
-    };
-    handleChangeFormClick.propTypes = {
-        targetForm: PropTypes.oneOf(Object.values(LOGIN_FORM_TYPES)).isRequired,
     };
 
     /**
@@ -75,7 +71,7 @@ const LoginForm = () => {
             case LOGIN_FORM_TYPES.FORGOT:
                 resetPassword(email.value)
                     .then(() => {
-                        setEmail({...email, helper: translate({section: "LOGIN_FORM", key: "FORGOT_FORM_SUCCESS"})})
+                        setEmail({...email, helper: translate({section: "LOGIN_PAGE", key: "FORGOT_FORM_SUCCESS"})})
                     })
                     .catch(error => {
                         handleFormErrors(error, form);
@@ -227,7 +223,7 @@ const LoginForm = () => {
                                 isRequired={input.isRequired}
                             />
                         ))}
-                        <Grid item>
+                        <Grid>
                             <Button type="submit" variant="contained" className="login-form__button">
                                 {formConfig.buttonLabel}
                             </Button>

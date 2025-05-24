@@ -15,10 +15,10 @@ const LoginPage = () => {
 
     return (
         <Grid container className="login-page">
-            <Grid item className="login-page__left-side">
+            <Grid className="login-page__left-side">
                 <LoginForm/>
             </Grid>
-            <Grid item className="login-page__right-side">
+            <Grid className="login-page__right-side">
                 <img src={image} alt="villa-des-fleurs.png"/>
                 <Box className="login-comment">
                     <Typography variant="h3">
