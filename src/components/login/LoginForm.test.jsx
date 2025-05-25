@@ -31,7 +31,7 @@ vi.mock('react-router-dom', async (importOriginal) => {
     };
 });
 
-describe('LoginForm test', () => {
+describe('LoginForm tests', () => {
     beforeEach(() => {
         vi.clearAllMocks();
     });
@@ -40,27 +40,27 @@ describe('LoginForm test', () => {
         wrapper: ({children}) => <MemoryRouter>{children}</MemoryRouter>,
     });
 
-    it('renders login form fields', () => {
+    it('should renders login form fields', () => {
         renderComponent();
         expect(screen.getByLabelText('[LOGIN_PAGE.LOGIN_FORM_LABEL_EMAIL]')).toBeInTheDocument();
         expect(screen.getByLabelText('[LOGIN_PAGE.LOGIN_FORM_LABEL_PASSWORD]')).toBeInTheDocument();
         expect(screen.getByText('[LOGIN_PAGE.LOGIN_FORM_BUTTON_LOGIN]')).toBeInTheDocument();
     });
 
-    it('toggles and renders forgot password form fields', () => {
+    it('should toggles and renders forgot password form fields', () => {
         renderComponent();
         fireEvent.click(screen.getByText('[LOGIN_PAGE.LOGIN_FORM_BUTTON_TO_FORGOT]'));
         expect(screen.getByLabelText('[LOGIN_PAGE.FORGOT_FORM_LABEL_EMAIL]')).toBeInTheDocument();
         expect(screen.getByText('[LOGIN_PAGE.FORGOT_FORM_BUTTON_FORGOT]')).toBeInTheDocument();
     });
 
-    it('hides login fields when showing forgot password form', () => {
+    it('should hides login fields when showing forgot password form', () => {
         renderComponent();
         fireEvent.click(screen.getByText('[LOGIN_PAGE.LOGIN_FORM_BUTTON_TO_FORGOT]'));
         expect(screen.queryByLabelText('[LOGIN_PAGE.LOGIN_FORM_LABEL_PASSWORD]')).not.toBeInTheDocument();
     });
 
-    it('calls signInUser on login form submission', async () => {
+    it('should calls signInUser on login form submission', async () => {
         renderComponent();
 
         fireEvent.change(screen.getByLabelText('[LOGIN_PAGE.LOGIN_FORM_LABEL_EMAIL]'), {
@@ -76,7 +76,7 @@ describe('LoginForm test', () => {
         });
     });
 
-    it('calls resetPassword on forgot password form submission', async () => {
+    it('should calls resetPassword on forgot password form submission', async () => {
         renderComponent();
         fireEvent.click(screen.getByText('[LOGIN_PAGE.LOGIN_FORM_BUTTON_TO_FORGOT]'));
         fireEvent.change(screen.getByLabelText('[LOGIN_PAGE.FORGOT_FORM_LABEL_EMAIL]'), {
@@ -89,7 +89,7 @@ describe('LoginForm test', () => {
         });
     });
 
-    it('displays error message when signInUser fails', async () => {
+    it('should displays error message when signInUser fails', async () => {
         signInUser.mockRejectedValueOnce(new Error('Firebase: Error (auth/wrong-password).'));
         renderComponent();
 
@@ -107,7 +107,7 @@ describe('LoginForm test', () => {
         });
     });
 
-    it('displays error message when resetPassword fails', async () => {
+    it('should displays error message when resetPassword fails', async () => {
         resetPassword.mockRejectedValueOnce(new Error('Firebase: Error (auth/user-not-found).'));
         renderComponent();
 
@@ -124,7 +124,7 @@ describe('LoginForm test', () => {
     });
 
 
-    it('navigates to home after successful login', async () => {
+    it('should navigates to home after successful login', async () => {
         renderComponent();
         fireEvent.change(screen.getByLabelText('[LOGIN_PAGE.LOGIN_FORM_LABEL_EMAIL]'), {target: {value: 'test@example.com'}});
         fireEvent.change(screen.getByLabelText('[LOGIN_PAGE.LOGIN_FORM_LABEL_PASSWORD]'), {target: {value: 'password123'}});
@@ -136,7 +136,7 @@ describe('LoginForm test', () => {
         });
     });
 
-    it('displays success message on successful resetPassword', async () => {
+    it('should displays success message on successful resetPassword', async () => {
         renderComponent();
         fireEvent.click(screen.getByText('[LOGIN_PAGE.LOGIN_FORM_BUTTON_TO_FORGOT]'));
         fireEvent.change(screen.getByLabelText('[LOGIN_PAGE.FORGOT_FORM_LABEL_EMAIL]'), {

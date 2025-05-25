@@ -2,7 +2,7 @@ import {createContext, useContext, useState} from 'react';
 import PropTypes from "prop-types";
 
 /**
- * React contexts for language management.
+ * React context for table management.
  * @type {React.Context<TableContext>}
  */
 const TableContext = createContext();
@@ -77,10 +77,6 @@ export const TableProvider = ({children}) => {
     const changeColumns = (newColumns) => {
         setColumns(newColumns);
     };
-    changeColumns.propTypes = {
-        newColumns: PropTypes.array.isRequired,
-    };
-
 
     /**
      * Change the table all entries.
@@ -89,9 +85,6 @@ export const TableProvider = ({children}) => {
      */
     const changeAllEntries = (newAllEntries) => {
         setAllEntries(newAllEntries);
-    };
-    changeAllEntries.propTypes = {
-        newAllEntries: PropTypes.array,
     };
 
     /**
@@ -102,9 +95,6 @@ export const TableProvider = ({children}) => {
     const changeEntries = (newEntries) => {
         setEntries(newEntries);
     }
-    changeEntries.propTypes = {
-        newEntries: PropTypes.array,
-    };
 
     /**
      * Change the entry edition link.
@@ -114,9 +104,6 @@ export const TableProvider = ({children}) => {
     const changeEditionLink = (newLink) => {
         setEditionLink(newLink);
     };
-    changeEditionLink.propTypes = {
-        newLink: PropTypes.string.isRequired,
-    };
 
     /**
      * Change the entry creation link.
@@ -125,9 +112,6 @@ export const TableProvider = ({children}) => {
      */
     const changeCreationLink = (newLink) => {
         setCreationLink(newLink);
-    };
-    changeCreationLink.propTypes = {
-        newLink: PropTypes.string.isRequired,
     };
 
     /**
@@ -146,9 +130,6 @@ export const TableProvider = ({children}) => {
     const changePopupDeleteContent = (newContent) => {
         setPopupDeleteContent(newContent);
     };
-    changePopupDeleteContent.propTypes = {
-        newContent: PropTypes.object.isRequired,
-    };
 
     /**
      * Change the delete notification text.
@@ -158,10 +139,6 @@ export const TableProvider = ({children}) => {
     const changeDeleteNotification = (notification) => {
         setDeleteNotification(notification);
     };
-    changeCreationLink.propTypes = {
-        notification: PropTypes.string.isRequired,
-    };
-
 
     return (
         <TableContext.Provider value={{

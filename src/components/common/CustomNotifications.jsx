@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
 import {Box, Button, Typography} from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import {useNotification} from "../../contexts/NotificationProvider"
-import {NOTIFICATION_TYPES} from "../../constants/notification";
+import {useNotification} from '../../contexts/NotificationProvider';
+import {NOTIFICATION_TYPES} from '../../constants/notification';
 
 /**
  * Component for displaying custom notifications.
@@ -10,12 +10,7 @@ import {NOTIFICATION_TYPES} from "../../constants/notification";
  * @returns {JSX.Element} The CustomNotifications component.
  */
 function CustomNotifications() {
-    const {getNotifications, clearNotification, clearNotifications} = useNotification();
-
-    /**
-     * @type {CustomNotification[]}
-     */
-    const notifications = getNotifications();
+    const {notifications, clearNotification, clearNotifications} = useNotification();
 
     const getNotificationClassType = (type) => {
         switch (type) {
@@ -40,10 +35,11 @@ function CustomNotifications() {
     return (
         <>
             {notifications.length !== 0 ? (
-                notifications.map((notification, index) => (
-                    <Box key={index} className={"notification-box " + getNotificationClassType(notification.type)}>
+                notifications.map((notification) => (
+                    <Box key={notification.id}
+                         className={`notification-box ${getNotificationClassType(notification.type)}`}>
                         <Typography>{notification.message}</Typography>
-                        <Button className="white-button" onClick={() => clearNotification(index)}>
+                        <Button className="white-button" onClick={() => clearNotification(notification.id)}>
                             <CloseIcon/>
                         </Button>
                     </Box>
