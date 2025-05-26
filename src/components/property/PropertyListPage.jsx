@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
 import {Box} from '@mui/material';
-import PropTypes from "prop-types";
 import {useLanguage} from "../../contexts/LanguageProvider";
 import {useTable} from "../../contexts/TableProvider";
 import {deletePropertyById, getAllProperties} from '../../services/api/firebase/properties';
@@ -117,11 +116,6 @@ function PropertyListPage() {
 
         return properties;
     };
-    filterProperties.propTypes = {
-        properties: PropTypes.array.isRequired,
-        propertyFilterValues: PropTypes.array,
-    };
-
 
     useEffect(() => {
         const fetchData = async () => {

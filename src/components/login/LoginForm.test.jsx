@@ -5,14 +5,11 @@ import {MemoryRouter} from 'react-router-dom';
 import {signInUser, resetPassword} from '../../services/api/firebase/auth';
 import LoginForm from './LoginForm';
 
-
-// Mock Firebase Auth directly in vi.mock
-vi.mock('../../services/api/firebase/auth', () => {
-    return {
-        signInUser: vi.fn(() => Promise.resolve()),
-        resetPassword: vi.fn(() => Promise.resolve()),
-    };
-});
+// Mock Firebase Auth
+vi.mock('../../services/api/firebase/auth', () => ({
+    signInUser: vi.fn(() => Promise.resolve()),
+    resetPassword: vi.fn(() => Promise.resolve()),
+}));
 
 // Mock LanguageProvider
 vi.mock('../../contexts/LanguageProvider', () => ({
@@ -31,121 +28,118 @@ vi.mock('react-router-dom', async (importOriginal) => {
     };
 });
 
-describe('LoginForm tests', () => {
+describe('LoginForm', () => {
     beforeEach(() => {
         vi.clearAllMocks();
     });
 
-    const renderComponent = () => render(<LoginForm/>, {
-        wrapper: ({children}) => <MemoryRouter>{children}</MemoryRouter>,
-    });
-
-    it('should renders login form fields', () => {
-        renderComponent();
-        expect(screen.getByLabelText('[LOGIN_PAGE.LOGIN_FORM_LABEL_EMAIL]')).toBeInTheDocument();
-        expect(screen.getByLabelText('[LOGIN_PAGE.LOGIN_FORM_LABEL_PASSWORD]')).toBeInTheDocument();
-        expect(screen.getByText('[LOGIN_PAGE.LOGIN_FORM_BUTTON_LOGIN]')).toBeInTheDocument();
-    });
-
-    it('should toggles and renders forgot password form fields', () => {
-        renderComponent();
-        fireEvent.click(screen.getByText('[LOGIN_PAGE.LOGIN_FORM_BUTTON_TO_FORGOT]'));
-        expect(screen.getByLabelText('[LOGIN_PAGE.FORGOT_FORM_LABEL_EMAIL]')).toBeInTheDocument();
-        expect(screen.getByText('[LOGIN_PAGE.FORGOT_FORM_BUTTON_FORGOT]')).toBeInTheDocument();
-    });
-
-    it('should hides login fields when showing forgot password form', () => {
-        renderComponent();
-        fireEvent.click(screen.getByText('[LOGIN_PAGE.LOGIN_FORM_BUTTON_TO_FORGOT]'));
-        expect(screen.queryByLabelText('[LOGIN_PAGE.LOGIN_FORM_LABEL_PASSWORD]')).not.toBeInTheDocument();
-    });
-
-    it('should calls signInUser on login form submission', async () => {
-        renderComponent();
-
-        fireEvent.change(screen.getByLabelText('[LOGIN_PAGE.LOGIN_FORM_LABEL_EMAIL]'), {
-            target: {value: 'test@example.com'},
+    const renderComponent = () =>
+        render(<LoginForm/>, {
+            wrapper: ({children}) => <MemoryRouter>{children}</MemoryRouter>,
         });
-        fireEvent.change(screen.getByLabelText('[LOGIN_PAGE.LOGIN_FORM_LABEL_PASSWORD]'), {
-            target: {value: 'password123'},
-        });
-        fireEvent.click(screen.getByText('[LOGIN_PAGE.LOGIN_FORM_BUTTON_LOGIN]'));
 
-        await waitFor(() => {
-            expect(signInUser).toHaveBeenCalledWith('test@example.com', 'password123');
-        });
-    });
+    // Helpers to get elements
+    const getLoginEmailInput = () => screen.getByLabelText('[LOGIN_PAGE.LOGIN_FORM_LABEL_EMAIL]');
+    const getLoginPasswordInput = () => screen.getByLabelText('[LOGIN_PAGE.LOGIN_FORM_LABEL_PASSWORD]');
+    const queryLoginPasswordInput = () => screen.queryByLabelText('[LOGIN_PAGE.LOGIN_FORM_LABEL_PASSWORD]');
+    const getLoginSubmitButton = () => screen.getByText('[LOGIN_PAGE.LOGIN_FORM_BUTTON_LOGIN]');
+    const getLoginErrorNotification = () => screen.getAllByText('[LOGIN_PAGE.LOGIN_FORM_ERROR_WRONG_PASSWORD]');
+    const getLoginToForgotButton = () => screen.getByText('[LOGIN_PAGE.LOGIN_FORM_BUTTON_TO_FORGOT]');
+    const getForgotEmailInput = () => screen.getByLabelText('[LOGIN_PAGE.FORGOT_FORM_LABEL_EMAIL]');
+    const getForgotSubmitButton = () => screen.getByText('[LOGIN_PAGE.FORGOT_FORM_BUTTON_FORGOT]');
+    const getForgotErrorNotification = () => screen.getAllByText('[LOGIN_PAGE.FORGOT_FORM_ERROR_USER_NOT_FOUND]');
+    const getForgotSuccessNotification = () => screen.getByText('[LOGIN_PAGE.FORGOT_FORM_SUCCESS]');
 
-    it('should calls resetPassword on forgot password form submission', async () => {
-        renderComponent();
-        fireEvent.click(screen.getByText('[LOGIN_PAGE.LOGIN_FORM_BUTTON_TO_FORGOT]'));
-        fireEvent.change(screen.getByLabelText('[LOGIN_PAGE.FORGOT_FORM_LABEL_EMAIL]'), {
-            target: {value: 'forgot@example.com'},
+    describe('Render and toggle forms', () => {
+        it('renders login form fields', () => {
+            renderComponent();
+            expect(getLoginEmailInput()).toBeInTheDocument();
+            expect(getLoginPasswordInput()).toBeInTheDocument();
+            expect(getLoginSubmitButton()).toBeInTheDocument();
         });
-        fireEvent.click(screen.getByText('[LOGIN_PAGE.FORGOT_FORM_BUTTON_FORGOT]'));
 
-        await waitFor(() => {
-            expect(resetPassword).toHaveBeenCalledWith('forgot@example.com');
+        it('toggles to forgot password form fields', () => {
+            renderComponent();
+            fireEvent.click(getLoginToForgotButton());
+            expect(getForgotEmailInput()).toBeInTheDocument();
+            expect(getForgotSubmitButton()).toBeInTheDocument();
+        });
+
+        it('hides login fields when forgot password form is shown', () => {
+            renderComponent();
+            fireEvent.click(getLoginToForgotButton());
+            expect(queryLoginPasswordInput()).not.toBeInTheDocument();
         });
     });
 
-    it('should displays error message when signInUser fails', async () => {
-        signInUser.mockRejectedValueOnce(new Error('Firebase: Error (auth/wrong-password).'));
-        renderComponent();
+    describe('Login form submission', () => {
+        it('calls signInUser on submit', async () => {
+            renderComponent();
+            fireEvent.change(getLoginEmailInput(), {target: {value: 'test@example.com'}});
+            fireEvent.change(getLoginPasswordInput(), {target: {value: 'password123'}});
+            fireEvent.click(getLoginSubmitButton());
 
-        fireEvent.change(screen.getByLabelText('[LOGIN_PAGE.LOGIN_FORM_LABEL_EMAIL]'), {
-            target: {value: 'wrong@example.com'},
+            await waitFor(() => {
+                expect(signInUser).toHaveBeenCalledWith('test@example.com', 'password123');
+            });
         });
-        fireEvent.change(screen.getByLabelText('[LOGIN_PAGE.LOGIN_FORM_LABEL_PASSWORD]'), {
-            target: {value: 'wrongpassword'},
+
+        it('navigates to home after successful login', async () => {
+            renderComponent();
+            fireEvent.change(getLoginEmailInput(), {target: {value: 'test@example.com'}});
+            fireEvent.change(getLoginPasswordInput(), {target: {value: 'password123'}});
+            fireEvent.click(getLoginSubmitButton());
+
+            await waitFor(() => {
+                expect(mockNavigate).toHaveBeenCalledWith('/');
+            });
         });
-        fireEvent.click(screen.getByText('[LOGIN_PAGE.LOGIN_FORM_BUTTON_LOGIN]'));
 
-        await waitFor(() => {
-            const errors = screen.getAllByText('[LOGIN_PAGE.LOGIN_FORM_ERROR_WRONG_PASSWORD]');
-            expect(errors).toHaveLength(2);
-        });
-    });
+        it('displays error message when signInUser fails', async () => {
+            signInUser.mockRejectedValueOnce(new Error('Firebase: Error (auth/wrong-password).'));
+            renderComponent();
+            fireEvent.change(getLoginEmailInput(), {target: {value: 'wrong@example.com'}});
+            fireEvent.change(getLoginPasswordInput(), {target: {value: 'wrongpassword'}});
+            fireEvent.click(getLoginSubmitButton());
 
-    it('should displays error message when resetPassword fails', async () => {
-        resetPassword.mockRejectedValueOnce(new Error('Firebase: Error (auth/user-not-found).'));
-        renderComponent();
-
-        fireEvent.click(screen.getByText('[LOGIN_PAGE.LOGIN_FORM_BUTTON_TO_FORGOT]'));
-        fireEvent.change(screen.getByLabelText('[LOGIN_PAGE.FORGOT_FORM_LABEL_EMAIL]'), {
-            target: { value: 'wrong@example.com' },
-        });
-        fireEvent.click(screen.getByText('[LOGIN_PAGE.FORGOT_FORM_BUTTON_FORGOT]'));
-
-        await waitFor(() => {
-            const errors = screen.getAllByText('[LOGIN_PAGE.FORGOT_FORM_ERROR_USER_NOT_FOUND]');
-            expect(errors).toHaveLength(1);
-        });
-    });
-
-
-    it('should navigates to home after successful login', async () => {
-        renderComponent();
-        fireEvent.change(screen.getByLabelText('[LOGIN_PAGE.LOGIN_FORM_LABEL_EMAIL]'), {target: {value: 'test@example.com'}});
-        fireEvent.change(screen.getByLabelText('[LOGIN_PAGE.LOGIN_FORM_LABEL_PASSWORD]'), {target: {value: 'password123'}});
-        fireEvent.click(screen.getByText('[LOGIN_PAGE.LOGIN_FORM_BUTTON_LOGIN]'));
-
-        await waitFor(() => {
-            expect(signInUser).toHaveBeenCalledWith('test@example.com', 'password123');
-            expect(mockNavigate).toHaveBeenCalledWith('/');
+            await waitFor(() => {
+                expect(getLoginErrorNotification()).toHaveLength(2);
+            });
         });
     });
 
-    it('should displays success message on successful resetPassword', async () => {
-        renderComponent();
-        fireEvent.click(screen.getByText('[LOGIN_PAGE.LOGIN_FORM_BUTTON_TO_FORGOT]'));
-        fireEvent.change(screen.getByLabelText('[LOGIN_PAGE.FORGOT_FORM_LABEL_EMAIL]'), {
-            target: { value: 'forgot@example.com' },
+    describe('Forgot password form submission', () => {
+        beforeEach(() => {
+            renderComponent();
+            fireEvent.click(getLoginToForgotButton());
         });
-        fireEvent.click(screen.getByText('[LOGIN_PAGE.FORGOT_FORM_BUTTON_FORGOT]'));
 
-        await waitFor(() => {
-            expect(screen.getByText('[LOGIN_PAGE.FORGOT_FORM_SUCCESS]')).toBeInTheDocument();
+        it('calls resetPassword on submit', async () => {
+            fireEvent.change(getForgotEmailInput(), {target: {value: 'forgot@example.com'}});
+            fireEvent.click(getForgotSubmitButton());
+
+            await waitFor(() => {
+                expect(resetPassword).toHaveBeenCalledWith('forgot@example.com');
+            });
+        });
+
+        it('displays error message when resetPassword fails', async () => {
+            resetPassword.mockRejectedValueOnce(new Error('Firebase: Error (auth/user-not-found).'));
+            fireEvent.change(getForgotEmailInput(), {target: {value: 'wrong@example.com'}});
+            fireEvent.click(getForgotSubmitButton());
+
+            await waitFor(() => {
+                expect(getForgotErrorNotification()).toHaveLength(1);
+            });
+        });
+
+        it('displays success message on successful resetPassword', async () => {
+            fireEvent.change(getForgotEmailInput(), {target: {value: 'forgot@example.com'}});
+            fireEvent.click(getForgotSubmitButton());
+
+            await waitFor(() => {
+                expect(getForgotSuccessNotification()).toBeInTheDocument();
+            });
         });
     });
 });
