@@ -1,0 +1,113 @@
+@use "colorPanel" as color;
+
+.not-found-page {
+    .not-found-content {
+        margin-top: 4rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .dark-light-box {
+            background-color: color.$dark-light-color;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 3rem 2rem;
+            text-align: center;
+            width: 100%;
+            max-width: 700px;
+
+            .error-message {
+                margin-bottom: 1rem;
+
+                .title {
+                    font-size: 2rem;
+                    font-weight: 500;
+                    color: color.$white-color;
+                    margin-bottom: 1rem;
+                }
+
+                .subtitle {
+                    font-size: 1.2rem;
+                    color: color.$grey-color;
+                    max-width: 600px;
+                    margin: 0 auto;
+                }
+            }
+        }
+
+        .action-buttons {
+            margin-top: 2rem;
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+
+            .home-button {
+                background-color: color.$purple-light-color;
+                color: color.$white-color;
+                padding: 0.75rem 2rem;
+                font-size: 1.1rem;
+                border-radius: 30px;
+                transition: all 0.3s ease;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+                &:hover {
+                    background-color: color.$purple-dark-color;
+                    transform: translateY(-2px);
+                    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+                }
+            }
+        }
+    }
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.1);
+        opacity: 0.8;
+    }
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.1);
+        opacity: 0.8;
+    }
+}

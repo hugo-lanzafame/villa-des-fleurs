@@ -1,4 +1,18 @@
 {
+  "NOT_FOUND_PAGE": {
+    "TITLE": {
+      "en": "Page not found",
+      "fr": "Page introuvable"
+    },
+    "SUBTITLE": {
+      "en": "Sorry, the page you are looking for does not exist or has been moved.",
+      "fr": "Désolé, la page que vous recherchez n'existe pas ou a été déplacée."
+    },
+    "BUTTON_HOME": {
+      "en": "Back to home",
+      "fr": "Retour à l'accueil"
+    }
+  },
   "ACCOUNT_PAGE": {
     "TITLE_ACCOUNT": {
       "en": "Account settings",
