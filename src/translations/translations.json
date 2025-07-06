@@ -4,6 +4,26 @@
       "en": "Account settings",
       "fr": "Paramètres du compte"
     },
+    "USER_INFO_TITLE": {
+      "en": "User Information",
+      "fr": "Informations utilisateur"
+    },
+    "PREFERENCES_TITLE": {
+      "en": "Preferences",
+      "fr": "Préférences"
+    },
+    "EMAIL_LABEL": {
+      "en": "Email address",
+      "fr": "Adresse email"
+    },
+    "USER_ID_LABEL": {
+      "en": "User ID",
+      "fr": "Identifiant utilisateur"
+    },
+    "LANGUAGE_SELECTOR_LABEL": {
+      "en": "Interface language",
+      "fr": "Langue de l'interface"
+    },
     "TRAD_FRENCH": {
       "en": "Francais",
       "fr": "Francais"
@@ -450,7 +470,7 @@
       "en": "Rent pricing (per month)",
       "fr": "Tarification du loyer (par mois)"
     },
-    "RENT_PRICES_FIRST_DATE" : {
+    "RENT_PRICES_FIRST_DATE": {
       "en": "From the beginning",
       "fr": "Depuis le début"
     },
@@ -466,7 +486,7 @@
       "en": "Charges pricing (per month)",
       "fr": "Tarification des charges (par mois)"
     },
-    "CHARGES_PRICES_FIRST_DATE" : {
+    "CHARGES_PRICES_FIRST_DATE": {
       "en": "From the beginning",
       "fr": "Depuis le début"
     },
