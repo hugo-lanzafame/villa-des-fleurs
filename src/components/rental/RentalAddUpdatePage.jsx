@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {Box} from '@mui/material';
 import {useLanguage} from '../../contexts/LanguageProvider';
 import {getRentalById} from "../../services/api/firebase/rentals";

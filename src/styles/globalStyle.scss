@@ -3,6 +3,11 @@
 #root {
     color: color.$white-color;
 
+    .basic-page {
+        max-width: 1980px;
+        margin: 0 auto;
+    }
+
     .form {
         &__field-container {
             margin: 1rem 0;
