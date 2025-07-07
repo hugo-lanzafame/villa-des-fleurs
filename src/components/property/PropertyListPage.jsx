@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import {useEffect} from 'react';
 import {Box} from '@mui/material';
 import PropTypes from "prop-types";
 import {useLanguage} from "../../contexts/LanguageProvider";
@@ -146,7 +146,7 @@ function PropertyListPage() {
     }, []);
 
     return (
-        <Box className="property-list-page">
+        <Box className="property-list-page basic-page">
             <CustomPageTop breadcrumbLinks={breadcrumbLinks} title={title}/>
             <CustomNotifications/>
             <CustomTableLayout reloadEntries={getAllProperties} filterEntries={filterProperties}

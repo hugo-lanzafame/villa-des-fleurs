@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import {useEffect} from 'react';
 import {Box} from '@mui/material';
 import PropTypes from "prop-types";
 import {useLanguage} from "../../contexts/LanguageProvider";
@@ -116,7 +116,7 @@ function ReceiptListPage() {
     }, []);
 
     return (
-        <Box className="rental-list-page">
+        <Box className="rental-list-page basic-page">
             <CustomPageTop breadcrumbLinks={breadcrumbLinks} title={title}/>
             <CustomNotifications/>
             <CustomTableLayout reloadEntries={getAllRentals} filterEntries={filterReceipts}

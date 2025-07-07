@@ -31,9 +31,9 @@
     "start": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "prod": "docker-compose -f docker-compose.yml up",
-    "prod-build": "docker-compose -f docker-compose.yml build",
-    "prod-down": "docker-compose -f docker-compose.yml down"
+    "prod": "docker-compose up",
+    "prod-build": "docker-compose up --build",
+    "prod-down": "docker-compose down"
   },
   "eslintConfig": {
     "extends": [

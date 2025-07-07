@@ -3,6 +3,11 @@
 #root {
     color: color.$white-color;
 
+    .basic-page {
+        max-width: 1900px;
+        margin: 0 auto;
+    }
+
     .form {
         &__field-container {
             margin: 1rem 0;
@@ -23,15 +28,10 @@
             justify-content: center;
             flex-wrap: wrap;
         }
-
-        .dark-light-box {
-            padding: 2rem 2rem 1rem 2rem;
-        }
     }
 
     .field {
-        max-width: 14rem;
-        width: fit-content;
+        width: 14rem;
 
         .MuiOutlinedInput-input {
             color: color.$white-color;
@@ -45,6 +45,8 @@
             border-color: color.$purple-light-color;
             -webkit-transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,
             transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms, max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+            transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,
+            transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms, max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
         }
 
         .MuiInputLabel-root {
@@ -54,6 +56,8 @@
         .Mui-focused.MuiInputLabel-root {
             color: color.$purple-light-color;
             -webkit-transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,
+            transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms, max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+            transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,
             transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms, max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
         }
 
@@ -100,6 +104,7 @@
 }
 
 .dark-light-box {
+    padding: 1.5rem;
     background-color: color.$dark-light-color;
     border: 1px solid color.$black-color;
     border-collapse: separate;

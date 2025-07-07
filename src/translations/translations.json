@@ -1,8 +1,42 @@
 {
+  "NOT_FOUND_PAGE": {
+    "TITLE": {
+      "en": "Page not found",
+      "fr": "Page introuvable"
+    },
+    "SUBTITLE": {
+      "en": "Sorry, the page you are looking for does not exist or has been moved.",
+      "fr": "Désolé, la page que vous recherchez n'existe pas ou a été déplacée."
+    },
+    "BUTTON_HOME": {
+      "en": "Back to home",
+      "fr": "Retour à l'accueil"
+    }
+  },
   "ACCOUNT_PAGE": {
     "TITLE_ACCOUNT": {
       "en": "Account settings",
       "fr": "Paramètres du compte"
+    },
+    "USER_INFO_TITLE": {
+      "en": "User Information",
+      "fr": "Informations utilisateur"
+    },
+    "PREFERENCES_TITLE": {
+      "en": "Preferences",
+      "fr": "Préférences"
+    },
+    "EMAIL_LABEL": {
+      "en": "Email address",
+      "fr": "Adresse email"
+    },
+    "USER_ID_LABEL": {
+      "en": "User ID",
+      "fr": "Identifiant utilisateur"
+    },
+    "LANGUAGE_SELECTOR_LABEL": {
+      "en": "Interface language",
+      "fr": "Langue de l'interface"
     },
     "TRAD_FRENCH": {
       "en": "Francais",
@@ -450,7 +484,7 @@
       "en": "Rent pricing (per month)",
       "fr": "Tarification du loyer (par mois)"
     },
-    "RENT_PRICES_FIRST_DATE" : {
+    "RENT_PRICES_FIRST_DATE": {
       "en": "From the beginning",
       "fr": "Depuis le début"
     },
@@ -466,7 +500,7 @@
       "en": "Charges pricing (per month)",
       "fr": "Tarification des charges (par mois)"
     },
-    "CHARGES_PRICES_FIRST_DATE" : {
+    "CHARGES_PRICES_FIRST_DATE": {
       "en": "From the beginning",
       "fr": "Depuis le début"
     },
