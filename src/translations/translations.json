@@ -556,6 +556,10 @@
     }
   },
   "RECEIPT_ADD_UPDATE_PAGE": {
+    "PAGE_TITLE_EDITION": {
+      "en": "Receipt edition",
+      "fr": "Édition d'une quittance"
+    },
     "MONTH_JANUARY": {
       "en": "January",
       "fr": "Janvier"
