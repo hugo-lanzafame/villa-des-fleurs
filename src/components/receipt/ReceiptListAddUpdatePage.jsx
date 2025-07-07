@@ -11,11 +11,15 @@ import {
     Typography,
     TextField,
 } from "@mui/material";
+import EditIcon from '@mui/icons-material/Edit';
+import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn";
 import { getRentalById } from "../../services/api/firebase/rentals";
 import { useLanguage } from "../../contexts/LanguageProvider";
+import { useNotification } from "../../contexts/NotificationProvider";
 import CustomPageTop from "../common/CustomPageTop";
 import { PATHS } from "../../constants/routing";
-import { useSearchParams } from "react-router-dom";
+import { NOTIFICATION_TYPES } from "../../constants/notification";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import "../../styles/receiptStyle.scss";
 
 /**
@@ -25,6 +29,8 @@ import "../../styles/receiptStyle.scss";
  */
 function ReceiptPage() {
     const { translate } = useLanguage();
+    const { addNotification } = useNotification();
+    const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     const rentalId = searchParams.get('id');
     const [monthsData, setMonthsData] = useState([]);
@@ -409,6 +415,27 @@ function ReceiptPage() {
         recalculateValues(updatedData);
     };
 
+    /**
+     * Handle save button click to save all receipt data.
+     */
+    const handleSave = () => {
+        // TODO: Implement save functionality to Firebase
+        // This would save all the monthsData for the current year
+        console.log("Saving receipt data:", { rentalId, selectedYear, monthsData });
+        
+        addNotification({
+            message: "Données sauvegardées avec succès", // TODO: Use translate when key exists
+            type: NOTIFICATION_TYPES.SUCCESS
+        });
+    };
+
+    /**
+     * Handle cancel/back button click to return to receipts list.
+     */
+    const handleCancel = () => {
+        navigate(PATHS.RECEIPTS);
+    };
+
     return (
         <Box className="receipt-add-update-page basic-page">
             <CustomPageTop breadcrumbLinks={breadcrumbLinks} title={title} />
@@ -685,6 +712,20 @@ function ReceiptPage() {
                     </Table>
                 </Box>
             )}
+
+            {/* Action Buttons */}
+            <Box className="form__button-container">
+                <Button className="white-button" onClick={handleCancel}>
+                    <KeyboardReturnIcon/>
+                </Button>
+                <Button 
+                    className="green-button" 
+                    onClick={handleSave}
+                    disabled={loading || selectedYear === '' || !rentalId}
+                >
+                    <EditIcon/>
+                </Button>
+            </Box>
         </Box>
     );
 }
