@@ -14,11 +14,13 @@ import {
 import EditIcon from '@mui/icons-material/Edit';
 import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn";
 import { getRentalById } from "../../services/api/firebase/rentals";
+import { saveYearlyReceipts, getYearlyReceipts } from "../../services/api/firebase/receipt";
 import { useLanguage } from "../../contexts/LanguageProvider";
 import { useNotification } from "../../contexts/NotificationProvider";
 import CustomPageTop from "../common/CustomPageTop";
 import { PATHS } from "../../constants/routing";
 import { NOTIFICATION_TYPES } from "../../constants/notification";
+import { DATABASE } from "../../constants/database";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import "../../styles/receiptStyle.scss";
 
@@ -89,13 +91,13 @@ function ReceiptPage() {
                     const defaultYear = years.includes(currentYear) ? currentYear : years[years.length - 1];
                     setSelectedYear(defaultYear);
                     
-                    initializeData(rentalData, defaultYear);
+                    await initializeData(rentalData, defaultYear);
                 } else {
                     // If no start date, use current year as default
                     const fallbackYear = new Date().getFullYear();
                     setSelectedYear(fallbackYear);
                     setAvailableYears([fallbackYear]);
-                    initializeData(rentalData, fallbackYear);
+                    await initializeData(rentalData, fallbackYear);
                 }
             } catch (error) {
                 console.error("Error fetching rental:", error);
@@ -113,11 +115,11 @@ function ReceiptPage() {
      * 
      * @param {Event} event - The change event from the year selector.
      */
-    const handleYearChange = (event) => {
+    const handleYearChange = async (event) => {
         const newYear = parseInt(event.target.value);
         setSelectedYear(newYear);
         if (rental) {
-            initializeData(rental, newYear);
+            await initializeData(rental, newYear);
         }
     };
 
@@ -127,7 +129,7 @@ function ReceiptPage() {
      * @param {Object} rental - The rental object containing all rental information.
      * @param {number} year - The year for which to initialize the data.
      */
-    function initializeData(rental, year) {
+    async function initializeData(rental, year) {
         const months = [
             translate({ section: "RECEIPT_ADD_UPDATE_PAGE", key: "MONTH_JANUARY" }),
             translate({ section: "RECEIPT_ADD_UPDATE_PAGE", key: "MONTH_FEBRUARY" }),
@@ -154,13 +156,11 @@ function ReceiptPage() {
 
         const initData = months.map((month, index) => {
             const currentMonth = index + 1;
-            const isRentChanged = currentMonth === parseInt(startMonth) && year === parseInt(startYear);
-            const isRentalStartMonth = currentMonth === parseInt(startMonth); // Pour toutes les années
+            const isRentalStartMonth = currentMonth === parseInt(startMonth);
 
             // Check if this month is within the rental period
-            const isBeforeRentalStart = year < parseInt(startYear) || (year === parseInt(startYear) && currentMonth < parseInt(startMonth));
-            const isAfterRentalEnd = hasEndDate && (year > parseInt(endYear) || (year === parseInt(endYear) && currentMonth > parseInt(endMonth)));
-            const isWithinRentalPeriod = !isBeforeRentalStart && !isAfterRentalEnd;
+            const isWithinRentalPeriod = !(year < parseInt(startYear) || (year === parseInt(startYear) && currentMonth < parseInt(startMonth))) &&
+                                        !(hasEndDate && (year > parseInt(endYear) || (year === parseInt(endYear) && currentMonth > parseInt(endMonth))));
 
             let rent = 0;
             let charges = 0;
@@ -175,8 +175,8 @@ function ReceiptPage() {
             }
 
             return {
-                month: month,
-                isRentChanged: isRentChanged,
+                monthNumber: currentMonth,
+                monthName: month,
                 isRentalStartMonth: isRentalStartMonth,
                 isWithinRentalPeriod: isWithinRentalPeriod,
                 rent: rent,
@@ -193,9 +193,57 @@ function ReceiptPage() {
                 }],
             };
         });
-        recalculateValues(initData);
-        setMonthsData(initData);
+
+        // Load existing data and merge with initialized data
+        const finalData = await loadExistingData(rental, year, initData);
+        
+        recalculateValues(finalData);
+        setMonthsData(finalData);
     }
+
+    /**
+     * Load existing yearly receipt data if available.
+     * 
+     * @param {Object} rental - The rental object.
+     * @param {number} year - The year for which to load data.
+     * @param {Array} initData - The initialized monthly data.
+     * @returns {Array} Updated monthly data with existing receipt data.
+     */
+    const loadExistingData = async (rental, year, initData) => {
+        try {
+            const existingData = await getYearlyReceipts(rentalId, year);
+            
+            if (existingData) {
+                initData.forEach(monthData => {
+                    const monthKey = monthData.monthNumber.toString().padStart(2, '0');
+                    const existingMonthData = existingData[monthKey];
+                    
+                    if (existingMonthData && monthData.isWithinRentalPeriod) {
+                        // Update only receipt-specific data (not rent/charges which come from rental)
+                        monthData.miscellaneousFees = existingMonthData[DATABASE.RECEIPTS.COLUMN_MISCELLANEOUS_FEES] || 0;
+                        
+                        if (existingMonthData[DATABASE.RECEIPTS.COLUMN_PAYMENT_LINES]) {
+                            monthData.paymentLines = existingMonthData[DATABASE.RECEIPTS.COLUMN_PAYMENT_LINES].map(line => ({
+                                miscellaneousFees: line[DATABASE.RECEIPTS.COLUMN_MISCELLANEOUS_FEES] || 0,
+                                previousBalance: 0, // Will be recalculated
+                                total: 0, // Will be recalculated
+                                payment: line[DATABASE.RECEIPTS.COLUMN_PAYMENT],
+                                date: line[DATABASE.RECEIPTS.COLUMN_DATE] || '',
+                                commentary: line[DATABASE.RECEIPTS.COLUMN_COMMENTARY] || '',
+                                balance: NaN, // Will be recalculated
+                                isAdditionalLine: line.isAdditionalLine || false
+                            }));
+                        }
+                    }
+                });
+            }
+            
+            return initData;
+        } catch (error) {
+            console.error("Error loading existing data:", error);
+            return initData; // Return original data if loading fails
+        }
+    };
 
     /**
      * Get the applicable price for a specific month and year based on price array with dates.
@@ -418,15 +466,24 @@ function ReceiptPage() {
     /**
      * Handle save button click to save all receipt data.
      */
-    const handleSave = () => {
-        // TODO: Implement save functionality to Firebase
-        // This would save all the monthsData for the current year
-        console.log("Saving receipt data:", { rentalId, selectedYear, monthsData });
-        
-        addNotification({
-            message: "Données sauvegardées avec succès", // TODO: Use translate when key exists
-            type: NOTIFICATION_TYPES.SUCCESS
-        });
+    const handleSave = async () => {
+        try {
+            await saveYearlyReceipts(rentalId, selectedYear, monthsData);
+            
+            addNotification({
+                message: translate({ section: "NOTIFICATION", key: "SAVE_SUCCESS" }) || "Données sauvegardées avec succès",
+                type: NOTIFICATION_TYPES.SUCCESS
+            });
+            
+            console.log("Receipt data saved successfully:", { rentalId, selectedYear, monthsData });
+        } catch (error) {
+            console.error("Error saving receipt data:", error);
+            
+            addNotification({
+                message: translate({ section: "NOTIFICATION", key: "SAVE_ERROR" }) || "Erreur lors de la sauvegarde",
+                type: NOTIFICATION_TYPES.ERROR
+            });
+        }
     };
 
     /**
@@ -542,7 +599,7 @@ function ReceiptPage() {
                                         <TableRow key={`${monthIndex}-${paymentIndex}`}
                                             className={rowClass}>
                                             <TableCell className="table__cell">
-                                                {isFirstPayment ? lineData.month : ""}
+                                                {isFirstPayment ? lineData.monthName : ""}
                                             </TableCell>
                                             <TableCell className="table__cell">
                                                 {isFirstPayment && isWithinPeriod ? `${lineData.rent}€` : ""}
@@ -668,37 +725,43 @@ function ReceiptPage() {
                                         {monthsData
                                             .filter(month => month.isWithinRentalPeriod)
                                             .reduce((sum, month) =>
-                                                sum + month.paymentLines.reduce((lineSum, line) =>
-                                                    lineSum + (line.total && line.total !== null ? line.total : 0), 0
-                                                ), 0
+                                                sum + month.paymentLines.reduce((lineSum, line) => {
+                                                    // Only include valid totals (not null, not NaN, not undefined)
+                                                    if (line.total !== null && !isNaN(line.total) && line.total !== undefined) {
+                                                        return lineSum + line.total;
+                                                    }
+                                                    return lineSum;
+                                                }, 0), 0
                                             ).toFixed(2)}€
                                     </TableCell>
                                     <TableCell id="cell-total-paid" className="table__cell">
                                         {monthsData
                                             .filter(month => month.isWithinRentalPeriod)
                                             .reduce((sum, month) =>
-                                                sum + month.paymentLines.reduce((lineSum, line) =>
-                                                    lineSum + (line.payment && line.payment !== null ? line.payment : 0), 0
-                                                ), 0
+                                                sum + month.paymentLines.reduce((lineSum, line) => {
+                                                    // Only include valid payments (not null, not NaN, not undefined)
+                                                    if (line.payment !== null && !isNaN(line.payment) && line.payment !== undefined) {
+                                                        return lineSum + line.payment;
+                                                    }
+                                                    return lineSum;
+                                                }, 0), 0
                                             ).toFixed(2)}€
                                     </TableCell>
                                     <TableCell className="table__cell">
                                         -
                                     </TableCell>
                                     <TableCell id="cell-remaining-due" className="table__cell">
-                                        {(monthsData
+                                        {monthsData
                                             .filter(month => month.isWithinRentalPeriod)
                                             .reduce((sum, month) =>
-                                                sum + month.paymentLines.reduce((lineSum, line) =>
-                                                    lineSum + (line.total && line.total !== null ? line.total : 0), 0
-                                                ), 0
-                                            ) - monthsData
-                                                .filter(month => month.isWithinRentalPeriod)
-                                                .reduce((sum, month) =>
-                                                    sum + month.paymentLines.reduce((lineSum, line) =>
-                                                        lineSum + (line.payment && line.payment !== null ? line.payment : 0), 0
-                                                    ), 0
-                                                )).toFixed(2)}€
+                                                sum + month.paymentLines.reduce((lineSum, line) => {
+                                                    // Only include valid balances (not null, not NaN)
+                                                    if (line.balance !== null && !isNaN(line.balance)) {
+                                                        return lineSum + line.balance;
+                                                    }
+                                                    return lineSum;
+                                                }, 0), 0
+                                            ).toFixed(2)}€
                                     </TableCell>
                                     <TableCell className="table__cell">
                                         -
