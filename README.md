@@ -79,7 +79,7 @@ The Villa des Fleurs project follows a structured organization to maintain clean
 ```
 villa-des-fleurs/
 ├── .github/                # GitHub workflows and CI/CD configurations
-├── coverage/               # Test coverage reports
+├── coverage/               # Test coverage reports (not tracked in git)
 ├── node_modules/           # Node.js dependencies (not tracked in git)
 ├── public/                 # Public assets
 ├── src/                    # Source code
@@ -105,7 +105,6 @@ villa-des-fleurs/
 ├── package.json            # NPM package configuration
 └── vite.config.js          # Vite build configuration
 ```
-
 
 ## Getting Started
 
