@@ -116,7 +116,7 @@ function ReceiptListPage() {
     }, []);
 
     return (
-        <Box className="rental-list-page basic-page">
+        <Box className="receipt-list-page basic-page">
             <CustomPageTop breadcrumbLinks={breadcrumbLinks} title={title}/>
             <CustomNotifications/>
             <CustomTableLayout reloadEntries={getAllRentals} filterEntries={filterReceipts}
