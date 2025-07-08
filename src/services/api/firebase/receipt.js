@@ -10,6 +10,7 @@ const getTablePath = (rentalId) => "users/" + getCurrentUser().uid + "/" +
 /**
  * Clean monthly data to prepare it for Firebase storage.
  * Converts undefined values to null and removes computed properties.
+ * Applies decimal formatting to monetary values.
  * 
  * @param {Array} monthsData - Array of monthly data objects.
  * @returns {Object} Cleaned yearly data ready for Firebase.
@@ -24,8 +25,8 @@ const prepareYearlyData = (monthsData) => {
             
             // Clean up payment lines - convert undefined to null and remove display properties
             const cleanPaymentLines = monthData.paymentLines.map(line => ({
-                [DATABASE.RECEIPTS.COLUMN_MISCELLANEOUS_FEES]: line.miscellaneousFees || 0,
-                [DATABASE.RECEIPTS.COLUMN_PAYMENT]: line.payment === undefined ? null : line.payment,
+                [DATABASE.RECEIPTS.COLUMN_MISCELLANEOUS_FEES]: line.miscellaneousFees ? Math.round(line.miscellaneousFees * 100) / 100 : 0,
+                [DATABASE.RECEIPTS.COLUMN_PAYMENT]: line.payment === undefined || line.payment === null ? null : Math.round(line.payment * 100) / 100,
                 [DATABASE.RECEIPTS.COLUMN_DATE]: line.date || '',
                 [DATABASE.RECEIPTS.COLUMN_COMMENTARY]: line.commentary || '',
                 isAdditionalLine: line.isAdditionalLine || false
@@ -33,7 +34,7 @@ const prepareYearlyData = (monthsData) => {
             
             yearlyData[monthKey] = {
                 [DATABASE.RECEIPTS.COLUMN_MONTH_NUMBER]: monthData.monthNumber,
-                [DATABASE.RECEIPTS.COLUMN_MISCELLANEOUS_FEES]: monthData.miscellaneousFees || 0,
+                [DATABASE.RECEIPTS.COLUMN_MISCELLANEOUS_FEES]: monthData.miscellaneousFees ? Math.round(monthData.miscellaneousFees * 100) / 100 : 0,
                 [DATABASE.RECEIPTS.COLUMN_PAYMENT_LINES]: cleanPaymentLines
             };
         }
