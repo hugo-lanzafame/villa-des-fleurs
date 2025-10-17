@@ -7,7 +7,7 @@ import HomePage from "../home/HomePage";
 import Layout from "../navigation/Layout";
 import LoginPage from '../login/LoginPage';
 import ManagementPage from "../management/ManagementPage";
-import UnknownPage from "../unknown/UnknownPage";
+import NotFoundPage from "../not-found/NotFoundPage";
 import PropertyAddUpdatePage from "../property/PropertyAddUpdatePage";
 import PropertyListPage from "../property/PropertyListPage";
 import RoutePrivate from "./RoutePrivate";
@@ -134,10 +134,10 @@ const Routing = () => {
                                    <AccountPage/>
                                </RoutePrivate>
                            }/>
-                    <Route path={PATHS.UNKNOWN}
+                    <Route path={PATHS.NOT_FOUND}
                            element={
                                <RoutePrivate>
-                                   <UnknownPage/>
+                                   <NotFoundPage/>
                                </RoutePrivate>
                            }/>
                 </Route>

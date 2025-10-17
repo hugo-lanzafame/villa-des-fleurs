@@ -1,7 +1,12 @@
-@import "colorPanel";
+@use "colorPanel" as color;
 
 #root {
-    color: $white-color;
+    color: color.$white-color;
+
+    .basic-page {
+        max-width: 1900px;
+        margin: 0 auto;
+    }
 
     .form {
         &__field-container {
@@ -23,47 +28,46 @@
             justify-content: center;
             flex-wrap: wrap;
         }
-
-        .dark-light-box {
-            padding: 2rem 2rem 1rem 2rem;
-        }
     }
 
     .field {
-        min-width: 14rem;
-        width: fit-content;
+        width: 14rem;
 
         .MuiOutlinedInput-input {
-            color: $white-color;
+            color: color.$white-color;
         }
 
         .MuiOutlinedInput-notchedOutline {
-            color: $grey-color;
+            color: color.$grey-color;
         }
 
         .Mui-focused fieldset.MuiOutlinedInput-notchedOutline {
-            border-color: $purple-light-color;
+            border-color: color.$purple-light-color;
             -webkit-transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,
+            transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms, max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+            transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,
             transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms, max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
         }
 
         .MuiInputLabel-root {
-            color: $grey-color;
+            color: color.$grey-color;
         }
 
         .Mui-focused.MuiInputLabel-root {
-            color: $purple-light-color;
+            color: color.$purple-light-color;
             -webkit-transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,
+            transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms, max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+            transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,
             transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms, max-width 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
         }
 
         input,
         select {
-            color: $white-color;
+            color: color.$white-color;
         }
 
         select option {
-            color: $black-color;
+            color: color.$black-color;
         }
     }
 
@@ -76,34 +80,38 @@
 
         p {
             margin-left: 14px;
-            color: $white-color;
+            color: color.$white-color;
         }
     }
 
     .white-button {
-        color: $white-color;
-        border: 1px solid $white-color;
+        max-height: 40px;
+        color: color.$white-color;
+        border: 1px solid color.$white-color;
     }
 
     .green-button {
-        color: $green-light-color;
-        border: 1px solid $green-light-color;
+        max-height: 40px;
+        color: color.$green-light-color;
+        border: 1px solid color.$green-light-color;
     }
 
     .red-button {
-        color: $red-light-color;
-        border: 1px solid $red-light-color;
+        max-height: 40px;
+        color: color.$red-light-color;
+        border: 1px solid color.$red-light-color;
     }
 }
 
 .dark-light-box {
-    background-color: $dark-light-color;
-    border: 1px solid $black-color;
+    padding: 1.5rem;
+    background-color: color.$dark-light-color;
+    border: 1px solid color.$black-color;
     border-collapse: separate;
     border-radius: 10px;
 }
 
 ::selection {
-    color: $black-color;
-    background: $green-light-color;
+    color: color.$black-color;
+    background: color.$green-light-color;
 }

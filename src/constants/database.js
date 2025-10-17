@@ -96,8 +96,8 @@ const DATABASE = {
      * @property {string} TABLE - The name of the 'rentals' table.
      * @property {string} COLUMN_START_DATE - The column name for rental start date.
      * @property {string} COLUMN_END_DATE - The column name for rental end date.
-     * @property {string} COLUMN_RENT_PRICE - The column name for rental rent price.
-     * @property {string} COLUMN_CHARGES_PRICE - The column name for rental charges price.
+     * @property {string} COLUMN_RENT_PRICES - The column name for rental rent price.
+     * @property {string} COLUMN_CHARGES_PRICES - The column name for rental charges price.
      * @property {string} COLUMN_PROPERTY_ID - The column name for rental property ID.
      * @property {string} COLUMN_TENANT_IDS - The column name for rental tenant IDs.
      */
@@ -135,37 +135,13 @@ const DATABASE = {
          * The column 'rent_prices' of the 'rentals' database.
          * @type {[string, number]}
          */
-        COLUMN_RENT_PRICES: {
-            /**
-             * The date of the column 'rent_prices'.
-             * @type {string}
-             */
-            COLUMN_RENT_PRICES_DATE: 'rent_prices_date',
-
-            /**
-             * The amount of the column 'rent_prices'.
-             * @type {number}
-             */
-            COLUMN_RENT_PRICES_AMOUNT: 'rent_prices_amount',
-        },
+        COLUMN_RENT_PRICES: "rent_prices",
 
         /**
          * The column 'charges_prices' of the 'rentals' database.
-         * @type {string}
+         * @type {[string, number]}
          */
-        COLUMN_CHARGES_PRICES: {
-            /**
-             * The date of the column 'charges_prices'.
-             * @type {string}
-             */
-            COLUMN_CHARGES_PRICES_DATE: 'charges_prices_date',
-
-            /**
-             * The amount of the column 'charges_prices'.
-             * @type {number}
-             */
-            COLUMN_CHARGES_PRICES_AMOUNT: 'charges_prices_amount',
-        },
+        COLUMN_CHARGES_PRICES: "charges_prices",
 
         /**
          * The column 'property_id' of the 'rentals' database.
@@ -185,13 +161,10 @@ const DATABASE = {
      *
      * @typedef {Object} ReceiptConstants
      * @property {string} TABLE - The name of the 'receipts' table.
-     * @property {string} COLUMN_MONTH - The column name for receipt month.
-     * @property {string} COLUMN_RENT - The column name for receipt rent.
-     * @property {string} COLUMN_CHARGES - The column name for receipt charges.
+     * @property {string} COLUMN_MONTH_NUMBER - The column name for receipt month number.
      * @property {string} COLUMN_MISCELLANEOUS_FEES - The column name for receipt miscellaneous fees.
-     * @property {string} COLUMN_PAYMENT - The column name for receipt payment.
-     * @property {string} COLUMN_DATE - The column name for receipt date of payment.
-     * @property {string} COLUMN_COMMENTARY - The column name for receipt commentary.
+     * @property {string} COLUMN_YEAR - The column name for receipt year.
+     * @property {string} COLUMN_PAYMENT_LINES - The column name for receipt payment lines.
      */
 
     /**
@@ -205,23 +178,41 @@ const DATABASE = {
          */
         TABLE: 'receipts',
 
+        // Legacy columns (for backward compatibility with old receipt structure)
         /**
-         * The column 'month' of the 'receipts' database.
+         * The column 'month' of the 'receipts' database (legacy).
          * @type {string}
+         * @deprecated Use COLUMN_MONTH_NUMBER instead
          */
         COLUMN_MONTH: 'month',
 
         /**
-         * The column 'rent' of the 'receipts' database.
+         * The column 'payment' of the 'receipts' database (legacy).
          * @type {string}
+         * @deprecated Use COLUMN_PAYMENT_LINES instead
          */
-        COLUMN_RENT: 'rent',
+        COLUMN_PAYMENT: 'payment',
 
         /**
-         * The column 'charges' of the 'receipts' database.
+         * The column 'date' of the 'receipts' database (legacy).
+         * @type {string}
+         * @deprecated Use COLUMN_PAYMENT_LINES instead
+         */
+        COLUMN_DATE: 'date',
+
+        /**
+         * The column 'commentary' of the 'receipts' database (legacy).
+         * @type {string}
+         * @deprecated Use COLUMN_PAYMENT_LINES instead
+         */
+        COLUMN_COMMENTARY: 'commentary',
+
+        // Current columns used in the new receipt system
+        /**
+         * The column 'month_number' of the 'receipts' database.
          * @type {string}
          */
-        COLUMN_CHARGES: 'charges',
+        COLUMN_MONTH_NUMBER: 'month_number',
 
         /**
          * The column 'miscellaneous_fees' of the 'receipts' database.
@@ -230,22 +221,17 @@ const DATABASE = {
         COLUMN_MISCELLANEOUS_FEES: 'miscellaneous_fees',
 
         /**
-         * The column 'payment' of the 'receipts' database.
+         * The column 'year' of the 'receipts' database.
          * @type {string}
          */
-        COLUMN_PAYMENT: 'payment',
+        COLUMN_YEAR: 'year',
 
         /**
-         * The column 'date' of the 'receipts' database.
+         * The column 'payment_lines' of the 'receipts' database.
+         * Contains array of payment objects with payment, date, commentary, etc.
          * @type {string}
          */
-        COLUMN_DATE: 'date',
-
-        /**
-         * The column 'commentary' of the 'receipts' database.
-         * @type {string}
-         */
-        COLUMN_COMMENTARY: 'commentary',
+        COLUMN_PAYMENT_LINES: 'payment_lines',
     },
 };
 

@@ -1,13 +1,13 @@
-import React, {useEffect} from 'react';
+import {useEffect} from 'react';
 import {Box} from '@mui/material';
 import PropTypes from "prop-types";
 import {useLanguage} from "../../contexts/LanguageProvider";
 import {useTable} from "../../contexts/TableProvider";
 import {deleteRentalById, getAllRentals} from '../../services/api/firebase/rentals';
 import {PATHS} from "../../constants/routing";
-import CustomTableLayout from "../custom/CustomTableLayout";
-import CustomPageTop from "../custom/CustomPageTop";
-import CustomNotifications from "../custom/CustomNotifications";
+import CustomTableLayout from "../common/CustomTableLayout";
+import CustomPageTop from "../common/CustomPageTop";
+import CustomNotifications from "../common/CustomNotifications";
 
 /**
  * Component for displaying a list of rentals.
@@ -129,7 +129,7 @@ function RentalListPage() {
     }, []);
 
     return (
-        <Box className="rental-list-page">
+        <Box className="rental-list-page basic-page">
             <CustomPageTop breadcrumbLinks={breadcrumbLinks} title={title}/>
             <CustomNotifications/>
             <CustomTableLayout reloadEntries={getAllRentals} filterEntries={filterRentals}

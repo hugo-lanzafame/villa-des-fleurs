@@ -3,7 +3,7 @@ import {get, getDatabase, push, ref, remove, set} from 'firebase/database';
 import PropTypes from 'prop-types';
 import {getCurrentUser} from "./auth";
 import {DATABASE} from "../../../constants/database";
-import {convertTableToEntity} from "../../../functions/global";
+import {convertTableToEntity} from "../../../utils/global";
 
 const database = getDatabase(app);
 
@@ -23,8 +23,8 @@ const addRental = async (rental) => {
             [DATABASE.RENTALS.COLUMN_NAME]: rental.name,
             [DATABASE.RENTALS.COLUMN_START_DATE]: rental.startDate,
             [DATABASE.RENTALS.COLUMN_END_DATE]: rental.endDate ?? null,
-            [DATABASE.RENTALS.COLUMN_RENT_PRICE]: rental.rentPrices,
-            [DATABASE.RENTALS.COLUMN_CHARGES_PRICE]: rental.chargesPrices,
+            [DATABASE.RENTALS.COLUMN_RENT_PRICES]: rental.rentPrices,
+            [DATABASE.RENTALS.COLUMN_CHARGES_PRICES]: rental.chargesPrices,
             [DATABASE.RENTALS.COLUMN_PROPERTY_ID]: rental.propertyId,
             [DATABASE.RENTALS.COLUMN_TENANT_IDS]: rental.tenantIds,
         })
@@ -54,8 +54,8 @@ const updateRental = async (rental) => {
             [DATABASE.RENTALS.COLUMN_NAME]: rental.name,
             [DATABASE.RENTALS.COLUMN_START_DATE]: rental.startDate,
             [DATABASE.RENTALS.COLUMN_END_DATE]: rental.endDate ?? null,
-            [DATABASE.RENTALS.COLUMN_RENT_PRICE]: rental.rentPrices,
-            [DATABASE.RENTALS.COLUMN_CHARGES_PRICE]: rental.chargesPrices,
+            [DATABASE.RENTALS.COLUMN_RENT_PRICES]: rental.rentPrices,
+            [DATABASE.RENTALS.COLUMN_CHARGES_PRICES]: rental.chargesPrices,
             [DATABASE.RENTALS.COLUMN_PROPERTY_ID]: rental.propertyId,
             [DATABASE.RENTALS.COLUMN_TENANT_IDS]: rental.tenantIds,
         })

@@ -1,0 +1,68 @@
+@use "colorPanel" as color;
+
+.receipt-add-update-page {
+    .loading-container {
+        padding: 24px;
+        text-align: center;
+    }
+
+    .table-container {
+        overflow-x: auto;
+
+        .table {
+            &.dark-light-box {
+                padding: 0;
+                margin-top: 1rem;
+            }
+
+            &__cell__action {
+                display: table-cell!important;
+            }
+
+            .table__row {
+                &.table__row_outside-period {
+                    opacity: 0.5;
+                }
+
+                &.table__row_current-month {
+                    background-color: color.$green-dark-color !important;
+
+                    .table__cell {
+                        color: color.$white-color;
+                        font-weight: 500;
+                    }
+                }
+
+                &.table__row_rent-change {
+                    background-color: color.$red-dark-color !important;
+
+                    .table__cell {
+                        color: color.$white-color;
+                        font-weight: 500;
+                    }
+                }
+            }
+
+            .totals-row {
+                background-color: color.$dark-light-color;
+                border-top: 2px solid color.$purple-light-color;
+
+                .table__cell {
+                    font-weight: bold;
+
+                    &#cell-total-due {
+                        color: color.$purple-light-color;
+                    }
+
+                    &#cell-total-paid {
+                        color: color.$green-light-color;
+                    }
+
+                    &#cell-remaining-due {
+                        color: color.$red-light-color;
+                    }
+                }
+            }
+        }
+    }
+}

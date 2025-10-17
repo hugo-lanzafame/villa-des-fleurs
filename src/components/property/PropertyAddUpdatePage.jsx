@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {Box} from '@mui/material';
 import {useLanguage} from '../../contexts/LanguageProvider';
 import {getPropertyById} from "../../services/api/firebase/properties";
 import {PATHS} from '../../constants/routing';
-import CustomPageTop from "../custom/CustomPageTop";
+import CustomPageTop from "../common/CustomPageTop";
 import PropertyAddUpdateForm from "./PropertyAddUpdateForm";
-import CustomNotifications from "../custom/CustomNotifications";
+import CustomNotifications from "../common/CustomNotifications";
 
 /**
  * Component for the Property Creation/Edition page.
@@ -59,7 +59,7 @@ function PropertyAddUpdatePage() {
     }, []);
 
     return (
-        <Box className="property-add-update-page">
+        <Box className="property-add-update-page basic-page">
             <CustomPageTop breadcrumbLinks={breadcrumbLinks} title={title}/>
             <CustomNotifications/>
             <PropertyAddUpdateForm property={property}/>

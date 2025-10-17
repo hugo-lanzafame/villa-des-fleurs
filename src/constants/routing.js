@@ -19,7 +19,7 @@
  * @property {string} RECEIPTS_CREATION - Receipts creation path.
  * @property {string} RECEIPTS_EDITION - Receipts edition path.
  * @property {string} ACCOUNT - Account path.
- * @property {string} UNKNOWN - Unknown path.
+ * @property {string} NOT_FOUND - Not found/unknown path.
  */
 
 /**
@@ -132,10 +132,10 @@ const PATHS = {
     ACCOUNT: "/account",
 
     /**
-     * The path for unknown page.
+     * The path for not-found page.
      * @type {string}
      */
-    UNKNOWN: "*",
+    NOT_FOUND: "*",
 }
 
 export {PATHS};
