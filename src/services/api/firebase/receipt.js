@@ -1,179 +1,187 @@
 import app from './config';
-import {get, getDatabase, push, ref, remove, set} from 'firebase/database';
-import PropTypes from 'prop-types';
-import {getCurrentUser} from "./auth";
-import {DATABASE} from "../../../constants/database";
-import {convertTableToEntity} from "../../../utils/global";
+import { get, getDatabase, ref, remove, set } from 'firebase/database';
+import { getCurrentUser } from "./auth";
+import { DATABASE } from "../../../constants/database";
 
 const database = getDatabase(app);
 const getTablePath = (rentalId) => "users/" + getCurrentUser().uid + "/" +
-    DATABASE.RENTALS.TABLE +"/" + rentalId + "/" + DATABASE.RECEIPTS.TABLE;
+    DATABASE.RENTALS.TABLE + "/" + rentalId + "/" + DATABASE.RECEIPTS.TABLE;
 
 /**
- * Add a new receipt for a specific rental.
- *
- * @param {string} rentalId - The rental ID of the receipt.
- * @param {Receipt} receipt - The receipt object to create.
- * @returns {Promise<string>} A promise indicating the key of the receipt.
- * @throws {Error} If there is an error during the creation process.
+ * Clean monthly data to prepare it for Firebase storage.
+ * Converts undefined values to null and removes computed properties.
+ * Applies decimal formatting to monetary values.
+ * 
+ * @param {Array} monthsData - Array of monthly data objects.
+ * @returns {Object} Cleaned yearly data ready for Firebase.
  */
-const addReceipt = async (rentalId, receipt) => {
-    try {
-        const tablePath = getTablePath(rentalId);
-        const receiptThenableRef = push(ref(database, tablePath));
-
-        await set(receiptThenableRef, {
-            [DATABASE.RECEIPTS.COLUMN_MONTH]: receipt.month,
-            [DATABASE.RECEIPTS.COLUMN_RENT]: receipt.rent,
-            [DATABASE.RECEIPTS.COLUMN_CHARGES]: receipt.charges,
-            [DATABASE.RECEIPTS.COLUMN_MISCELLANEOUS_FEES]: receipt.miscellaneousFees,
-            [DATABASE.RECEIPTS.COLUMN_PAYMENT]: receipt.payment,
-            [DATABASE.RECEIPTS.COLUMN_DATE]: receipt.date,
-            [DATABASE.RECEIPTS.COLUMN_COMMENTARY]: receipt.commentary ?? null,
-        })
-
-        return receiptThenableRef.key;
-    } catch (error) {
-        throw error;
-    }
-}
-addReceipt.propTypes = {
-    rentalId: PropTypes.string.isRequired,
-    receipt: PropTypes.shape({
-        month: PropTypes.string.isRequired,
-        rent: PropTypes.number.isRequired,
-        charges: PropTypes.number.isRequired,
-        miscellaneousFees: PropTypes.number.isRequired,
-        payment: PropTypes.number.isRequired,
-        date: PropTypes.string.isRequired,
-        commentary: PropTypes.string,
-    }).isRequired,
+const prepareYearlyData = (monthsData) => {
+    const yearlyData = {};
+    
+    monthsData.forEach(monthData => {
+        if (monthData.isWithinRentalPeriod) {
+            // Only save data for months within rental period
+            const monthKey = monthData.monthNumber.toString().padStart(2, '0');
+            
+            // Clean up payment lines - convert undefined to null and remove display properties
+            const cleanPaymentLines = monthData.paymentLines.map(line => ({
+                [DATABASE.RECEIPTS.COLUMN_MISCELLANEOUS_FEES]: line.miscellaneousFees ? Math.round(line.miscellaneousFees * 100) / 100 : 0,
+                [DATABASE.RECEIPTS.COLUMN_PAYMENT]: line.payment === undefined || line.payment === null ? null : Math.round(line.payment * 100) / 100,
+                [DATABASE.RECEIPTS.COLUMN_DATE]: line.date || '',
+                [DATABASE.RECEIPTS.COLUMN_COMMENTARY]: line.commentary || '',
+                isAdditionalLine: line.isAdditionalLine || false
+            }));
+            
+            yearlyData[monthKey] = {
+                [DATABASE.RECEIPTS.COLUMN_MONTH_NUMBER]: monthData.monthNumber,
+                [DATABASE.RECEIPTS.COLUMN_MISCELLANEOUS_FEES]: monthData.miscellaneousFees ? Math.round(monthData.miscellaneousFees * 100) / 100 : 0,
+                [DATABASE.RECEIPTS.COLUMN_PAYMENT_LINES]: cleanPaymentLines
+            };
+        }
+    });
+    
+    return yearlyData;
 };
 
 /**
- * Update a receipt for a specific rental.
+ * Create yearly receipt data for a specific rental and year.
  *
- * @param {string} rentalId - The rental ID of the receipt.
- * @param {Receipt} receipt - The updated receipt object (with ID).
+ * @param {string} rentalId - The rental ID.
+ * @param {number} year - The year for which to create the data.
+ * @param {Array} monthsData - Array of monthly data objects.
+ * @returns {Promise<void>} A promise that resolves when the creation is complete.
+ * @throws {Error} If there is an error during the creation process.
+ */
+const createYearlyReceipts = async (rentalId, year, monthsData) => {
+    try {
+        const tablePath = getTablePath(rentalId);
+        const yearPath = `${tablePath}/${year}`;
+
+        // Check if data already exists
+        const yearRef = ref(database, yearPath);
+        const existingSnapshot = await get(yearRef);
+
+        if (existingSnapshot.exists()) {
+            throw new Error(`Yearly receipts for ${year} already exist. Use updateYearlyReceipts instead.`);
+        }
+
+        // Prepare the data to save
+        const yearlyData = prepareYearlyData(monthsData);
+
+        // Create the yearly data
+        await set(yearRef, yearlyData);
+    } catch (error) {
+        throw new Error(`Failed to create yearly receipts: ${error.message}`);
+    }
+};
+
+/**
+ * Update yearly receipt data for a specific rental and year.
+ *
+ * @param {string} rentalId - The rental ID.
+ * @param {number} year - The year for which to update the data.
+ * @param {Array} monthsData - Array of monthly data objects.
  * @returns {Promise<void>} A promise that resolves when the update is complete.
  * @throws {Error} If there is an error during the update process.
  */
-const updateReceipt = async (rentalId, receipt) => {
+const updateYearlyReceipts = async (rentalId, year, monthsData) => {
     try {
         const tablePath = getTablePath(rentalId);
-        const receiptRef = ref(database, tablePath + "/" + receipt.id);
+        const yearPath = `${tablePath}/${year}`;
 
-        await set(receiptRef, {
-            [DATABASE.RECEIPTS.COLUMN_MONTH]: receipt.month,
-            [DATABASE.RECEIPTS.COLUMN_RENT]: receipt.rent,
-            [DATABASE.RECEIPTS.COLUMN_CHARGES]: receipt.charges,
-            [DATABASE.RECEIPTS.COLUMN_MISCELLANEOUS_FEES]: receipt.miscellaneousFees,
-            [DATABASE.RECEIPTS.COLUMN_PAYMENT]: receipt.payment,
-            [DATABASE.RECEIPTS.COLUMN_DATE]: receipt.date,
-            [DATABASE.RECEIPTS.COLUMN_COMMENTARY]: receipt.commentary ?? null,
-        })
+        // Check if data exists
+        const yearRef = ref(database, yearPath);
+        const existingSnapshot = await get(yearRef);
+
+        if (!existingSnapshot.exists()) {
+            throw new Error(`Yearly receipts for ${year} do not exist. Use createYearlyReceipts instead.`);
+        }
+
+        // Prepare the data to save
+        const yearlyData = prepareYearlyData(monthsData);
+
+        // Update the yearly data
+        await set(yearRef, yearlyData);
     } catch (error) {
-        throw error;
+        throw new Error(`Failed to update yearly receipts: ${error.message}`);
     }
-};
-updateReceipt.propTypes = {
-    rentalId: PropTypes.string.isRequired,
-    receipt: PropTypes.shape({
-        month: PropTypes.string.isRequired,
-        rent: PropTypes.number.isRequired,
-        charges: PropTypes.number.isRequired,
-        miscellaneousFees: PropTypes.number.isRequired,
-        payment: PropTypes.number.isRequired,
-        date: PropTypes.string.isRequired,
-        commentary: PropTypes.string,
-    }).isRequired,
 };
 
 /**
- * Calculate the previous month in 'dd-mm-yyyy' format from a given month.
+ * Save yearly receipt data for a specific rental and year (create or update).
  *
- * @param {string} date - The current month in 'dd-mm-yyyy' format.
- * @returns {string} The previous month in 'dd-mm-yyyy' format.
+ * @param {string} rentalId - The rental ID.
+ * @param {number} year - The year for which to save the data.
+ * @param {Array} monthsData - Array of monthly data objects.
+ * @returns {Promise<void>} A promise that resolves when the save is complete.
+ * @throws {Error} If there is an error during the save process.
  */
-const getPreviousMonth = (date) => {
-    const [day, month, year] = date.split('-').map(Number);
-    let prevMonth = month - 1;
-    let prevYear = year;
+const saveYearlyReceipts = async (rentalId, year, monthsData) => {
+    try {
+        const tablePath = getTablePath(rentalId);
+        const yearPath = `${tablePath}/${year}`;
 
-    if (prevMonth === 0) {
-        prevMonth = 12;
-        prevYear -= 1;
+        // Check if data already exists
+        const yearRef = ref(database, yearPath);
+        const existingSnapshot = await get(yearRef);
+
+        if (existingSnapshot.exists()) {
+            // Data exists, update it
+            await updateYearlyReceipts(rentalId, year, monthsData);
+        } else {
+            // Data doesn't exist, create it
+            await createYearlyReceipts(rentalId, year, monthsData);
+        }
+
+    } catch (error) {
+        throw new Error(`Failed to save yearly receipts: ${error.message}`);
     }
-
-    return '01-' + prevMonth.toString().padStart(2, '0') + '-' + prevYear;
-}
-getPreviousMonth.propTypes = {
-    date: PropTypes.string.isRequired,
 };
 
 /**
- * Get receipts for a specific rental for a given month and the previous month.
+ * Get yearly receipt data for a specific rental and year.
  *
- * @param {string} rentalId - The rental ID of the receipts.
- * @param {string} month - The current month in 'dd-mm-yyyy' format.
- * @returns {Promise<Receipt[]>} A promise that resolves to an array of receipts for the current and previous months.
+ * @param {string} rentalId - The rental ID.
+ * @param {number} year - The year for which to get the data.
+ * @returns {Promise<Object|null>} A promise that resolves to the yearly data or null if not found.
  * @throws {Error} If there is an error during the retrieval process.
  */
-const getReceiptsByTenantIdAndMonth = async (rentalId, month) => {
+const getYearlyReceipts = async (rentalId, year) => {
     try {
         const tablePath = getTablePath(rentalId);
-        const receiptsRef = ref(database, tablePath);
+        const yearPath = `${tablePath}/${year}`;
+        const yearRef = ref(database, yearPath);
 
-        const snapshot = await get(receiptsRef);
-        const previousMonth = getPreviousMonth(month);
-        const receipts = [];
+        const snapshot = await get(yearRef);
 
-        snapshot.forEach((childSnapshot) => {
-            const receiptData = childSnapshot.val();
+        if (snapshot.exists()) {
+            return snapshot.val();
+        }
 
-            if (
-                receiptData[DATABASE.RECEIPTS.COLUMN_MONTH] === month ||
-                receiptData[DATABASE.RECEIPTS.COLUMN_MONTH] === previousMonth
-            ) {
-                receipts.push({
-                    id: childSnapshot.key,
-                    ...convertTableToEntity(receiptData),
-                });
-            }
-        });
-
-        return receipts;
+        return null;
     } catch (error) {
-        throw new Error(`Failed to get receipts for tenant: ${error.message}`);
+        throw new Error(`Failed to get yearly receipts: ${error.message}`);
     }
 };
-getReceiptsByTenantIdAndMonth.propTypes = {
-    rentalId: PropTypes.string.isRequired,
-    month: PropTypes.string.isRequired,
-};
-
 
 /**
- * Delete a receipt by its ID for a specific rental.
+ * Delete yearly receipt data for a specific rental and year.
  *
- * @param {string} rentalId - The rental ID of the receipt.
- * @param {string} receiptId - The ID of the receipt to be deleted.
- * @returns {Promise<void>} A promise indicating the success or failure of the deletion.
+ * @param {string} rentalId - The rental ID.
+ * @param {number} year - The year for which to delete the data.
+ * @returns {Promise<void>} A promise that resolves when the deletion is complete.
  * @throws {Error} If there is an error during the deletion process.
  */
-const deleteReceiptById = async (rentalId, receiptId) => {
+const deleteYearlyReceipts = async (rentalId, year) => {
     try {
         const tablePath = getTablePath(rentalId);
-        const receiptRef = ref(database, tablePath + "/" + receiptId);
+        const yearPath = `${tablePath}/${year}`;
+        const yearRef = ref(database, yearPath);
 
-        await remove(receiptRef);
+        await remove(yearRef);
     } catch (error) {
-        throw error;
+        throw new Error(`Failed to delete yearly receipts: ${error.message}`);
     }
 };
-deleteReceiptById.propTypes = {
-    rentalId: PropTypes.string.isRequired,
-    receiptId: PropTypes.string.isRequired,
-};
 
-export {addReceipt, updateReceipt, getReceiptsByTenantIdAndMonth, deleteReceiptById}
+export { createYearlyReceipts, updateYearlyReceipts, saveYearlyReceipts, getYearlyReceipts, deleteYearlyReceipts }

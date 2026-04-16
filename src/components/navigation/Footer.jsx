@@ -1,7 +1,6 @@
-import React from "react";
-import {Grid, IconButton, Typography} from "@mui/material";
-import {useNavigate} from "react-router-dom";
-import {PATHS} from "../../constants/routing";
+import { Grid, IconButton, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { PATHS } from "../../constants/routing";
 import logoRectangle from '../../assets/logo-lavilladesfleurs-Rectangle.png';
 import logoCarre from '../../assets/logo-lavilladesfleurs-Carré.png';
 import "../../styles/navigationStyle.scss";
@@ -20,11 +19,11 @@ const Footer = () => {
                 <Grid className="footer__column">
                     <IconButton className="logo-container" onClick={() => navigate(PATHS.HOME)}>
                         <img className="logo-rectangle"
-                             src={logoRectangle}
-                             alt='VillaDesFleurs logo'/>
+                            src={logoRectangle}
+                            alt='VillaDesFleurs logo' />
                         <img className="logo-square"
-                             src={logoCarre}
-                             alt='VillaDesFleurs logo'/>
+                            src={logoCarre}
+                            alt='VillaDesFleurs logo' />
                     </IconButton>
                 </Grid>
                 <Grid className="footer__column">

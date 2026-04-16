@@ -6,7 +6,7 @@ import {useNavigate} from "react-router-dom";
 import {useTable} from "../../contexts/TableProvider";
 import "../../styles/customStyle.scss";
 import CustomTable from "./CustomTable";
-import CustomTableFilter from ".//CustomTableFilter";
+import CustomTableFilter from "./CustomTableFilter";
 import CustomTableEmpty from "./CustomTableEmpty";
 
 /**

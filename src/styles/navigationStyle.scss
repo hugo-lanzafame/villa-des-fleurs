@@ -17,6 +17,7 @@
             flex-direction: column;
             flex-grow: 1;
             overflow: auto;
+            transition: margin-left 0.3s ease;
         }
 
         &__container-page {
@@ -35,6 +36,23 @@
         max-height: 60px;
         overflow-y: auto;
         padding: 0.5rem 2rem;
+        position: relative;
+        z-index: 1200; // Plus haut que la sidebar pour rester au-dessus
+
+        &__left {
+            display: flex;
+            align-items: center;
+        }
+
+        &__menu-button {
+            display: none;
+            margin-right: 1.5rem;
+            color: color.$white-color;
+
+            @media (max-width: color.$mobile-size) {
+                display: flex;
+            }
+        }
 
         .logo {
             height: 45px;
@@ -54,9 +72,36 @@
         overflow-y: auto;
         padding: 1rem 0;
         color: color.$white-color;
+        position: relative;
+        z-index: 1100;
+        display: block;
+        transition: transform 0.3s ease-in-out;
+
+        &__header {
+            display: none;
+
+            @media (max-width: color.$mobile-size) {
+                display: none;
+            }
+        }
+
+        &__close-button {
+            color: color.$white-color;
+        }
 
         @media (max-width: color.$mobile-size) {
-            display: none;
+            position: fixed;
+            top: 60px;
+            left: 0;
+            height: calc(100vh - 60px);
+            min-width: 180px;
+            box-shadow: 4px 0 8px rgba(0, 0, 0, 0.2);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+
+            &--open {
+                transform: translateX(0);
+            }
         }
 
         @media (min-width: color.$laptop-size) {
@@ -65,11 +110,28 @@
 
         &__menu {
             gap: 10px;
+            position: relative;
+            z-index: 1101;
         }
 
         &__sub-menu {
             padding-left: 2rem;
             gap: 10px;
+            position: relative;
+            z-index: 1101;
+        }
+
+        &__overlay {
+            position: fixed;
+            top: 60px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1099;
+            opacity: 1;
+            transition: opacity 0.3s ease;
+            cursor: pointer;
         }
     }
 

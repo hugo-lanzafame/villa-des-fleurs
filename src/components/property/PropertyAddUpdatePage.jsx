@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {Box} from '@mui/material';
 import {useLanguage} from '../../contexts/LanguageProvider';
 import {getPropertyById} from "../../services/api/firebase/properties";
@@ -59,7 +59,7 @@ function PropertyAddUpdatePage() {
     }, []);
 
     return (
-        <Box className="property-add-update-page">
+        <Box className="property-add-update-page basic-page">
             <CustomPageTop breadcrumbLinks={breadcrumbLinks} title={title}/>
             <CustomNotifications/>
             <PropertyAddUpdateForm property={property}/>

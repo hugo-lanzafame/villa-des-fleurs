@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {Box} from '@mui/material';
 import {useLanguage} from '../../contexts/LanguageProvider';
 import {getTenantById} from "../../services/api/firebase/tenants";
@@ -59,7 +59,7 @@ function TenantAddUpdatePage() {
     }, []);
 
     return (
-        <Box className="tenant-add-update-page">
+        <Box className="tenant-add-update-page basic-page">
             <CustomPageTop breadcrumbLinks={breadcrumbLinks} title={title}/>
             <CustomNotifications/>
             <TenantAddUpdateForm tenant={tenant}/>
