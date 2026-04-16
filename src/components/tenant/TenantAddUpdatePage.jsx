@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {Box} from '@mui/material';
 import {useLanguage} from '../../contexts/LanguageProvider';
 import {getTenantById} from "../../services/api/firebase/tenants";
 import {PATHS} from '../../constants/routing';
-import CustomPageTop from "../custom/CustomPageTop";
+import CustomPageTop from "../common/CustomPageTop";
 import TenantAddUpdateForm from "./TenantAddUpdateForm";
-import CustomNotifications from "../custom/CustomNotifications";
+import CustomNotifications from "../common/CustomNotifications";
 
 /**
  * Component for the Tenant Creation/Edition page.
@@ -59,7 +59,7 @@ function TenantAddUpdatePage() {
     }, []);
 
     return (
-        <Box className="tenant-add-update-page">
+        <Box className="tenant-add-update-page basic-page">
             <CustomPageTop breadcrumbLinks={breadcrumbLinks} title={title}/>
             <CustomNotifications/>
             <TenantAddUpdateForm tenant={tenant}/>

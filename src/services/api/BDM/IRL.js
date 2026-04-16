@@ -58,11 +58,6 @@ const getIRL = async (date) => {
         const timePeriod = getTimePeriod(date);
         const response = await axios.get(
             `${config.baseURL}/data/SERIES_BDM/001515333?startPeriod=${timePeriod}&detail=dataonly`,
-            {
-                headers: {
-                    'Authorization': `Bearer ${config.apiKey}`,
-                },
-            }
         );
 
         const parser = new DOMParser();

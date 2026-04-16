@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {Box} from '@mui/material';
 import {useLanguage} from '../../contexts/LanguageProvider';
 import {getRentalById} from "../../services/api/firebase/rentals";
 import {PATHS} from '../../constants/routing';
-import CustomPageTop from "../custom/CustomPageTop";
+import CustomPageTop from "../common/CustomPageTop";
 import RentalAddUpdateForm from "./RentalAddUpdateForm";
-import CustomNotifications from "../custom/CustomNotifications";
+import CustomNotifications from "../common/CustomNotifications";
 
 /**
  * Component for the Rental Creation/Edition page.

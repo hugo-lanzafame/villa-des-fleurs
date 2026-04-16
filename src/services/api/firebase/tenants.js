@@ -3,7 +3,7 @@ import {get, getDatabase, push, ref, remove, set} from 'firebase/database';
 import PropTypes from 'prop-types';
 import {getCurrentUser} from "./auth";
 import {DATABASE} from "../../../constants/database";
-import {convertTableToEntity} from "../../../functions/global";
+import {convertTableToEntity} from "../../../utils/global";
 
 const database = getDatabase(app);
 

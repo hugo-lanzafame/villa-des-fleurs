@@ -26,7 +26,5 @@ dist
 
 # Docker files themselves (optional, not needed in image)
 Dockerfile
-Dockerfile.dev
 docker-compose.yml
-docker-compose.dev.yml
 .dockerignore

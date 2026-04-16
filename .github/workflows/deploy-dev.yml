@@ -1,0 +1,20 @@
+name: Deploy to Firebase Hosting on push to dev
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  deploy_live_website:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: echo "${{ secrets.ENV }}" > .env
+      - run: npm ci
+      - run: npm run build
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
+          projectId: ${{ secrets.FIREBASE_PROJECT_ID }}
+          channelId: live

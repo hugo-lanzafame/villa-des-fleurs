@@ -1,11 +1,11 @@
-@import "colorPanel";
+@use "colorPanel" as color;
 
 #root {
     .breadcrumb {
         display: flex;
         flex-wrap: wrap;
         flex-direction: row;
-        color: $white-color;
+        color: color.$white-color;
 
         &__container {
             display: flex;
@@ -13,11 +13,11 @@
         }
 
         &__link {
-            color: $purple-light-color;
+            color: color.$purple-light-color;
         }
 
         &__link:visited {
-            color: $purple-light-color;
+            color: color.$purple-light-color;
         }
 
         &__separator {
@@ -41,6 +41,10 @@
                 height: 2rem;
                 width: 2rem;
             }
+        }
+
+        .table.dark-light-box {
+            padding: 0;
         }
     }
 
@@ -70,22 +74,22 @@
         border-collapse: separate;
 
         &__column {
-            color: $white-color;
-            border-bottom: 1px solid $black-color;
+            color: color.$white-color;
+            border-bottom: 1px solid color.$black-color;
 
             &__action {
-                color: $white-color;
-                border-bottom: 1px solid $black-color;
+                color: color.$white-color;
+                border-bottom: 1px solid color.$black-color;
                 text-align: right;
             }
         }
 
         &__cell {
-            color: $white-color;
-            border-bottom: 1px solid $black-color;
+            color: color.$white-color;
+            border-bottom: 1px solid color.$black-color;
 
             &__action {
-                border-bottom: 1px solid $black-color;
+                border-bottom: 1px solid color.$black-color;
                 display: flex;
                 flex-wrap: wrap;
                 flex-direction: row;
@@ -101,14 +105,14 @@
 
     .top-page {
         &__title {
-            color: $white-color;
+            color: color.$white-color;
             margin: 1rem 0;
             font-size: 2rem;
         }
     }
 
     .notification-box {
-        border: 1px solid $black-color;
+        border: 1px solid color.$black-color;
         border-collapse: separate;
         padding: 1rem;
         border-radius: 10px;
@@ -119,40 +123,40 @@
     }
 
     .notification-success {
-        background-color: $green-dark-color;
+        background-color: color.$green-dark-color;
     }
 
     .notification-error {
-        background-color: $red-dark-color;
+        background-color: color.$red-dark-color;
     }
 
     .notification-info {
-        background-color: $dark-dark-color;
+        background-color: color.$dark-dark-color;
     }
 
     .notification-warning {
-        background-color: $purple-dark-color;
+        background-color: color.$purple-dark-color;
     }
 }
 
 .popup {
     .MuiDialog-paper {
-        background-color: $dark-light-color;
+        background-color: color.$dark-light-color;
         display: flex;
         flex-direction: column;
         align-items: center;
-        border: 1px solid $black-color;
+        border: 1px solid color.$black-color;
         border-radius: 10px;
         max-width: 40rem;
         padding: 1rem;
     }
 
     &__title {
-        color: $red-light-color;
+        color: color.$red-light-color;
     }
 
     &__content {
-        color: $white-color;
+        color: color.$white-color;
         text-align: center;
         padding-top: 0!important;
         padding-bottom: 0!important;
@@ -166,17 +170,17 @@
     }
 
     .white-button {
-        color: $white-color;
-        border: 1px solid $white-color;
+        color: color.$white-color;
+        border: 1px solid color.$white-color;
     }
 
     .green-button {
-        color: $green-light-color;
-        border: 1px solid $green-light-color;
+        color: color.$green-light-color;
+        border: 1px solid color.$green-light-color;
     }
 
     .red-button {
-        color: $red-light-color;
-        border: 1px solid $red-light-color;
+        color: color.$red-light-color;
+        border: 1px solid color.$red-light-color;
     }
 }
