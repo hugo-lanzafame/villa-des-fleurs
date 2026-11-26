@@ -62,7 +62,16 @@ const getIRL = async (date) => {
 
         const parser = new DOMParser();
         const xmlDoc = parser.parseFromString(response.data, 'application/xml');
+
+        if (xmlDoc.querySelector('parsererror')) {
+            throw new Error(`XML error parsing : ${parseError.textContent}`);
+        }
+
         const targetObs = xmlDoc.querySelector(`Obs[TIME_PERIOD="${timePeriod}"]`);
+
+        if (!targetObs) {
+            throw new Error(`No IRL value for this period : ${timePeriod}`);
+        }
 
         return targetObs.getAttribute('OBS_VALUE');
     } catch (error) {
